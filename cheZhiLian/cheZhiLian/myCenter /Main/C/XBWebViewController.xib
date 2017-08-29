@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="XBWebViewController">
+            <connections>
+                <outlet property="closeBtn" destination="Xbt-U8-3s6" id="gKh-qU-yDQ"/>
+                <outlet property="mainWeb" destination="LwB-hM-MlD" id="5CB-OV-0Mc"/>
+                <outlet property="titleLabel" destination="dBD-om-NTP" id="nNN-lq-kWS"/>
+                <outlet property="view" destination="ZsK-Vq-sW2" id="A6n-mq-Mes"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="ZsK-Vq-sW2">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LwB-hM-MlD">
+                    <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                    <color key="backgroundColor" red="0.28958413004875183" green="0.31462949514389038" blue="0.32950475811958313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="DFI-hc-V1n"/>
+                    </connections>
+                </webView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CdO-am-hOl" userLabel="顶部栏">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n2k-uX-tcA" userLabel="underline">
+                            <rect key="frame" x="0.0" y="63" width="375" height="1"/>
+                            <color key="backgroundColor" red="0.83988994359970093" green="0.83986485004425049" blue="0.83987903594970703" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="NSG-Ks-xPo"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X0Y-Rg-Ynj" userLabel="back">
+                            <rect key="frame" x="0.0" y="20" width="40" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="Ik3-3K-dSe"/>
+                                <constraint firstAttribute="height" constant="44" id="fgY-p8-awC"/>
+                            </constraints>
+                            <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" image="arrow_back_userinfohome">
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="backClick:" destination="-1" eventType="touchUpInside" id="wdx-Ge-3e3"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="小巴商城" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dBD-om-NTP" userLabel="title">
+                            <rect key="frame" x="80.5" y="20" width="214" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="0RB-Ok-DNa"/>
+                                <constraint firstAttribute="width" constant="214" id="FYZ-Az-ogq"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xbt-U8-3s6" userLabel="close">
+                            <rect key="frame" x="40" y="20" width="68" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="68" id="838-qb-AwW"/>
+                                <constraint firstAttribute="height" constant="44" id="c9K-0w-fZS"/>
+                            </constraints>
+                            <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" image="ic_close">
+                                <color key="titleColor" red="0.12941176469999999" green="0.70588235290000001" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="closeClick:" destination="-1" eventType="touchUpInside" id="uva-Jr-llP"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="n2k-uX-tcA" secondAttribute="trailing" id="0fH-dK-7Fm"/>
+                        <constraint firstAttribute="bottom" secondItem="dBD-om-NTP" secondAttribute="bottom" id="9q6-Dc-S3v"/>
+                        <constraint firstItem="X0Y-Rg-Ynj" firstAttribute="leading" secondItem="CdO-am-hOl" secondAttribute="leading" id="AgA-gs-esa"/>
+                        <constraint firstAttribute="bottom" secondItem="n2k-uX-tcA" secondAttribute="bottom" id="Fn8-RN-xWb"/>
+                        <constraint firstAttribute="centerX" secondItem="dBD-om-NTP" secondAttribute="centerX" id="NAm-cO-utR"/>
+                        <constraint firstAttribute="height" constant="64" id="PSz-9h-Dsn"/>
+                        <constraint firstItem="Xbt-U8-3s6" firstAttribute="leading" secondItem="X0Y-Rg-Ynj" secondAttribute="trailing" id="Z6O-rn-c2u"/>
+                        <constraint firstItem="n2k-uX-tcA" firstAttribute="leading" secondItem="CdO-am-hOl" secondAttribute="leading" id="cZx-6v-zkO"/>
+                        <constraint firstItem="dBD-om-NTP" firstAttribute="top" secondItem="CdO-am-hOl" secondAttribute="top" constant="20" id="dZa-OQ-lCr"/>
+                        <constraint firstAttribute="bottom" secondItem="Xbt-U8-3s6" secondAttribute="bottom" id="iee-tE-9VY"/>
+                        <constraint firstAttribute="bottom" secondItem="X0Y-Rg-Ynj" secondAttribute="bottom" id="md3-mh-Olt"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="CdO-am-hOl" firstAttribute="leading" secondItem="ZsK-Vq-sW2" secondAttribute="leading" id="0LO-lB-1XX"/>
+                <constraint firstAttribute="bottom" secondItem="LwB-hM-MlD" secondAttribute="bottom" id="3dn-VE-FJy"/>
+                <constraint firstAttribute="trailing" secondItem="LwB-hM-MlD" secondAttribute="trailing" id="6QX-6m-WnS"/>
+                <constraint firstItem="CdO-am-hOl" firstAttribute="top" secondItem="ZsK-Vq-sW2" secondAttribute="top" id="6wf-zI-plS"/>
+                <constraint firstItem="LwB-hM-MlD" firstAttribute="top" secondItem="CdO-am-hOl" secondAttribute="bottom" id="Ftm-Um-Ugy"/>
+                <constraint firstItem="LwB-hM-MlD" firstAttribute="leading" secondItem="ZsK-Vq-sW2" secondAttribute="leading" id="Vh7-vq-wdq"/>
+                <constraint firstAttribute="trailing" secondItem="CdO-am-hOl" secondAttribute="trailing" id="jN9-Qy-U5z"/>
+            </constraints>
+            <point key="canvasLocation" x="331" y="-282"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="arrow_back_userinfohome" width="10" height="18"/>
+        <image name="ic_close" width="16" height="16"/>
+    </resources>
+</document>

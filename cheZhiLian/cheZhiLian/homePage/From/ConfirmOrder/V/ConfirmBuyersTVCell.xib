@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="83" id="KGk-i7-Jjw" customClass="ConfirmBuyersTVCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="94"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="94"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="姓    名: 石山岭" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JQz-SR-l8F">
+                        <rect key="frame" x="18" y="8" width="286" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="b8k-r8-TrV"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.3529045581817627" green="0.35296761989593506" blue="0.35289108753204346" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="身份证:34122119950812****" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tct-aB-7ph">
+                        <rect key="frame" x="18" y="64" width="292" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="JEH-te-FXi"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.3529045582" green="0.35296761989999997" blue="0.35289108749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手机号:13646712075" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2bt-UV-qxx">
+                        <rect key="frame" x="18" y="37" width="292" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="AdN-kP-2VW"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.3529045582" green="0.35296761989999997" blue="0.35289108749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NMi-IO-75S">
+                        <rect key="frame" x="318" y="-1" width="57" height="95"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="57" id="JHD-Nd-et4"/>
+                        </constraints>
+                        <state key="normal" image="icon_arrow_go"/>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="JQz-SR-l8F" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="4c8-YQ-WfM"/>
+                    <constraint firstItem="NMi-IO-75S" firstAttribute="leading" secondItem="2bt-UV-qxx" secondAttribute="trailing" constant="8" id="6Pb-D5-KEC"/>
+                    <constraint firstItem="2bt-UV-qxx" firstAttribute="top" secondItem="JQz-SR-l8F" secondAttribute="bottom" constant="8" id="8NH-kE-znm"/>
+                    <constraint firstItem="2bt-UV-qxx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="Gr0-iH-0s9"/>
+                    <constraint firstItem="NMi-IO-75S" firstAttribute="leading" secondItem="JQz-SR-l8F" secondAttribute="trailing" constant="14" id="Mq0-6K-Umq"/>
+                    <constraint firstItem="NMi-IO-75S" firstAttribute="leading" secondItem="tct-aB-7ph" secondAttribute="trailing" constant="8" id="NvW-tY-qiu"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="NMi-IO-75S" secondAttribute="trailing" constant="-8" id="S8Y-4t-1Jj"/>
+                    <constraint firstAttribute="topMargin" secondItem="JQz-SR-l8F" secondAttribute="top" id="U7w-xR-k1j"/>
+                    <constraint firstItem="tct-aB-7ph" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="Urd-oc-SGH"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="NMi-IO-75S" secondAttribute="bottom" constant="-8" id="skS-LB-4H6"/>
+                    <constraint firstItem="tct-aB-7ph" firstAttribute="top" secondItem="2bt-UV-qxx" secondAttribute="bottom" constant="6" id="vSw-pB-QnV"/>
+                    <constraint firstItem="NMi-IO-75S" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-9" id="zKE-mK-awj"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="25.5" y="70"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_arrow_go" width="9" height="16"/>
+    </resources>
+</document>

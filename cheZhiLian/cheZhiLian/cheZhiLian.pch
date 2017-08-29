@@ -1,0 +1,66 @@
+//
+//  cheZhiLian.pch
+//  cheZhiLian
+//
+//  Created by 石山岭 on 2017/8/5.
+//  Copyright © 2017年 石山岭. All rights reserved.
+//
+
+#ifndef cheZhiLian_pch
+#define cheZhiLian_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import "SecurityUtil.h"
+#import "UIView+Frame.h"
+#import "JKCountDownButton.h"
+#import "TabBarView.h"
+#import "AFNetworking.h"
+#import "CommonUtil.h"
+#import "MBProgressHUD.h"//第三方网络加载
+#import <MJRefresh.h>//第三方刷新类
+#import "UIViewController+Toast.h"
+#import "DejalActivityView.h"
+#import "NavigationBarView.h"
+#import "UITableView+SDAutoTableViewCellHeight.h"
+#import "SDAutoLayout.h"
+#import "UIView+SDAutoLayout.h"
+#import "DejalActivityView.h"
+#import "UIImageView+WebCache.h"
+#import "UserDataSingleton.h"
+#import "CoachTimeListModel+CoreDataProperties.h"
+#import "CourseListModel+CoreDataProperties.h"
+#import "CourseDetailModel+CoreDataClass.h"
+#import "ParsingOrderDataModel+CoreDataClass.h"
+#import "CoachDetailsModel+CoreDataProperties.h"
+#import "GoodsOrderDetailsModel+CoreDataProperties.h"
+#import "UserDataModel+CoreDataProperties.h"
+#define  kScreen_heigth [UIScreen mainScreen].bounds.size.height//屏幕高度
+#define  kScreen_widht  [UIScreen mainScreen].bounds.size.width//屏幕高度
+#define  kOrange_Color  MColor(255, 143, 0)// 通用的橙色
+#define  kBlack_Color   MColor(51, 51, 51)// 通用的黑色
+#define kNavigation_Color MColor(255, 143, 0)//导航条通用的白色
+
+#define  kDark [UIColor colorWithRed:238/256.0 green:238/256.0 blue:238/256.0 alpha:1];
+#define MFont(f) [UIFont systemFontOfSize:f]
+#define kIphone6Height 667.0
+#define kIphone6Width 375.0
+#define YouLikeLineCount 2
+#define YouLikeCellW ((SScreen_Width - YouLikeInset * (YouLikeLineCount - 1)) / YouLikeLineCount) * 1.0
+#define YouLikeInset kFit(6)
+#define YouLikeCellH kFit((kFit(259) - YouLikeInset))
+#define SScreen_Width [UIScreen mainScreen].bounds.size.width
+#define SScreen_Height [UIScreen mainScreen].bounds.size.height
+#define kFit(x) (SScreen_Width*((x)/kIphone6Width))
+#define MColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0f]
+#define TextSize kFit(16)
+#define kTopSpacing 64
+//沈会阳 http://192.168.100.101:8080
+//线上  http://106.14.158.95:8080
+//张玉霄  http://192.168.0.215:8080
+#define kURL_SHY  @"http://192.168.100.101:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT"
+#define kStudentId  @"1000"
+#define kUserId   @"4c7101faa2f84f7586c6fe52373f3729"
+#define kStoreId @"1"
+#endif /* cheZhiLian_pch */

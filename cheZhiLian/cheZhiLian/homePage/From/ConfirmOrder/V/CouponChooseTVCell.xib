@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="CouponChooseTVCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="54"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="54"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="优惠券:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jwg-4z-FV6">
+                        <rect key="frame" x="8" y="16" width="124" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="124" id="JLD-fu-QTi"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.45877730846405029" green="0.45885682106018066" blue="0.45876038074493408" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rqi-U4-g01">
+                        <rect key="frame" x="318" y="0.0" width="57" height="54"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="57" id="wId-dg-3aQ"/>
+                        </constraints>
+                        <state key="normal" image="icon_arrow_go"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="没有可用的优惠券" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OmW-Tq-Yhf">
+                        <rect key="frame" x="144" y="18" width="184" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="y6A-mR-RyC"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.64307451248168945" green="0.64318257570266724" blue="0.64305150508880615" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J5L-Ty-gHT">
+                        <rect key="frame" x="0.0" y="53" width="375" height="1"/>
+                        <color key="backgroundColor" red="0.96461421251296997" green="0.96477204561233521" blue="0.96458059549331665" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="5m6-pS-bZz"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.78031712769999995" green="0.78044635060000001" blue="0.78028964999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Jwg-4z-FV6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="1xq-Sf-HQi"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Rqi-U4-g01" secondAttribute="trailing" constant="-8" id="39q-xf-wyh"/>
+                    <constraint firstItem="Jwg-4z-FV6" firstAttribute="centerY" secondItem="Rqi-U4-g01" secondAttribute="centerY" id="7BP-e3-84v"/>
+                    <constraint firstItem="J5L-Ty-gHT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="7uw-XA-mvS"/>
+                    <constraint firstItem="OmW-Tq-Yhf" firstAttribute="leading" secondItem="Jwg-4z-FV6" secondAttribute="trailing" constant="12" id="MpP-07-F7U"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Rqi-U4-g01" secondAttribute="bottom" constant="-8" id="XOS-0s-s70"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="J5L-Ty-gHT" secondAttribute="bottom" constant="-8" id="eMo-9p-Igf"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="J5L-Ty-gHT" secondAttribute="trailing" constant="-8" id="i1w-WA-Smq"/>
+                    <constraint firstItem="Rqi-U4-g01" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="iza-N5-QCc"/>
+                    <constraint firstItem="Jwg-4z-FV6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="wa3-Qw-oHf"/>
+                    <constraint firstItem="OmW-Tq-Yhf" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="1.5" id="x6V-DT-rGj"/>
+                    <constraint firstItem="Rqi-U4-g01" firstAttribute="leading" secondItem="OmW-Tq-Yhf" secondAttribute="trailing" constant="-10" id="zne-FX-yM3"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="ContentNameLabel" destination="OmW-Tq-Yhf" id="qPB-oY-Bu6"/>
+                <outlet property="pointingBtn" destination="Rqi-U4-g01" id="F9e-hp-9E6"/>
+                <outlet property="titleNameLabel" destination="Jwg-4z-FV6" id="EHt-VM-IIP"/>
+            </connections>
+            <point key="canvasLocation" x="84.5" y="54"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_arrow_go" width="9" height="16"/>
+    </resources>
+</document>

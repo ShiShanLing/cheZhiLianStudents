@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="NavigationBarView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cu2-mV-Nbi">
+                    <rect key="frame" x="0.0" y="15" width="38" height="49"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="49" id="Cqp-E2-DC4"/>
+                        <constraint firstAttribute="width" constant="38" id="ejC-ux-uWo"/>
+                    </constraints>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="esl-ha-EKX">
+                    <rect key="frame" x="337" y="15" width="38" height="49"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="49" id="bLC-MH-IwE"/>
+                        <constraint firstAttribute="width" constant="38" id="wxA-Mc-3mu"/>
+                    </constraints>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="标题" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7FO-ZW-B75">
+                    <rect key="frame" x="105" y="31" width="164" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="VXj-fJ-TH0"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <color key="textColor" red="0.20781949162483215" green="0.20786017179489136" blue="0.20781084895133972" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dzg-af-3gF">
+                    <rect key="frame" x="0.0" y="63" width="375" height="1"/>
+                    <color key="backgroundColor" red="0.78031712769999995" green="0.78044635060000001" blue="0.78028964999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="qt0-X9-C8g"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.78031712770462036" green="0.78044635057449341" blue="0.78028964996337891" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="esl-ha-EKX" secondAttribute="trailing" id="B19-bK-Dp5"/>
+                <constraint firstAttribute="bottom" secondItem="esl-ha-EKX" secondAttribute="bottom" id="BgV-BH-fBe"/>
+                <constraint firstAttribute="bottom" secondItem="cu2-mV-Nbi" secondAttribute="bottom" id="SHF-Ob-xBu"/>
+                <constraint firstAttribute="bottom" secondItem="dzg-af-3gF" secondAttribute="bottom" id="TR6-SY-V6T"/>
+                <constraint firstAttribute="trailing" secondItem="dzg-af-3gF" secondAttribute="trailing" id="UCJ-dt-bkc"/>
+                <constraint firstAttribute="bottom" secondItem="7FO-ZW-B75" secondAttribute="bottom" constant="12" id="V8c-2v-267"/>
+                <constraint firstItem="7FO-ZW-B75" firstAttribute="leading" secondItem="cu2-mV-Nbi" secondAttribute="trailing" constant="67" id="bvS-rx-HPm"/>
+                <constraint firstItem="cu2-mV-Nbi" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="gUo-OH-1pX"/>
+                <constraint firstItem="esl-ha-EKX" firstAttribute="leading" secondItem="7FO-ZW-B75" secondAttribute="trailing" constant="68" id="ji9-3g-Q0E"/>
+                <constraint firstItem="dzg-af-3gF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="sSr-uT-1Q4"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="leftBtn" destination="cu2-mV-Nbi" id="xPP-Hm-1q6"/>
+                <outlet property="rightBtn" destination="esl-ha-EKX" id="qAw-My-H2e"/>
+                <outlet property="titleLabel" destination="7FO-ZW-B75" id="cnt-fN-5Yg"/>
+            </connections>
+            <point key="canvasLocation" x="28.5" y="-223"/>
+        </view>
+    </objects>
+</document>

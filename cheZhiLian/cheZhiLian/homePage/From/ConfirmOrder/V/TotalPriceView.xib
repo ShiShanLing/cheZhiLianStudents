@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="TotalPriceView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="需付款:¥ 2999.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W1S-ov-mZR">
+                    <rect key="frame" x="16" y="13" width="179" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="179" id="itl-fJ-gVq"/>
+                        <constraint firstAttribute="height" constant="21" id="oc6-qI-ux1"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.8961101770401001" green="0.36632093787193298" blue="0.17726817727088928" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tkG-sA-Uma">
+                    <rect key="frame" x="255" y="0.0" width="120" height="46"/>
+                    <color key="backgroundColor" red="0.89611017699999995" green="0.36632093789999998" blue="0.1772681773" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="120" id="TcU-aK-w2x"/>
+                    </constraints>
+                    <state key="normal" title="提交订单">
+                        <color key="titleColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                    </state>
+                    <connections>
+                        <action selector="handleSubmitOrders:" destination="iN0-l3-epB" eventType="touchUpInside" id="Agd-0z-AMs"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="tkG-sA-Uma" secondAttribute="bottom" id="6da-gi-Ckd"/>
+                <constraint firstAttribute="trailing" secondItem="tkG-sA-Uma" secondAttribute="trailing" id="QL6-Nb-6yp"/>
+                <constraint firstItem="W1S-ov-mZR" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="VmF-dr-JwZ"/>
+                <constraint firstItem="W1S-ov-mZR" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="hCH-vb-vJ8"/>
+                <constraint firstItem="tkG-sA-Uma" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="rz5-Fg-B2l"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="priceLabel" destination="W1S-ov-mZR" id="1dj-oU-tc2"/>
+            </connections>
+            <point key="canvasLocation" x="33.5" y="54"/>
+        </view>
+    </objects>
+</document>

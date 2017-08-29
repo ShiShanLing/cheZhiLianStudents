@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="confirmGoodsTVCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="106"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="106"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="test1.png" translatesAutoresizingMaskIntoConstraints="NO" id="VOg-6W-1la">
+                        <rect key="frame" x="17" y="26" width="48" height="54"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="54" id="1h6-ji-uTi"/>
+                            <constraint firstAttribute="width" constant="48" id="efF-Sh-GHn"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="特惠班" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vek-fp-Yip">
+                        <rect key="frame" x="73" y="16" width="294" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="SyU-WF-N0x"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.42348641157150269" green="0.4235605001449585" blue="0.42347064614295959" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="杭州市上城区婺江路" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7R0-Re-7wk">
+                        <rect key="frame" x="73" y="43" width="294" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="No6-SH-hh9"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.53328043222427368" green="0.53337150812149048" blue="0.53326112031936646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥ 2999.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WDh-IN-aWa">
+                        <rect key="frame" x="73" y="72" width="294" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="QV6-XS-PfX"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.93506318330764771" green="0.35921305418014526" blue="0.18676108121871948" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="7R0-Re-7wk" secondAttribute="trailing" id="7NU-Jn-AMi"/>
+                    <constraint firstItem="WDh-IN-aWa" firstAttribute="top" secondItem="7R0-Re-7wk" secondAttribute="bottom" constant="8" id="7me-50-dbD"/>
+                    <constraint firstItem="7R0-Re-7wk" firstAttribute="leading" secondItem="VOg-6W-1la" secondAttribute="trailing" constant="8" id="8ac-UN-oci"/>
+                    <constraint firstItem="7R0-Re-7wk" firstAttribute="top" secondItem="vek-fp-Yip" secondAttribute="bottom" constant="6" id="Ab8-aP-1cz"/>
+                    <constraint firstItem="WDh-IN-aWa" firstAttribute="leading" secondItem="VOg-6W-1la" secondAttribute="trailing" constant="8" id="FAc-AE-MMQ"/>
+                    <constraint firstItem="vek-fp-Yip" firstAttribute="leading" secondItem="VOg-6W-1la" secondAttribute="trailing" constant="8" id="FHY-OX-hPn"/>
+                    <constraint firstItem="vek-fp-Yip" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="G9O-DY-XlI"/>
+                    <constraint firstItem="VOg-6W-1la" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="9" id="OTk-cN-IRy"/>
+                    <constraint firstItem="VOg-6W-1la" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Sv8-Ns-xWy"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="WDh-IN-aWa" secondAttribute="trailing" id="akN-Vv-kwz"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="vek-fp-Yip" secondAttribute="trailing" id="zpw-Sv-Rzp"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="goodsIntroduce" destination="7R0-Re-7wk" id="zSG-RV-rRW"/>
+                <outlet property="goodsName" destination="vek-fp-Yip" id="MZM-hb-94z"/>
+                <outlet property="goodsPrice" destination="WDh-IN-aWa" id="WNX-cO-RVJ"/>
+                <outlet property="logoImageView" destination="VOg-6W-1la" id="irP-a6-K5F"/>
+            </connections>
+            <point key="canvasLocation" x="33.5" y="54"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="test1.png" width="35" height="40"/>
+    </resources>
+</document>

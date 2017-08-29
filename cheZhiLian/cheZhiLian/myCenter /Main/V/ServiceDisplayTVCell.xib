@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="200" id="KGk-i7-Jjw" customClass="ServiceDisplayTVCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cog-eJ-V9n">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wUe-61-WpN" userLabel="underline">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
+                                <color key="backgroundColor" red="0.83988994360000002" green="0.83986485" blue="0.83987903590000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Zow-K6-NYU"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O5w-Cc-YU7" userLabel="underline">
+                                <rect key="frame" x="0.0" y="87" width="375" height="1"/>
+                                <color key="backgroundColor" red="0.83988994360000002" green="0.83986485" blue="0.83987903590000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="FhR-bu-Utq"/>
+                                </constraints>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_小巴商城" translatesAutoresizingMaskIntoConstraints="NO" id="wrp-Hh-clQ">
+                                <rect key="frame" x="12" y="14" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="YGK-8e-Ghx"/>
+                                    <constraint firstAttribute="width" constant="60" id="ifi-x7-PdE"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="学车报名活动火爆开启" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oQh-Qu-IJC">
+                                <rect key="frame" x="84" y="51" width="201" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="gA6-Rf-dgs"/>
+                                    <constraint firstAttribute="width" constant="201" id="lgs-5F-POk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.52941176469999995" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico_go" translatesAutoresizingMaskIntoConstraints="NO" id="5us-M3-3K9">
+                                <rect key="frame" x="358" y="36" width="9" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="15" id="4jy-Nr-wyY"/>
+                                    <constraint firstAttribute="width" constant="9" id="ds2-RP-m8a"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="小巴商城" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rL6-yE-s92">
+                                <rect key="frame" x="84" y="22" width="130" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="0f0-7P-QQJ"/>
+                                    <constraint firstAttribute="width" constant="130" id="sNh-Tg-QIU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="5us-M3-3K9" secondAttribute="centerY" constant="0.5" id="2d3-fS-P0X"/>
+                            <constraint firstItem="rL6-yE-s92" firstAttribute="leading" secondItem="wrp-Hh-clQ" secondAttribute="trailing" constant="12" id="Lf2-uJ-IjT"/>
+                            <constraint firstAttribute="bottom" secondItem="O5w-Cc-YU7" secondAttribute="bottom" id="NnB-6s-NZw"/>
+                            <constraint firstItem="rL6-yE-s92" firstAttribute="top" secondItem="wUe-61-WpN" secondAttribute="bottom" constant="21" id="RhY-DH-Zyt"/>
+                            <constraint firstItem="wUe-61-WpN" firstAttribute="top" secondItem="Cog-eJ-V9n" secondAttribute="top" id="Sy6-YL-ywd"/>
+                            <constraint firstItem="wrp-Hh-clQ" firstAttribute="leading" secondItem="Cog-eJ-V9n" secondAttribute="leading" constant="12" id="TKF-uf-41R"/>
+                            <constraint firstAttribute="trailing" secondItem="5us-M3-3K9" secondAttribute="trailing" constant="8" id="dWq-ib-i2X"/>
+                            <constraint firstItem="wUe-61-WpN" firstAttribute="leading" secondItem="Cog-eJ-V9n" secondAttribute="leading" id="eQb-Qg-ZfL"/>
+                            <constraint firstItem="oQh-Qu-IJC" firstAttribute="leading" secondItem="wrp-Hh-clQ" secondAttribute="trailing" constant="12" id="fSB-oa-th2"/>
+                            <constraint firstAttribute="height" constant="88" id="h68-LN-rdX"/>
+                            <constraint firstItem="O5w-Cc-YU7" firstAttribute="top" secondItem="oQh-Qu-IJC" secondAttribute="bottom" constant="15" id="hcO-Ij-CtK"/>
+                            <constraint firstItem="O5w-Cc-YU7" firstAttribute="top" secondItem="wrp-Hh-clQ" secondAttribute="bottom" constant="13" id="jIW-oJ-6Un"/>
+                            <constraint firstAttribute="trailing" secondItem="O5w-Cc-YU7" secondAttribute="trailing" id="lII-ab-Hr9"/>
+                            <constraint firstItem="wrp-Hh-clQ" firstAttribute="top" secondItem="wUe-61-WpN" secondAttribute="bottom" constant="13" id="t3j-ns-Rnk"/>
+                            <constraint firstItem="O5w-Cc-YU7" firstAttribute="leading" secondItem="Cog-eJ-V9n" secondAttribute="leading" id="uYj-hx-uRj"/>
+                            <constraint firstAttribute="trailing" secondItem="wUe-61-WpN" secondAttribute="trailing" id="woo-E7-iwh"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="Cog-eJ-V9n" secondAttribute="bottom" id="2tR-MO-Sh2"/>
+                    <constraint firstItem="Cog-eJ-V9n" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="4tq-TB-adF"/>
+                    <constraint firstItem="Cog-eJ-V9n" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="7BG-18-qH1"/>
+                    <constraint firstAttribute="trailing" secondItem="Cog-eJ-V9n" secondAttribute="trailing" id="9Yc-Bu-VtX"/>
+                    <constraint firstItem="Cog-eJ-V9n" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Aez-x3-NZu"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="introduceLabel" destination="oQh-Qu-IJC" id="8gr-To-wpR"/>
+                <outlet property="titleLabel" destination="rL6-yE-s92" id="NOv-tf-Dq4"/>
+            </connections>
+            <point key="canvasLocation" x="65.5" y="132"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ic_小巴商城" width="60" height="60"/>
+        <image name="ico_go" width="8" height="14"/>
+    </resources>
+</document>
