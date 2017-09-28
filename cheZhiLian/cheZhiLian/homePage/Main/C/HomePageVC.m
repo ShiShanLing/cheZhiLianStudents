@@ -39,30 +39,23 @@
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_tableView registerNib:[UINib nibWithNibName:@"LearnCarShowTVCell" bundle:nil] forCellReuseIdentifier:@"LearnCarShowTVCell"];
-        
         NSMutableArray * arrayM = [NSMutableArray arrayWithCapacity:0];
         for (int i = 0; i < 12; i ++) {
             UIImage * image = [UIImage imageNamed:[NSString stringWithFormat:@"%d",i + 1]];
             [arrayM addObject:image];
         }
-        
         MJRefreshGifHeader * header = [MJRefreshGifHeader headerWithRefreshingBlock:^{
             [self RequestInterface];
-            
         }];
         header.lastUpdatedTimeLabel.hidden = YES;
         header.stateLabel.hidden = YES;
-        
         // 设置普通状态下的动画图片  -->  静止的一张图片
         NSArray * normalImagesArray = @[[UIImage imageNamed:@"1"]];
         [header setImages:normalImagesArray forState:MJRefreshStatePulling];
-        
         // 设置即将刷新状态的动画图片
         [header setImages:arrayM forState:MJRefreshStatePulling];
-        
         // 设置正在刷新状态的动画图片
         [header setImages:arrayM forState:MJRefreshStateRefreshing];
-        
         // 设置header
         self.tableView.mj_header = header;
     }
@@ -80,23 +73,20 @@
     __weak HomePageVC *VC = self;
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
-     
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-       
+        
         [VC parsingData:responseObject[@"data"]];
         [_tableView.mj_header endRefreshing];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
-     
+        
         [_tableView.mj_header endRefreshing];
         [VC makeToast:@"网络超时.请重试!"];
     }];
-
-
+    
+    
 }
-
-
 /**
  * 解析数据
  * @param array 存储数据的数组
@@ -110,13 +100,13 @@
         CourseListModel *model = [[CourseListModel alloc] initWithEntity:des insertIntoManagedObjectContext:self.managedContext];
         
         for (NSString *key in dataDic) {
-         //   NSLog(@"key%@",key);
+            //   NSLog(@"key%@",key);
             [model setValue:dataDic[key] forKey:key];
         }
         [self.goodsListArray addObject:model];
     }
     
-  //  NSLog(@"self.goodsListArray%@", self.goodsListArray);
+    //  NSLog(@"self.goodsListArray%@", self.goodsListArray);
     [self.tableView reloadData];
     
 }
@@ -128,18 +118,37 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+
+    
+    
     self.navigationItem.title = @"首页";
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     self.navigationController.navigationBar.translucent = NO;
     [self.view addSubview:self.tableView];
+    UIButton *releaseButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    releaseButton.frame = CGRectMake(0, 0, 70, 50);
+    [releaseButton setImage:[UIImage imageNamed:@"ic_menu"] forState:(UIControlStateNormal)];
+    releaseButton.titleLabel.font = [UIFont systemFontOfSize:17];
+    UIEdgeInsets  edgeInsets = releaseButton.imageEdgeInsets;
+    edgeInsets.left = -50;
+    releaseButton.imageEdgeInsets = edgeInsets;
+    
+    [releaseButton setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    [releaseButton addTarget:self action:@selector(RegisteredAccount) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *releaseButtonItem = [[UIBarButtonItem alloc] initWithCustomView:releaseButton];
+    self.navigationItem.leftBarButtonItem = releaseButtonItem;
     
 }
-
+- (void)RegisteredAccount {
+    
+    [self XYSideOpenVC];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -154,7 +163,7 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     LearnCarShowTVCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LearnCarShowTVCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.model = self.goodsListArray[indexPath.row];
@@ -162,13 +171,13 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     GoodsDetailsVC *VC = [[GoodsDetailsVC alloc] init];
     UINavigationController * NAVC = [[UINavigationController alloc] initWithRootViewController:VC];
     CourseListModel *model = self.goodsListArray[indexPath.row];
     VC.goodsId = model.goodsId;
     [self presentViewController:NAVC animated:YES completion:nil];
-
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

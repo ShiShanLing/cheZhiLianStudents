@@ -78,6 +78,7 @@
 
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)dealloc {

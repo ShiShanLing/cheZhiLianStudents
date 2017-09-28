@@ -6,9 +6,10 @@
 //  Copyright © 2017年 石山岭. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import"BaseViewController.h"
 
-@interface ConfirmOrderVC : UIViewController
+
+@interface ConfirmOrderVC : BaseViewController
 /**
  *
  */

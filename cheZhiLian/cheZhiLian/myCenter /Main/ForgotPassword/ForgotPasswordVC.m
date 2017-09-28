@@ -35,7 +35,7 @@
     
     self.backgroundImage = [UIImageView new];
     _backgroundImage.userInteractionEnabled = YES;
-    _backgroundImage.image = [UIImage imageNamed:@"LogInBJ"];
+    _backgroundImage.image = [UIImage imageNamed:@"LogInbj"];
     UITapGestureRecognizer* singleRecognizer = [[UITapGestureRecognizer alloc] init];
     singleRecognizer.numberOfTapsRequired = 1; // 单击
     [singleRecognizer addTarget:self action:@selector(handleSingleRecognizer)];//回收键盘
@@ -209,6 +209,7 @@
                                     repeats:YES];
     [promptAlert show];
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

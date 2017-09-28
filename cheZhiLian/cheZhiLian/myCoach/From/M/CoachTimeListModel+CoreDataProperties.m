@@ -24,6 +24,7 @@
 @dynamic timeStr;
 @dynamic unitPrice;
 @dynamic periodStr;
+@dynamic openCourse;
 -(void)setValue:(id)value forKey:(NSString *)key {
     
     if ([key isEqualToString:@"startTime"]) {

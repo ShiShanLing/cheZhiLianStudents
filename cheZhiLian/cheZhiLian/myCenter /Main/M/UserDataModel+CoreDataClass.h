@@ -2,7 +2,7 @@
 //  UserDataModel+CoreDataClass.h
 //  cheZhiLian
 //
-//  Created by 石山岭 on 2017/8/17.
+//  Created by 石山岭 on 2017/9/4.
 //  Copyright © 2017年 石山岭. All rights reserved.
 //
 

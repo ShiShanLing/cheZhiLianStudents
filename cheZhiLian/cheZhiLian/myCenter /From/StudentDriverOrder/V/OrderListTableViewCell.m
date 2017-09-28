@@ -51,11 +51,10 @@
 }
 
 // 按钮组配置
-- (void)operationBtnsConfig
-{
+- (void)operationBtnsConfig {
     self.rightBtn.hidden = YES;
     self.leftBtn.hidden = YES;
-    [self confirmOnBtnConfig:self.rightBtn];
+    [self cancelOrderBtnConfig:self.rightBtn];
 }
 
 #pragma mark - 按钮样式
@@ -80,8 +79,7 @@
 }
 
 // 取消订单按钮
-- (void)cancelOrderBtnConfig:(UIButton *)btn
-{
+- (void)cancelOrderBtnConfig:(UIButton *)btn {
     [self btnConfig:btn withBorderWidth:BORDER_WIDTH
         borderColor:[CUSTOM_GREY CGColor]
        cornerRadius:4
@@ -221,40 +219,47 @@
 }
 
 - (void)setModel:(ParsingOrderDataModel *)model {
+    
+    switch (model.trainState) {
+        case 0:
+            self.statusLabel.text = @"订单未开始";
+            break;
+        case 1:
+            self.statusLabel.text = @"学员已上车!";
+            break;
+        case 2:
+            self.statusLabel.text = @"学员已下车!";
+            break;
+        default:
+            break;
+    }
+    
     NSString *startTime = [CommonUtil getStringForDate:model.startTime format:@"HH:mm"];
     NSString * endTime = [CommonUtil getStringForDate:model.endTime format:@"HH:mm"];
-    
+    NSString *time = [CommonUtil getStringForDate:model.startTime format:@"yyyy-MM-dd"];
+    self.dateLabel.text = time;
     self.timeLabel.text = [NSString stringWithFormat:@"%@ - %@", startTime, endTime];
-    
-    
-    
-    self.statusLabel.text = [NSString stringWithFormat:@"离学车还有%@小时",[CommonUtil getTimeDiff:model.startTime]];
-    
+    //self.statusLabel.text = [NSString stringWithFormat:@"离学车还有XX%@",[CommonUtil getTimeDiff:model.startTime]];
     // 教练
     NSString *coachText = nil;
     NSString *nameStr = [NSString stringWithFormat:@"教练: %@", @"SHY"];
     NSString *carStr = nil;
     coachText =  nameStr;
     NSMutableAttributedString *coachAttText = [[NSMutableAttributedString alloc] initWithString:coachText];
-    
     [coachAttText addAttribute:NSForegroundColorAttributeName value:MColor(170, 170, 170) range:NSMakeRange(nameStr.length, carStr.length)];
-    
-    
     self.coachLabel.attributedText = coachAttText;
-    
-    
     // 地址
     self.addrLabel.text = [NSString stringWithFormat:@"地址: %@", @"杭州市上城区.婺江路"];
     
     // 金额 科目类型
     NSString *costText = nil;
-    NSString *costStr = [NSString stringWithFormat:@"价格: %@", @"100"];
-    NSString *subjectStr = @"副标题";
+    NSLog(@"model%@ ", model);
+    NSString *costStr = [NSString stringWithFormat:@"价格: %@", model.price];
+    
     costText = costStr;
     NSMutableAttributedString *costAttText = [[NSMutableAttributedString alloc] initWithString:costText];
     
     self.costLabel.attributedText = costAttText;
-    
     // 按钮配置
     [self operationBtnsConfig];
     

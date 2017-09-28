@@ -89,8 +89,24 @@
     self.navigationItem.title = @"学车服务";
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     self.navigationController.navigationBar.translucent = NO;
-}
+    UIButton *releaseButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    releaseButton.frame = CGRectMake(0, 0, 70, 50);
+    [releaseButton setImage:[UIImage imageNamed:@"ic_menu"] forState:(UIControlStateNormal)];
+    releaseButton.titleLabel.font = [UIFont systemFontOfSize:17];
+    UIEdgeInsets  edgeInsets = releaseButton.imageEdgeInsets;
+    edgeInsets.left = -50;
+    releaseButton.imageEdgeInsets = edgeInsets;
+    
+    [releaseButton setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    [releaseButton addTarget:self action:@selector(RegisteredAccount) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *releaseButtonItem = [[UIBarButtonItem alloc] initWithCustomView:releaseButton];
+    self.navigationItem.leftBarButtonItem = releaseButtonItem;
 
+}
+    - (void)RegisteredAccount {
+        
+        [self XYSideOpenVC];
+    }
 //返回上一页
 - (void)handleReturn {
     
@@ -110,15 +126,14 @@
     return 1;
 }
 - (void)MyOrderChoose:(int)index {
-    
-    
+
     if (self.userDataArray.count == 0) {
         LogInViewController *loginVC = [[LogInViewController alloc] init];
         UINavigationController * NALoginVC = [[UINavigationController alloc] initWithRootViewController:loginVC];
         NALoginVC.navigationBarHidden = YES;
         [self setHidesBottomBarWhenPushed:YES];
         [self presentViewController:NALoginVC animated:YES completion:nil];
-    }else {
+    }else{
         NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"UserLogInData" ofType:@"plist"];
         NSMutableDictionary *userData = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
         [userData  removeAllObjects];
@@ -129,12 +144,11 @@
         NSString *filename=[plistPath1 stringByAppendingPathComponent:@"UserLogInData.plist"];
         //输入写入
         [userData writeToFile:filename atomically:YES];
-        [UserDataSingleton mainSingleton].memberId = @"";
         [UserDataSingleton mainSingleton].studentsId = @"";
         [UserDataSingleton mainSingleton].subState = @"";
+        [UserDataSingleton mainSingleton].subState = @"20";
         [self showAlert:@"退出登录成功" time:1.2];
         [self.userDataArray removeAllObjects];
-        
         [self.tableView reloadData];
     }
 }
@@ -146,6 +160,9 @@
         if (self.userDataArray.count != 0) {
             cell.model = self.userDataArray[0];
         }else {
+            [UserDataSingleton mainSingleton].studentsId = @"";
+            [UserDataSingleton mainSingleton].subState = @"";
+            [UserDataSingleton mainSingleton].subState = @"20";
             cell.floorView.nameLabel.text = @"未登录";
             cell.floorView.TextImage.image = [UIImage imageNamed:@"logo.jpg"];
             cell.subjectsShow.text = @"";
@@ -156,21 +173,87 @@
         
         ServiceDisplayTVCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ServiceDisplayTVCell" forIndexPath:indexPath];
         NSString *subState;
-        if ([UserDataSingleton mainSingleton].subState.length == 0) {
+        /**
+         *  `sub_state` tinyint(1) DEFAULT '0' COMMENT '科目状态(0:未参加科目考试1:科目一已通过2:科目二已通过3:科目三已通过4:科目四已通过)',
+         `state` tinyint(1) DEFAULT '0' COMMENT '预约考试状态(0:未预约1:待审批2:审批通过3:审批未通过)',
+
+         */
+        if ([UserDataSingleton mainSingleton].subState.intValue == 20 || [UserDataSingleton mainSingleton].subState.length == 0) {
             subState = @"预约考试";
         }
         switch ([UserDataSingleton mainSingleton].subState.intValue) {
             case 0:
-                subState = @"预约科一考试";
+                switch ([UserDataSingleton mainSingleton].state.intValue) {
+                    case 0:
+                        subState = @"预约科一考试";
+                        break;
+                    case 1:
+                        subState = @"科一预约等待审核";
+                        break;
+                    case 2:
+                        subState = @"科一考试预约成功,等待考试!";
+                        break;
+                    case 3:
+                        subState = @"预约科一考试";
+                        break;
+                    default:
+                        break;
+                }
+                
                 break;
             case 1:
-                subState = @"预约科二考试";
+                switch ([UserDataSingleton mainSingleton].state.intValue) {
+                    case 0:
+                        subState = @"预约科二考试";
+                        break;
+                    case 1:
+                        subState = @"科二预约等待审核";
+                        break;
+                    case 2:
+                        subState = @"科二考试预约成功,等待考试!";
+                        break;
+                    case 3:
+                        subState = @"预约科二考试";
+                        break;
+                    default:
+                        break;
+                }
                 break;
             case 2:
-                subState = @"预约科三考试";
+                switch ([UserDataSingleton mainSingleton].state.intValue) {
+                    case 0:
+                        subState = @"预约科三考试";
+                        break;
+                    case 1:
+                        subState = @"科三预约等待审核";
+                        break;
+                    case 2:
+                        subState = @"科三考试预约成功,等待考试!";
+                        break;
+                    case 3:
+                        subState = @"预约科三考试";
+                        break;
+                    default:
+                        break;
+                }
                 break;
             case 3:
-                subState = @"预约科四考试";
+                switch ([UserDataSingleton mainSingleton].state.intValue) {
+                    case 0:
+                        subState = @"预约科四考试";
+                        break;
+                    case 1:
+                        subState = @"科四预约等待审核";
+                        break;
+                    case 2:
+                        subState = @"科四考试预约成功,等待考试!";
+                        break;
+                    case 3:
+                        subState = @"预约科四考试";
+                        break;
+                    default:
+                        break;
+                }
                 break;
             case 4:
                 subState = @"科四考试已经通过";
@@ -178,8 +261,10 @@
             default:
                 break;
         }
-        NSArray *array = @[@"学车订单", @"报名订单", subState];
-        cell.titleLabel.text = array[indexPath.section-1];
+        NSArray *array1 = @[@"学车订单", @"报名订单", subState];
+        NSArray *array2 = @[@"学车时间的预约订单", @"报名课程的订单", subState];
+        cell.titleLabel.text = array1[indexPath.section-1];
+        cell.introduceLabel.text = array2[indexPath.section - 1];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
@@ -202,28 +287,42 @@
     }
     if (indexPath.section == 3) {
         
-        NSString *URL_Str = [NSString stringWithFormat:@"%@/exam/api/appointment",kURL_SHY];
-        NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
-        URL_Dic[@"studentId"] = [UserDataSingleton mainSingleton].studentsId;
-        NSLog(@"URL_Dic%@", URL_Dic);
         __weak MyCenterVC *VC = self;
-        AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
-        [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
-            NSLog(@"uploadProgress%@", uploadProgress);
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            NSLog(@"responseObject%@", responseObject);
-            NSString *resultStr = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
-            if ([resultStr isEqualToString:@"1"]) {
-                [VC showAlert:@"预约成功" time:1.2];
-            }
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            NSLog(@"error%@", error);
+        UIAlertController *alertV = [UIAlertController alertControllerWithTitle:@"提醒!" message:@"是否进行预约?" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"是的" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            NSString *URL_Str = [NSString stringWithFormat:@"%@/exam/api/appointment",kURL_SHY];
+            NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
+            URL_Dic[@"stuId"] = [UserDataSingleton mainSingleton].studentsId;
+            NSLog(@"URL_Dic%@", URL_Dic);
+            
+            AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+            [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
+                NSLog(@"uploadProgress%@", uploadProgress);
+            } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                NSLog(@"responseObject%@", responseObject);
+                NSString *resultStr = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
+                if ([resultStr isEqualToString:@"1"]) {
+                    [VC showAlert:responseObject[@"msg"] time:1.2];
+                    [VC AnalysisUserData];
+                }else {
+                    [VC showAlert:responseObject[@"msg"] time:1.2];
+                }
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                NSLog(@"error%@", error);
+            }];
         }];
-
-        
-    }
+        UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"我再想想" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            NSLog(@"对不起");
+        }];
+        // 3.将“取消”和“确定”按钮加入到弹框控制器中
+        [alertV addAction:cancle];
+        [alertV addAction:confirm];
+        // 4.控制器 展示弹框控件，完成时不做操作
+        [self presentViewController:alertV animated:YES completion:^{
+            nil;
+        }];
+     }
 }
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         return kFit(180);
@@ -247,11 +346,22 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = MColor(234, 234, 234);
-    view.frame = CGRectMake(0, 0, kScreen_widht, 10);
+    view.frame = CGRectMake(0, 0, kScreen_widht, 0.01);
     return view;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    
+    
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = MColor(234, 234, 234);
+    view.frame = CGRectMake(0, 0, kScreen_widht, 0.01);
+    return view;
+    
+}
+
 - (void)AnalysisUserData{
+    
     //获取应用程序沙盒的Documents目录
     NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
     NSLog(@"paths%@", paths);
@@ -266,9 +376,9 @@
         
     }else {
 
-    NSString *URL_Str = [NSString stringWithFormat:@"%@/member/api/studentDetail", kURL_SHY];
+    NSString *URL_Str = [NSString stringWithFormat:@"%@/student/api/detail", kURL_SHY];
     NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
-    URL_Dic[@"memberId"] =userData[@"memberId"];
+    URL_Dic[@"studentId"] =userData[@"stuId"];
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     __block MyCenterVC *VC = self;
     [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -277,7 +387,6 @@
         NSString *resultStr = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
         [_tableView.mj_header endRefreshing];
         if ([resultStr isEqualToString:@"0"]) {
-            
             
         }else {
             [VC AnalyticalData:responseObject];
@@ -288,7 +397,7 @@
     }];
     }
 }
-//解析的登录过后的数据
+//解析的用户详情的数据
 - (void)AnalyticalData:(NSDictionary *)dic {
     [self.userDataArray removeAllObjects];
     NSString *state = [NSString stringWithFormat:@"%@", dic[@"result"]];
@@ -296,7 +405,6 @@
         NSDictionary *urseDataDic = dic[@"data"][0];
         NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"UserLogInData" ofType:@"plist"];
         NSMutableDictionary *userData = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
-        
         
         NSEntityDescription *des = [NSEntityDescription entityForName:@"UserDataModel" inManagedObjectContext:self.managedContext];
         //根据描述 创建实体对象
@@ -306,28 +414,24 @@
             if ([key isEqualToString:@"subState"]) {
                 [UserDataSingleton mainSingleton].subState =[NSString stringWithFormat:@"%@", urseDataDic[key]];
             }
-            if ([key isEqualToString:@"studentId"]) {
+            if ([key isEqualToString:@"stuId"]) {
                 [UserDataSingleton mainSingleton].studentsId =[NSString stringWithFormat:@"%@", urseDataDic[key]];
             }
             if ([key isEqualToString:@"coachId"]) {
                 [UserDataSingleton mainSingleton].coachId =[NSString stringWithFormat:@"%@", urseDataDic[key]];
             }
-            if ([key isEqualToString:@"memberId"]) {
-                [UserDataSingleton mainSingleton].memberId =urseDataDic[key];
+            if ([key isEqualToString:@"state"]) {
+                
+                [UserDataSingleton mainSingleton].state = [NSString stringWithFormat:@"%@", urseDataDic[key]];
             }
+            NSLog(@"key%@",key);
             [userData setObject:urseDataDic[key] forKey:key];
-            
-            
             [model setValue:urseDataDic[key] forKey:key];
-        
         }
-        
         [self.userDataArray addObject:model];
-        
         //获取应用程序沙盒的Documents目录
         NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
         NSString *plistPath1 = [paths objectAtIndex:0];
-        
         //得到完整的文件名
         NSString *filename=[plistPath1 stringByAppendingPathComponent:@"UserLogInData.plist"];
         //输入写入
@@ -335,7 +439,7 @@
         
         //那怎么证明我的数据写入了呢？读出来看看
         NSMutableDictionary *userData2 = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
-        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ChangesData" object:nil];
     }
     
     NSLog(@"userDataArray%@", self.userDataArray);

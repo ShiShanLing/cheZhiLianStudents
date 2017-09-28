@@ -77,7 +77,6 @@
     [releaseButton addTarget:self action:@selector(handleReturn) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *releaseButtonItem = [[UIBarButtonItem alloc] initWithCustomView:releaseButton];
     self.navigationItem.leftBarButtonItem = releaseButtonItem;
-    
     self.navigationItem.title = @"订单详情";
     self.view.backgroundColor = MColor(245, 245, 245);
     self.mainScrollView.showsVerticalScrollIndicator = NO;
@@ -96,22 +95,22 @@
  *请求数据
  */
 - (void)RequestInterface {
-    
+    //http://106.14.158.95:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT/order/api/orderlist?memberId=d30fe3ffe32c408aaa22b799f795e044&status=10&pageNo=1&pageSize=10&orderType=1
     NSString *URL_Str = [NSString stringWithFormat:@"%@/order/api/orderlist", kURL_SHY];
     NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
-    URL_Dic[@"memberId"] = [UserDataSingleton mainSingleton].memberId;
+    URL_Dic[@"memberId"] = [UserDataSingleton mainSingleton].studentsId;
     URL_Dic[@"status"] = @"10";
     URL_Dic[@"pageNo"] = @"1";
     URL_Dic[@"pageSize"] = @"10";
     URL_Dic[@"orderType"] = @"1";
-    
+    NSLog(@"URL_Dic%@", URL_Dic);
     __weak EnrollDetailsVC *VC = self;
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
         NSLog(@"uploadProgress%@", uploadProgress);
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"responseObject%@", responseObject);
         [VC parsingOrderDetaillsData:responseObject[@"data"]];
-        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error%@", error);
     }];

@@ -94,14 +94,12 @@
     
     [self viewConfig];
     [self pullToRefreshTriggered:self.pullToRefresh];
-    NSLog(@"[UserDataSingleton mainSingleton].subState == 0%@", [UserDataSingleton mainSingleton].coachId);
     NSArray *nib = [[NSBundle mainBundle]loadNibNamed:@"NoCoachView" owner:self options:nil];
     //得到第一个UIView
     self.noCoachView = [nib objectAtIndex:0];
     //获得屏幕的Frame
-    self.noCoachView.frame = CGRectMake(0, 0, kScreen_widht, kScreen_heigth);
-    [self.view addSubview:_noCoachView];
-    
+    self.noCoachView.frame = self.view.bounds;
+   [self.view addSubview:_noCoachView];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -153,7 +151,6 @@
     
     //刷新加载
     self.pullToRefresh = [[DSPullToRefreshManager alloc] initWithPullToRefreshViewHeight:60.0 tableView:self.mainTableView withClient:self];
-    
     self.pullToMore = [[DSBottomPullToMoreManager alloc] initWithPullToMoreViewHeight:60.0 tableView:self.mainTableView withClient:self];
     [self.pullToMore setPullToMoreViewVisible:NO]; //隐藏加载更多
     
@@ -165,24 +162,27 @@
     self.con3.constant *= ratio;
     self.con4.constant *= ratio;
 }
-
 //加载广告视图
 -(void)loadADview{
 
 }
 
 #pragma mark - 接口请求
-
 -(void)requestGetAD {
-    NSString *URL_Str = [NSString stringWithFormat:@"%@/coach/api/findCoachDetail", kURL_SHY];
+    
+
+    NSString *URL_Str = [NSString stringWithFormat:@"%@/student/api/myCoach", kURL_SHY];
     NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
-    URL_Dic[@"coachid"] = [UserDataSingleton mainSingleton].coachId;
+
+    URL_Dic[@"coachId"] = [UserDataSingleton mainSingleton].coachId;
     NSLog(@"URL_Dic%@", URL_Dic);
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     __weak CoachDetailViewController *VC = self;
     [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
         NSLog(@"uploadProgress%@", uploadProgress);
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"responseObject%@", responseObject);
+        [VC.pullToRefresh setPullToRefreshViewVisible:NO];
         [VC requestGetCoachDetail:responseObject[@"data"]];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error%@", error);
@@ -260,7 +260,6 @@
         [tableView registerNib:[UINib nibWithNibName:@"CommentTableViewCell" bundle:nil] forCellReuseIdentifier:indefinder];
         cell = [tableView dequeueReusableCellWithIdentifier:indefinder];
     }
-    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.avatar.layer.cornerRadius = 12.5;
     cell.avatar.layer.masksToBounds = YES;
@@ -339,12 +338,9 @@
 - (void)showData:(CoachDetailsModel *)model{
     {
         // 头像
-        
         self.portrait.image = [UIImage imageNamed:@"hashiqi"];
-        
         // 姓名
-        
-        self.name.text = model.realname;
+        self.name.text = model.realName;
         CGFloat nameStrWidth = [CommonUtil sizeWithString: @"石山岭" fontSize:16 sizewidth:150 sizeheight:20].width;
         self.nameWidthCon.constant = nameStrWidth;
         // 性别
@@ -362,9 +358,7 @@
                 self.genderIcon.image = [UIImage imageNamed:@"ic_male"];
                 break;
         }
-        
         // 年龄
-        
         if ([CommonUtil isEmpty:@"23"]) {
             self.age.hidden = YES;
             self.genderViewWidthCon.constant = 12;
@@ -387,12 +381,11 @@
     self.scoreLabel.text = [NSString stringWithFormat:@"%.1f", score];
     
     // 预约次数
-    NSString *count = @"100";
+    NSString *count = model.reservationNum;
     self.countLabel.text = [NSString stringWithFormat:@"%@", count];
     self.countDesLabel.text = @"预约次数";
-    
     // 准教车型
-    self.carType.text = [NSString stringWithFormat:@"准教车型：%@", @"吉普"];
+    self.carType.text = [NSString stringWithFormat:@"准教车型：%@", model.carTypeName];
     // 体验课
     self.ADBottomView.hidden = NO;
     self.pageControl.hidden = NO;
@@ -404,7 +397,7 @@
     // 电话
     self.phone = model.phone;
     // 练车地址
-    self.address.text = @"杭州市上城区望江东路沙地路交叉口";
+    self.address.text = model.address;
     // 自我评价
     self.commentSelfLabel.text = @"自我感觉非常良好,让你欲罢不能!";
     
@@ -472,5 +465,10 @@
     nextController.type = 1;
     [self.navigationController pushViewController:nextController animated:YES];
 }
+- (IBAction)leftItemClick:(id)sender {
+    
+  [self XYSideOpenVC];
+}
+
 
 @end

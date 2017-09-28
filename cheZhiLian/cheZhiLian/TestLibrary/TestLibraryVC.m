@@ -23,6 +23,23 @@
     [super viewDidLoad];
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     self.navigationController.navigationBar.translucent = YES;
+    
+
+    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];//导航条颜
+    self.navigationItem.title = @"题库";//导航条标题
+    UIButton *releaseButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    releaseButton.frame = CGRectMake(0, 0, 70, 50);
+    [releaseButton setImage:[UIImage imageNamed:@"ic_menu"] forState:(UIControlStateNormal)];
+    releaseButton.titleLabel.font = [UIFont systemFontOfSize:17];
+    UIEdgeInsets  edgeInsets = releaseButton.imageEdgeInsets;
+    edgeInsets.left = -50;
+    releaseButton.imageEdgeInsets = edgeInsets;
+    
+    [releaseButton setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    [releaseButton addTarget:self action:@selector(RegisteredAccount) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *releaseButtonItem = [[UIBarButtonItem alloc] initWithCustomView:releaseButton];
+    self.navigationItem.leftBarButtonItem = releaseButtonItem;
+    
     // 题库
     self.exerciseView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kScreen_widht, kScreen_heigth - 80 - 64)];
     self.exerciseView.delegate = self;
@@ -30,6 +47,11 @@
     [self.view addSubview:self.exerciseView];
     [self addExerciseLoadFailView];
 
+}
+
+- (void)RegisteredAccount {
+
+    [self XYSideOpenVC];
 }
 // 题库加载失败页面
 - (void)addExerciseLoadFailView {

@@ -21,6 +21,10 @@
  驾校名字
  */
 @property (weak, nonatomic) IBOutlet UILabel *DrivingLabel;
+/**
+ *商品价钱
+ */
+@property (weak, nonatomic) IBOutlet UILabel *goodsPrice;
 
 /**
  *驾校或者 商品的介绍
@@ -45,5 +49,6 @@
     
     [self.logoImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",kURL_SHY, model.goodsImage]] placeholderImage:[UIImage imageNamed:@"logo.jpg"]];
     self.DrivingLabel.text = model.goodsName;
+    self.goodsPrice.text  = [NSString stringWithFormat:@"¥:%.2f", model.goodsStorePrice];
 }
 @end

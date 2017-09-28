@@ -59,7 +59,6 @@
     [super viewDidLoad];
     [self AnalysisUserData];
     
-    
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"Helvetica" size:10], NSFontAttributeName, kOrange_Color,NSForegroundColorAttributeName, nil];
     
     
@@ -113,29 +112,28 @@
     NSMutableDictionary *userData = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
     NSLog(@"userData%@", userData);
     NSArray *keyArray =[userData allKeys];
-    
     if (keyArray.count == 0) {
-        
-    }else {
-        
-        NSString *URL_Str = [NSString stringWithFormat:@"%@/member/api/studentDetail", kURL_SHY];
-        NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
-        URL_Dic[@"memberId"] =userData[@"memberId"];
-        AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
-        __block BaseTabBarViewController *VC = self;
-        [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
-            
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            NSLog(@"responseObject%@", responseObject);
-            NSString *resultStr = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
-            if ([resultStr isEqualToString:@"0"]) {
-            }else {
-                [VC AnalyticalData:responseObject];
-            }
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            [VC showAlert:@"请求失败请重试" time:1.0];
-        }];
+        return;
     }
+    
+    NSString *URL_Str = [NSString stringWithFormat:@"%@/student/api/detail", kURL_SHY];
+    NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
+    URL_Dic[@"studentId"] =userData[@"stuId"];
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    __block BaseTabBarViewController *VC = self;
+    [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"responseObject%@", responseObject);
+        NSString *resultStr = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
+        if ([resultStr isEqualToString:@"0"]) {
+        }else {
+            [VC AnalyticalData:responseObject];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [VC showAlert:@"请求失败请重试" time:1.0];
+    }];
+    
 }
 
 //解析的登录过后的数据
@@ -151,18 +149,15 @@
             if ([key isEqualToString:@"subState"]) {
                 [UserDataSingleton mainSingleton].subState =[NSString stringWithFormat:@"%@", userDataDic[key]];
             }
-            if ([key isEqualToString:@"studentId"]) {
+            if ([key isEqualToString:@"stuId"]) {
                 [UserDataSingleton mainSingleton].studentsId =[NSString stringWithFormat:@"%@", userDataDic[key]];
             }
             if ([key isEqualToString:@"coachId"]) {
                 [UserDataSingleton mainSingleton].coachId =[NSString stringWithFormat:@"%@", userDataDic[key]];
-                NSLog(@"[UserDataSingleton mainSingleton].coachId%@", [UserDataSingleton mainSingleton].coachId);
-            }
-            if ([key isEqualToString:@"memberId"]) {
-                [UserDataSingleton mainSingleton].memberId =userDataDic[key];
             }
             [userData setObject:userDataDic[key] forKey:key];
         }
+        NSLog(@"[UserDataSingleton mainSingleton].studentsId%@", [UserDataSingleton mainSingleton].studentsId);
         //获取应用程序沙盒的Documents目录
         NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
         NSString *plistPath1 = [paths objectAtIndex:0];
@@ -174,6 +169,7 @@
         
         //那怎么证明我的数据写入了呢？读出来看看
         NSMutableDictionary *userData2 = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ChangesData" object:nil];
     }
     
 }

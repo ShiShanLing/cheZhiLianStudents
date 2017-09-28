@@ -87,20 +87,18 @@
  *请求数据
  */
 - (void)RequestInterface {
-    
+    //http://106.14.158.95:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT/goods/api/goodsdetail?goodsId=6d0e8b211fc943aa85b3704556dcc3b6
     NSString *URL_Str = [NSString stringWithFormat:@"%@/goods/api/goodsdetail", kURL_SHY];
     NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
-    
     URL_Dic[@"goodsId"] = self.goodsId;
-    
+    NSLog(@"URL_Dic%@", URL_Dic);
     __weak GoodsDetailsVC *VC = self;
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
         NSLog(@"uploadProgress%@", uploadProgress);
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
+        NSLog(@"responseObject%@", responseObject);
         [VC parsingData:responseObject[@"goods"]];
-        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error%@", error);
     }];
@@ -134,9 +132,20 @@
     if (self.goodsDetailsArray.count == 0) {
         
     }else {
-        ConfirmOrderVC *VC = [[ConfirmOrderVC alloc] init];
-        VC.goodsDetailsModel = self.goodsDetailsArray[0];
-        [self.navigationController pushViewController:VC animated:YES];
+        
+        if ([UserDataSingleton mainSingleton].studentsId.length == 0) {
+            LogInViewController *loginVC = [[LogInViewController alloc] init];
+            UINavigationController * NALoginVC = [[UINavigationController alloc] initWithRootViewController:loginVC];
+            NALoginVC.navigationBarHidden = YES;
+            [self setHidesBottomBarWhenPushed:YES];
+            [self presentViewController:NALoginVC animated:YES completion:nil];
+
+        }else {
+        
+            ConfirmOrderVC *VC = [[ConfirmOrderVC alloc] init];
+            VC.goodsDetailsModel = self.goodsDetailsArray[0];
+            [self.navigationController pushViewController:VC animated:YES];
+        }
     }
 }
 //返回上一页
@@ -181,7 +190,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return 111;
+        return 148;
     }else if (indexPath.section == 1){
         return 407;
     }else {

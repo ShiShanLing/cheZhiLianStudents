@@ -40,7 +40,8 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
 @property (strong, nonatomic) IBOutlet UIButton *waiEvaluateBtn;        // 待评价
 @property (strong, nonatomic) IBOutlet UIButton *historyBtn;            // 已完成
 @property (strong, nonatomic) IBOutlet UIButton *complainedOrdersBtn;   // 已投诉
-
+@property (assign, nonatomic) OrderListType orderListType;
+@property (assign, nonatomic) OrderListType targetOrderListType;
 - (IBAction)clickForUnfinishedOrder:(id)sender;
 - (IBAction)clickForWaitEvaluateOrder:(id)sender;
 - (IBAction)clickForHistoricOrder:(id)sender;
@@ -65,10 +66,14 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
+      self.navigationController.navigationBarHidden = YES;
     [self getFreshData];
     [self requestData];
 }
-
+-(void)viewWillDisappear:(BOOL)animated  {
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBarHidden = NO;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     _rowHeight = 235;
@@ -76,19 +81,19 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
 }
 #pragma mark 请求数据
 - (void)requestData{
-    
-    
+    //http://192.168.100.101:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT/train/api/listReservation?studentId=794c68fe981a448b88ba4e4061bacedf
     NSString *URL_Str = [NSString stringWithFormat:@"%@/train/api/listReservation", kURL_SHY];
     NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
-    [URL_Dic setObject:kStudentId forKey:@"studentId"];
+    URL_Dic[@"studentId"] = [UserDataSingleton mainSingleton].studentsId;
     
+    NSLog(@"URL_Dic%@", URL_Dic);
     __weak MyOrderViewController *VC = self;
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     // manager.requestSerializer.timeoutInterval = 20;// 网络超时时长设置
     [manager POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-       // NSLog(@"responseObject%@",responseObject);
+        NSLog(@"responseObject%@",responseObject);
         
         [VC  showAlert:responseObject[@"msg"] time:1.2];
         
@@ -100,12 +105,19 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
 }
 - (void)ParsingOrderData:(NSArray *)dataArray {
     [self.orderArray removeAllObjects];
+    
+    if (dataArray.count == 0) {
+        [self  showAlert:@"您还没有订单" time:1.2];
+        return;
+    }
+    
     for (NSDictionary *dataDic in dataArray) {
-        NSEntityDescription *des = [NSEntityDescription entityForName:@"CoachTimeListModel" inManagedObjectContext:self.managedContext];
+        NSEntityDescription *des = [NSEntityDescription entityForName:@"ParsingOrderDataModel" inManagedObjectContext:self.managedContext];
         //根据描述 创建实体对象
-        CoachTimeListModel *model = [[CoachTimeListModel alloc] initWithEntity:des insertIntoManagedObjectContext:self.managedContext];
+        ParsingOrderDataModel *model = [[ParsingOrderDataModel alloc] initWithEntity:des insertIntoManagedObjectContext:self.managedContext];
         
         for (NSString *key in dataDic) {
+            NSLog(@"%@key", key);
             [model setValue:dataDic[key] forKey:key];
         }
         [self.orderArray addObject:model];
@@ -207,6 +219,7 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
 }
 
 - (void)getMoreData {
+    
     _pageNum = [NSString stringWithFormat:@"%d", [_pageNum intValue] + 1];
     
 }
@@ -242,26 +255,37 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
     button.backgroundColor = [UIColor blackColor];
     button.selected = YES;
 }
-#pragma mark - 按钮方法
+#pragma mark - 按钮方法  ---这他妈也不是我写的方法,,我不敢改 因为没时间
 // 未完成订单
-- (IBAction)clickForUnfinishedOrder:(id)sender {
-    
+- (IBAction)clickForUnfinishedOrder:(UIButton *)sender {
+    if (self.unfinishedBtn.selected == YES) return;
+    self.targetOrderListType = OrderListTypeComplete;
+    [self oneButtonSellected:sender];
 }
 
 // 待评价订单
-- (IBAction)clickForWaitEvaluateOrder:(id)sender {
-    
+- (IBAction)clickForWaitEvaluateOrder:(UIButton *)sender {
+    if (self.waiEvaluateBtn.selected == YES) return;
+    self.targetOrderListType = OrderListTypeComplete;
+    [self oneButtonSellected:sender];
 }
 
 // 已完成订单
-- (IBAction)clickForHistoricOrder:(id)sender {
-    
+- (IBAction)clickForHistoricOrder:(UIButton *)sender {
+    if (self.historyBtn.selected == YES) return;
+    self.targetOrderListType = OrderListTypeComplete;
+    [self oneButtonSellected:sender];
 }
 
 // 已投诉订单
-- (IBAction)clickForComplainedOrder:(id)sender {
+- (IBAction)clickForComplainedOrder:(UIButton *)sender {
     
+    if (self.complainedOrdersBtn.selected == YES) return;
+    self.targetOrderListType = OrderListTypeComplete;
+    [self oneButtonSellected:sender];
 }
+// 设置按钮状态
+
 
 // 关闭更多操作页
 - (IBAction)clickForCloseMoreOperation:(UIButton *)sender {
@@ -272,6 +296,7 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
 - (IBAction)clickForSureCancelOrder:(UIButton *)sender {
     
 }
+
 
 // 确认取消订单
 - (IBAction)backClick:(id)sender {

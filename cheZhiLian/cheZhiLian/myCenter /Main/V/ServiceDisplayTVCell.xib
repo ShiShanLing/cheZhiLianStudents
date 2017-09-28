@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="87.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cog-eJ-V9n">
@@ -43,10 +43,9 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="学车报名活动火爆开启" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oQh-Qu-IJC">
-                                <rect key="frame" x="84" y="51" width="201" height="21"/>
+                                <rect key="frame" x="84" y="51" width="266" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="gA6-Rf-dgs"/>
-                                    <constraint firstAttribute="width" constant="201" id="lgs-5F-POk"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.52941176469999995" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -60,10 +59,9 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="小巴商城" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rL6-yE-s92">
-                                <rect key="frame" x="84" y="22" width="130" height="21"/>
+                                <rect key="frame" x="84" y="22" width="254" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="0f0-7P-QQJ"/>
-                                    <constraint firstAttribute="width" constant="130" id="sNh-Tg-QIU"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
@@ -71,12 +69,13 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="centerY" secondItem="5us-M3-3K9" secondAttribute="centerY" constant="0.5" id="2d3-fS-P0X"/>
+                            <constraint firstItem="5us-M3-3K9" firstAttribute="centerY" secondItem="Cog-eJ-V9n" secondAttribute="centerY" id="BKR-NU-817"/>
                             <constraint firstItem="rL6-yE-s92" firstAttribute="leading" secondItem="wrp-Hh-clQ" secondAttribute="trailing" constant="12" id="Lf2-uJ-IjT"/>
                             <constraint firstAttribute="bottom" secondItem="O5w-Cc-YU7" secondAttribute="bottom" id="NnB-6s-NZw"/>
                             <constraint firstItem="rL6-yE-s92" firstAttribute="top" secondItem="wUe-61-WpN" secondAttribute="bottom" constant="21" id="RhY-DH-Zyt"/>
                             <constraint firstItem="wUe-61-WpN" firstAttribute="top" secondItem="Cog-eJ-V9n" secondAttribute="top" id="Sy6-YL-ywd"/>
                             <constraint firstItem="wrp-Hh-clQ" firstAttribute="leading" secondItem="Cog-eJ-V9n" secondAttribute="leading" constant="12" id="TKF-uf-41R"/>
+                            <constraint firstItem="5us-M3-3K9" firstAttribute="leading" secondItem="oQh-Qu-IJC" secondAttribute="trailing" constant="8" id="XxP-k0-fm2"/>
                             <constraint firstAttribute="trailing" secondItem="5us-M3-3K9" secondAttribute="trailing" constant="8" id="dWq-ib-i2X"/>
                             <constraint firstItem="wUe-61-WpN" firstAttribute="leading" secondItem="Cog-eJ-V9n" secondAttribute="leading" id="eQb-Qg-ZfL"/>
                             <constraint firstItem="oQh-Qu-IJC" firstAttribute="leading" secondItem="wrp-Hh-clQ" secondAttribute="trailing" constant="12" id="fSB-oa-th2"/>
@@ -84,6 +83,7 @@
                             <constraint firstItem="O5w-Cc-YU7" firstAttribute="top" secondItem="oQh-Qu-IJC" secondAttribute="bottom" constant="15" id="hcO-Ij-CtK"/>
                             <constraint firstItem="O5w-Cc-YU7" firstAttribute="top" secondItem="wrp-Hh-clQ" secondAttribute="bottom" constant="13" id="jIW-oJ-6Un"/>
                             <constraint firstAttribute="trailing" secondItem="O5w-Cc-YU7" secondAttribute="trailing" id="lII-ab-Hr9"/>
+                            <constraint firstItem="5us-M3-3K9" firstAttribute="leading" secondItem="rL6-yE-s92" secondAttribute="trailing" constant="20" id="qzT-kG-DSF"/>
                             <constraint firstItem="wrp-Hh-clQ" firstAttribute="top" secondItem="wUe-61-WpN" secondAttribute="bottom" constant="13" id="t3j-ns-Rnk"/>
                             <constraint firstItem="O5w-Cc-YU7" firstAttribute="leading" secondItem="Cog-eJ-V9n" secondAttribute="leading" id="uYj-hx-uRj"/>
                             <constraint firstAttribute="trailing" secondItem="wUe-61-WpN" secondAttribute="trailing" id="woo-E7-iwh"/>

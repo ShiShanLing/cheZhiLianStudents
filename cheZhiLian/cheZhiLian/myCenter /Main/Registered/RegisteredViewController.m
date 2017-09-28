@@ -28,6 +28,14 @@
 
 @implementation RegisteredViewController
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.NameIBV.NameTF.delegate = self;;
+}
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.NameIBV.NameTF.delegate = nil;
+}
 
 //回收键盘
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -142,10 +150,6 @@
 }
 
 - (void)CreatingControls {
-   
-    
-    
-    
     self.NameIBV = [InputBoxView new];
     UIColor *color = MColor(210, 210, 210);
     _NameIBV.NameTF.delegate =self;
@@ -221,24 +225,15 @@
     RegisteredBtn.sd_layout.leftSpaceToView(self.scrollView, kFit(12)).rightSpaceToView(self.scrollView, kFit(12)).topSpaceToView(_referrerIBV, kFit(50)).heightIs(kFit(50));
 
 }
+
 //获取验证码
 - (void)handleCountdownBtn:(JKCountDownButton *)sender {
     NSString *phone = self.NameIBV.NameTF.text;
-    [self performSelector:@selector(indeterminateExample)];
-    
-    if (phone.length == 0) {
-        
-        UIAlertController *alertV = [UIAlertController alertControllerWithTitle:@"警告!" message:@"手机号为空" preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            
-        }];
-        [alertV addAction:confirm];
-        // 4.控制器 展示弹框控件，完成时不做操作
-        [self presentViewController:alertV animated:YES completion:^{
-            nil;
-        }];
-    }else {
+        if(![CommonUtil checkPhonenum:phone]){
+            [self makeToast:@"手机号码输入有误,请重新输入"];
+            return;
+        }
+     [self performSelector:@selector(indeterminateExample)];
     sender.enabled = NO;
     //button type要 设置成custom 否则会闪动
     [sender startWithSecond:60];
@@ -269,7 +264,7 @@
         [VC performSelector:@selector(delayMethod)];
         NSLog(@"error%@", error);
     }];
-   }
+   
 }
 - (NSString*)dictionaryToJson:(NSDictionary *)dic
 {
@@ -285,28 +280,18 @@
     NSString *confirmStr = self.repeatPWIBV.NameTF.text;
     NSString *verificationStr = self.VerificationCodeIBV.NameTF.text;
     NSString *referrerStr = self.referrerIBV.NameTF.text;
-    if (referrerStr.length == 0) {
-        referrerStr = @"";
-        
-    }
     if (phoneStr.length != 0) {
         if ([PasswordStr isEqualToString:confirmStr]) {
             __block RegisteredViewController *VC = self;
-            NSString *URL=[NSString stringWithFormat:@"%@/member/api/register", kURL_SHY];
+            NSString *URL=[NSString stringWithFormat:@"%@/student/api/register", kURL_SHY];
             NSMutableDictionary *URLDIC = [NSMutableDictionary dictionary];
             URLDIC[@"mobile"] = phoneStr;
             URLDIC[@"password"] =PasswordStr;
             URLDIC[@"mobileCode"] = verificationStr;
             URLDIC[@"referrer"] = referrerStr;
-            NSString *dataStr = [self dictionaryToJson:URLDIC];//吧字典转成字符串
-            NSString *strURLOne = [dataStr stringByReplacingOccurrencesOfString:@" " withString:@""];//去掉字符串中的空格键
-            NSString *strURLTwo = [strURLOne stringByReplacingOccurrencesOfString:@"\n" withString:@""];//去掉字符串中的回车键
-            NSString *encryptDate=[SecurityUtil encryptAESData:strURLTwo];//加密
-            NSMutableDictionary *dataDic = [NSMutableDictionary dictionary];
-            dataDic[@"request"] = encryptDate;//创建后台所需要的参数
-            NSLog(@"dataDic%@ URL%@", dataDic, URL);
+            URLDIC[@"schoolId"] = @"1";
             AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
-            [session POST:URL parameters:dataDic progress:^(NSProgress * _Nonnull uploadProgress) {
+            [session POST:URL parameters:URLDIC progress:^(NSProgress * _Nonnull uploadProgress) {
                 NSLog(@"uploadProgress%@", uploadProgress);
             } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 NSLog(@"responseObject%@", responseObject);
@@ -347,7 +332,6 @@
     }else {
         UIAlertController *alertV = [UIAlertController alertControllerWithTitle:@"抱歉!" message:[NSString stringWithFormat:@"注册失败,%@", codeStr] preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-            
         }];
         [alertV addAction:cancle];
         // 4.控制器 展示弹框控件，完成时不做操作
@@ -363,16 +347,6 @@
     
 }
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    
-    if ([string isEqualToString:@"\n"]) {
-        [textField resignFirstResponder];
-        return NO;
-    }
-    return YES;
-    
-    
-}
 
 
 @end

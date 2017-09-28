@@ -21,7 +21,7 @@ typedef NS_OPTIONS(NSUInteger, CommentCellType) {
 @property (strong, nonatomic) IBOutlet UILabel *time;
 @property (assign, nonatomic) CommentCellType type;
 
-- (void)loadData;
+
 
 
 @end

@@ -15,16 +15,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSFetchRequest<CoachTimeListModel *> *)fetchRequest;
 
-@property (nonatomic) int16_t studentId;
+@property (nullable, nonatomic, copy) NSString * studentId;
 @property (nullable, nonatomic, copy) NSDate *startTime;
 @property (nullable, nonatomic, copy) NSDate *endTime;
-@property (nonatomic) int16_t id;
+@property (nullable, nonatomic, copy) NSString *id;
 @property (nonatomic) int16_t payState;
 @property (nonatomic) int16_t state;
-@property (nonatomic) int16_t coachId;
+@property (nullable, nonatomic, copy) NSString * coachId;
 @property (nonatomic) float_t unitPrice;
 @property (nullable, nonatomic, copy) NSString *timeStr;
 @property (nullable, nonatomic, copy) NSString *periodStr;
+@property (nonatomic) int16_t openCourse;
 -(void)setValue:(id)value forKey:(NSString *)key;
 
 @end

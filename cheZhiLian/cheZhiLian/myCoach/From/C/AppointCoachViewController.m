@@ -14,12 +14,16 @@
 #import "TimeChooseTableViewCell.h"
 #import "SureOrderViewController.h"
 #import "CoachTimeListModel+CoreDataProperties.h"
+
+static  BOOL EditTime;
+
 @interface AppointCoachViewController () <SwipeViewDelegate, SwipeViewDataSource, UIAlertViewDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, TimeChooseTableViewCellDelegate>
 {
     float _priceSum;   // 总价
     int _timeNum;    // 时间点的数量
     bool _pageIndex;        // 切换用页(这个页面实际只有两个childViewController，index为0和1，故用此bool值来做index)
     NSUInteger _curPageNum; // 当前页
+    NSDate   *currentTime;//如果是空的或者 是当天就不让操作
 }
 
 @property (weak, nonatomic) IBOutlet UIView *TimeChooseView;
@@ -66,12 +70,7 @@
 @property (nonatomic, strong)NSMutableArray *dateArray;
 @end
 
-@implementation AppointCoachViewController {
-
-    NSDate *currentlySelectedDate;
-
-}
-
+@implementation AppointCoachViewController
 - (NSMutableArray *)coachTimeArray {
     if (!_coachTimeArray) {
         _coachTimeArray = [NSMutableArray array];
@@ -92,6 +91,7 @@
         [_tableView registerClass:[TimeChooseTableViewCell class] forCellReuseIdentifier:@"TimeChooseTableViewCell"];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.bounces = NO;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _tableView;
@@ -99,38 +99,51 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self requestData:currentlySelectedDate];
+    [self requestData:currentTime];
     // 请求刷新教练日程接口
     if (!self.nowSelectedDate) {
         self.nowSelectedDate = [CommonUtil getStringForDate:[NSDate date] format:@"yyyy-MM-dd"];
-        
     }
-    
-    [self noCarNeedClick:self.noNeedBtn]; // 默认不使用教练车
+    [self noCarNeedClick:self.noNeedBtn];
 }
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.sureAppointBtn.enabled = YES;
+    
     self.selectDateList = [NSMutableArray array];
     self.dateLabelList = [NSMutableArray array];
-    self.noTimeSelectedLabel.hidden = YES;
-    self.timePriceView.hidden = NO;
-    self.priceSumLabel.hidden = NO;
+    self.sureAppointBtn.enabled = NO;
+    self.noTimeSelectedLabel.hidden = NO;
+    self.timePriceView.hidden = YES;
+    self.priceSumLabel.hidden = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetPriceNumStatus) name:@"appointCoachSuccess" object:nil];
     [self viewConfig];
     [self createTableView];
     _TimeChooseView.backgroundColor = [UIColor redColor];
     NSLog(@"_TimeChooseView.height%f  _tableView.height%f", _TimeChooseView.height, _tableView.height);
 }
+
+- (BOOL)isSameDay:(NSDate *)date1 date2:(NSDate *)date2
+{
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    unsigned unitFlag = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
+    NSDateComponents *comp1 = [calendar components:unitFlag fromDate:date1];
+    NSDateComponents *comp2 = [calendar components:unitFlag fromDate:date2];
+    return (([comp1 day] == [comp2 day]) && ([comp1 month] == [comp2 month]) && ([comp1 year] == [comp2 year]));
+}
+
 #pragma mark 请求数据
 - (void)requestData:(NSDate *)date {
     NSDate *nowDate;
-    if (date ==nil) {
+    NSLog(@"currentTime%@  [NSDate date] %@", currentTime, [NSDate date] );
+    if (date ==nil || [self isSameDay:currentTime date2:[NSDate date] ]) {
         nowDate = [NSDate date];
+        currentTime = nowDate;
+        EditTime = NO;
     }else {
         nowDate = date;
+        EditTime = YES;
     }
     NSTimeInterval timeIn = [nowDate timeIntervalSince1970];
     NSDate *detaildate = [NSDate dateWithTimeIntervalSince1970:timeIn];
@@ -141,7 +154,7 @@
     NSString *SJCStr = [NSString stringWithFormat:@"%.0f000", [[CommonUtil getDateForString:newTime format:nil] timeIntervalSince1970]];
     //NSLog(@"最终转为字符串时间1 = %@  SJCStr%@", newTime, SJCStr);
     
-    NSString *URL_Str = [NSString stringWithFormat:@"%@/train/api/listReservationTime", kURL_SHY];
+    NSString *URL_Str = [NSString stringWithFormat:@"%@/train/api/studentReserveTime", kURL_SHY];
     NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
     
     if ([UserDataSingleton mainSingleton].coachId.length == 0) {
@@ -254,21 +267,30 @@
 }
 // 重新计算总价
 - (void)resetPriceNumStatus {
-
-    _priceSum = 0;
-    _timeNum = 0;
-    
+    CGFloat unitPrice = 0.0;
+    NSMutableArray *selectedTimeArray = [NSMutableArray array];
+    for (NSArray *modelArray in self.dateArray) {
+        for (CoachTimeListModel *model in modelArray) {
+            if (model.state == 4) {
+                unitPrice = model.unitPrice;
+                [selectedTimeArray addObject:model];
+            }
+        }
+    }
     // 控制各控件的显示/隐藏
-    if (_priceSum > 0 && _timeNum > 0) {
-        self.timeNumLabel.text = [NSString stringWithFormat:@"已选择%d个小时", _timeNum];
-        self.priceSumLabel.text = [NSString stringWithFormat:@"合计%.2f元", _priceSum];
-        
+    if (unitPrice > 0 ) {
+        self.timeNumLabel.text = [NSString stringWithFormat:@"已选择%lu个小时", (unsigned long)selectedTimeArray.count];
+        self.priceSumLabel.text = [NSString stringWithFormat:@"合计%.2f元", unitPrice];
         self.timePriceView.hidden = NO;
         self.noTimeSelectedLabel.hidden = YES;
+        self.sureAppointBtn.enabled = YES;
+        self.priceSumLabel.hidden = NO;
+        
     }else{
         self.timePriceView.hidden = YES;
-        //self.sureAppointBtn.enabled = NO;
         self.noTimeSelectedLabel.hidden = NO;
+        self.sureAppointBtn.enabled = NO;
+        self.priceSumLabel.hidden = YES;
     }
 }
 
@@ -389,8 +411,9 @@
     swipeView.currentPage = index;
     _curPageNum = index;
     NSDate *date = [[NSDate date] initWithTimeInterval:24*60*60*index sinceDate:[NSDate date]];
+    currentTime =date;
     [self requestData:date];
-    currentlySelectedDate =date;
+    
     NSString *dateStr = [CommonUtil getStringForDate:date format:@"yyyy-MM-dd"];
     self.nowSelectedDate = dateStr;
     [self setDateLabelFont:index];
@@ -399,7 +422,7 @@
     int index = (int)swipeView.currentPage;
     _curPageNum = index;
     NSDate *date = [[NSDate date] initWithTimeInterval:24*60*60*index sinceDate:[NSDate date]];
-    currentlySelectedDate =date;
+    currentTime =date;
     [self requestData:date];
     NSString *dateStr = [CommonUtil getStringForDate:date format:@"yyyy-MM-dd"];
     self.nowSelectedDate = dateStr;
@@ -480,7 +503,6 @@
     self.noNeedBtn.selected = NO;
     self.needCar = YES;
 }
-
 // 确定是否需要教练车
 - (IBAction)ifNeedCarSureClick:(id)sender {
     
@@ -510,20 +532,27 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
 }
-
+//时间点击时间
 - (void)ClickIndex:(NSIndexPath *)indexPath {
+    if (!EditTime) {
+        [self showAlert:@"不能预约当天时间!" time:1.2];
+        return;
+    }
     NSMutableArray *tempArray = self.dateArray[indexPath.section];
     CoachTimeListModel *model = tempArray[indexPath.row];
-    
-    if (model.state == 0) {
-        model.state = 4;
-    }else if(model.state == 4) {
-        model.state = 0;
-    }
-    self.dateArray[indexPath.section] = tempArray;
-    //NSLog(@"self.DataArray%@, indexPath%ld", self.dateArray, (long)indexPath.section);
+        if (model.openCourse == 0) {//如果没有开课
+        }else if(model.openCourse == 1){//如果开课了
+                if (model.state == 0 ) {//如果没有被预约
+                    model.state = 4;
+                }else if(model.state == 4) {
+                    model.state = 0;
+                }
+        }
+    NSLog(@"self.dateArray%@", self.dateArray);
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"appointCoachSuccess" object:nil];
     [self.tableView reloadData];
 }
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSMutableArray *tempArray = self.dateArray[indexPath.section];
     int number = tempArray.count;

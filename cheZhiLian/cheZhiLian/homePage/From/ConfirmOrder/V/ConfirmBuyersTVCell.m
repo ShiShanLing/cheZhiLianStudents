@@ -21,4 +21,9 @@
     // Configure the view for the selected state
 }
 
+- (void)layoutSubviews {
+    self.showBtnOne.userInteractionEnabled = NO;
+    self.showBtnTwo.userInteractionEnabled = NO;
+}
+
 @end

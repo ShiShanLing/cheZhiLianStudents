@@ -417,14 +417,14 @@
 
 - (void)payDetailStatistics {
 
-
+http://192.168.100.101:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT/train/api/makeReservation?coachId=ef6334ff740a4d2e934b895d8a9b62dc&endTime=1504753200000&price=180&startTime=1504749600000&studentId=2543216315314435bfa72e61aa55faa3
     
      for (int i = 0; i  < self.dateTimeSelectedList.count; i ++) {
         CoachTimeListModel *model = self.dateTimeSelectedList[i];
         NSString *URL_Str = [NSString stringWithFormat:@"%@/train/api/makeReservation", kURL_SHY];
         NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
         URL_Dic[@"coachId"]=[UserDataSingleton mainSingleton].coachId;
-        URL_Dic[@"studentId"] = kStudentId;
+        URL_Dic[@"studentId"] = [UserDataSingleton mainSingleton].studentsId;
         NSString *startTimeSp = [NSString stringWithFormat:@"%ld%@", (long)[model.startTime timeIntervalSince1970], @"000"];
         URL_Dic[@"startTime"] = startTimeSp;
         //NSDate 转 时间戳

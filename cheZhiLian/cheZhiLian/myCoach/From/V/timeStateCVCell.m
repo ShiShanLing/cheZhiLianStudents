@@ -52,69 +52,71 @@
     return self;
 }
 - (void)ModifyState:(CoachTimeListModel *)model indexPath:(NSIndexPath *)indexPath section:(NSInteger)section{
-
+    _SubjectName.hidden = NO;
+    _priceLabel.hidden = NO;
+    _SubjectName.text = @"未开课";
+    _SubjectName.textColor = MColor(179, 179, 179);
     _priceLabel.textColor = MColor(52, 136, 153);
     _priceLabel.text = [NSString stringWithFormat:@"¥:%.2f", model.unitPrice];
     _priceLabel.frame = CGRectMake(0, kFit(54), self.frame.size.width, kFit(13));
-    _timeLabel.textColor = [UIColor whiteColor];
     _timeLabel.text = [NSString stringWithFormat:@"%@", model.timeStr];
-    int state = [UserDataSingleton mainSingleton].subState.intValue;
-    switch (state) {
-        case 1:
-            _SubjectName.text = @"科目二";
-            break;
-        case 2:
-            _SubjectName.text = @"科目三";
-            break;
-        default:
-            break;
-    }
-    
-    _SubjectName.hidden = NO;
-    _priceLabel.hidden = NO;
+    int state = model.openCourse;
     int  a = model.state;
-    switch (a) {
+    switch (state) {
         case 0:
-            self.backgroundImage.image = [UIImage imageNamed:@"time_point_bg_blue"];
+            switch (a) {
+                case 0:
+                    self.backgroundImage.image = [UIImage imageNamed:@"time_point_bg_grey"];
+                    _timeLabel.textColor = [UIColor colorWithRed:68 green:68 blue:68 alpha:1.0];
+                    _priceLabel.text = @"¥:0:00";
+                    break;
+                case 4:
+                    self.backgroundImage.image = [UIImage imageNamed:@"time_point_bg_green"];
+                    _SubjectName.hidden = YES;
+                    _priceLabel.hidden = YES;
+                    break;
+                default:
+                    break;
+            }
             break;
-        case 1:
-           self.backgroundImage.image = [UIImage imageNamed:@"time_point_bg_grey"];
-            _timeLabel.textColor = MColor(179, 179, 179);
-            _SubjectName.text = nil;
-            _priceLabel.text = @"教练已被\n预约";
-            _priceLabel.frame = CGRectMake(0, kFit(35), self.frame.size.width, kFit(30));
-            _priceLabel.textColor = MColor(179, 179, 179);
-            _priceLabel.numberOfLines = 0;
-            break;
-        case 2:
-            self.backgroundImage.image = [UIImage imageNamed:@"time_point_bg_grey"];
-            _timeLabel.textColor = MColor(179, 179, 179);
-            _SubjectName.text = nil;
-            _priceLabel.text = @"您已预约\n这个教练";
-            _priceLabel.frame = CGRectMake(0, kFit(35), self.frame.size.width, kFit(30));
-            _priceLabel.lineBreakMode = NSLineBreakByWordWrapping;
-            _priceLabel.textColor = [UIColor redColor];
-            _priceLabel.numberOfLines = 0;
-            break;
-        case 3:
-           self.backgroundImage.image = [UIImage imageNamed:@"time_point_bg_grey"];
-            _timeLabel.textColor = MColor(179, 179, 179);
-            _SubjectName.text = nil;
-            _priceLabel.text = @"您已预约\n其他教练";
-            _priceLabel.frame = CGRectMake(0, kFit(35), self.frame.size.width, kFit(30));
-            _priceLabel.lineBreakMode = NSLineBreakByWordWrapping;
-            _priceLabel.textColor = [UIColor redColor];
-            _priceLabel.numberOfLines = 0;
-            break;
-        case 4:
-            self.backgroundImage.image = [UIImage imageNamed:@"time_point_bg_green"];
-            _SubjectName.hidden = YES;
-            _priceLabel.hidden = YES;
+        case 1:{
+            switch (a) {
+                case 0:
+                    self.backgroundImage.image = [UIImage imageNamed:@"time_point_bg_blue"];
+                    _timeLabel.textColor = [UIColor whiteColor];
+                    _SubjectName.text = nil;
+                    _SubjectName.text = @"科目二";
+                    _SubjectName.textColor = [UIColor whiteColor];
+                    _priceLabel.numberOfLines = 0;
+                    _priceLabel.textColor = MColor(52, 136, 153);
+                    break;
+                case 1:
+                    self.backgroundImage.image = [UIImage imageNamed:@"time_point_bg_grey"];
+                    _timeLabel.textColor = [UIColor colorWithRed:52 green:136 blue:153 alpha:1.0];
+                    _SubjectName.text = nil;
+                    if ([model.studentId isEqualToString:[UserDataSingleton mainSingleton].studentsId]) {
+                        _priceLabel.text = @"已被自己预约";
+                    }else {
+                        _priceLabel.text = @"已被别人预约";
+                    }
+                    _priceLabel.frame = CGRectMake(0, kFit(35), self.frame.size.width, kFit(30));
+                    _priceLabel.lineBreakMode = NSLineBreakByWordWrapping;
+                    _priceLabel.textColor = [UIColor redColor];
+                    _priceLabel.numberOfLines = 0;
+                    break;
+                case 4:
+                    self.backgroundImage.image = [UIImage imageNamed:@"time_point_bg_green"];
+                    _SubjectName.hidden = YES;
+                    _priceLabel.hidden = YES;
+                    break;
+                default:
+                    break;
+            }
+        }
             break;
         default:
             break;
     }
-    
     
 }
 @end

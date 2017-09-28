@@ -26,7 +26,15 @@
 @implementation LogInViewController {
     
 }
-
+- (void)viewWillAppear:(BOOL)animated {
+    [super.navigationController setNavigationBarHidden:YES];
+    _NameIBV.NameTF.delegate = self;
+    
+}
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    _NameIBV.NameTF.delegate = nil;
+}
 - (void)handleSingleRecognizer{
     
     [_NameIBV.NameTF resignFirstResponder];
@@ -49,10 +57,7 @@
     [UIView animateWithDuration:0.0001 animations:^{
         self.scrollView.contentSize = size;//设置UIScrollView默认显示位置
     }];
-    
     [self.scrollView setContentOffset:CGPointMake(0, kFit(50))];//这个 130 是根据视图的高度自己计算出来的
-    
-    
 }
 - (void) keyboardWasHidden:(NSNotification *) notif {
     
@@ -127,11 +132,7 @@
     self.scrollView.contentSize = CGSizeMake(kScreen_widht, kScreen_heigth - 64);
     self.scrollView.sd_layout.leftSpaceToView(self.view, 0).rightSpaceToView(self.view, 0).topSpaceToView(self.view, -20).bottomSpaceToView(self.view, 0);
 }
-- (void)viewWillAppear:(BOOL)animated {
-    
-    [super.navigationController setNavigationBarHidden:YES];
-    
-}
+
 - (void)handleReturnBtn {
     
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -208,57 +209,51 @@
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&parseError];
     return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 }
-
 //登录
 - (void)handleLigInBtn {
     
+    [self.NameIBV.NameTF resignFirstResponder];
+    [self.passWordIBV.NameTF resignFirstResponder];
     
     NSString *phoneStr = self.NameIBV.NameTF.text;
     NSString *PasswordStr = self.passWordIBV.NameTF.text;
     if (self.NameIBV.NameTF.text.length == 0 || self.passWordIBV.NameTF.text.length == 0) {
         [self makeToast:@"账号或者密码不能为空"];
-        
-    }else {
+        return;
+    }
+    if(![CommonUtil checkPhonenum:phoneStr]){
+        [self makeToast:@"手机号码输入有误,请重新输入"];
+        return;
+    }
         [self performSelector:@selector(indeterminateExample)];
-        __block LogInViewController *VC = self;
-        NSString *URL=[NSString stringWithFormat:@"%@/login/api/login", kURL_SHY];
-        NSMutableDictionary *URLDIC = [NSMutableDictionary dictionary];
-        URLDIC[@"username"] = phoneStr;
-        URLDIC[@"password"] =PasswordStr;
     
-        NSString *dataStr = [self dictionaryToJson:URLDIC];//吧字典转成字符串
-        NSString *strURLOne = [dataStr stringByReplacingOccurrencesOfString:@" " withString:@""];//去掉字符串中的空格键
-        NSString *strURLTwo = [strURLOne stringByReplacingOccurrencesOfString:@"\n" withString:@""];//去掉字符串中的回车键
-        NSString *encryptDate=[SecurityUtil encryptAESData:strURLTwo];//加密
-        NSMutableDictionary *dataDic = [NSMutableDictionary dictionary];
-        dataDic[@"request"] = encryptDate;//创建后台所需要的参数
+        __block LogInViewController *VC = self;
+        NSString *URL=[NSString stringWithFormat:@"%@/student/api/login", kURL_SHY];
+        NSMutableDictionary *URLDIC = [NSMutableDictionary dictionary];
+        URLDIC[@"userName"] = phoneStr;
+        URLDIC[@"password"] =PasswordStr;
         AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
-        [session POST:URL parameters:dataDic progress:^(NSProgress * _Nonnull uploadProgress) {
+        session.requestSerializer.timeoutInterval = 10.0f;
+        [session POST:URL parameters:URLDIC progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             NSLog(@"handleLigInBtn%@", responseObject);
+            
             [VC performSelector:@selector(delayMethod)];
             [VC AnalyticalData:responseObject];
-            
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            
             [VC performSelector:@selector(delayMethod)];
             [VC showAlert:@"数据请求失败,请重试!handleLigInBtn" time:1.0];
         }];
-    }
 }
 //解析的登录过后的数据
 - (void)AnalyticalData:(NSDictionary *)dic {
     
     NSString *state = [NSString stringWithFormat:@"%@", dic[@"result"]];
-    
-    NSString *codeStr = dic[@"data"];
-    NSString *UserDataStr=[SecurityUtil decryptAESData:codeStr];
-    NSData *data = [UserDataStr dataUsingEncoding:NSUTF8StringEncoding];
-    NSArray *tempDictQueryDiamond = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    NSDictionary *urseDataDic = tempDictQueryDiamond[0];
-    NSLog(@"AnalyticalData%@", urseDataDic);
     if ([state isEqualToString:@"1"]) {
+        NSArray *tempDictQueryDiamond = dic[@"data"];
+        NSDictionary *urseDataDic = tempDictQueryDiamond[0];
+        NSLog(@"AnalyticalData%@", urseDataDic);
         [self AnalysisUserData:urseDataDic];
     }else {
         UIAlertController *alertV = [UIAlertController alertControllerWithTitle:@"抱歉!" message:[NSString stringWithFormat:@"登录失败,%@", dic[@"msg"]] preferredStyle:UIAlertControllerStyleAlert];
@@ -271,11 +266,10 @@
 }
 //获取用户详情信息 用来存储到本地判断登录状态
 - (void)AnalysisUserData:(NSDictionary*)dataDic{
-    NSString *URL_Str = [NSString stringWithFormat:@"%@/member/api/studentDetail",kURL_SHY];
+    NSString *URL_Str = [NSString stringWithFormat:@"%@/student/api/detail",kURL_SHY];
     NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
-    URL_Dic[@"memberId"] = dataDic[@"memberId"];
+    URL_Dic[@"studentId"] = dataDic[@"stuId"];
     NSLog(@"dataDic%@ URL_Dic %@", dataDic, URL_Dic);
-    
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     __block LogInViewController *VC = self;
     [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -297,18 +291,14 @@
         NSMutableDictionary *userData = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
         [userData removeAllObjects];
         for (NSString *key in userDic) {
-            
             if ([key isEqualToString:@"subState"]) {
                 [UserDataSingleton mainSingleton].subState =[NSString stringWithFormat:@"%@", userDic[key]];
             }
-            if ([key isEqualToString:@"studentId"]) {
+            if ([key isEqualToString:@"stuId"]) {
                 [UserDataSingleton mainSingleton].studentsId =[NSString stringWithFormat:@"%@", userDataDic[key]];
             }
             if ([key isEqualToString:@"coachId"]) {
                 [UserDataSingleton mainSingleton].coachId =[NSString stringWithFormat:@"%@", userDataDic[key]];
-            }
-            if ([key isEqualToString:@"memberId"]) {
-                [UserDataSingleton mainSingleton].memberId =userDic[key];
             }
             [userData setObject:userDic[key] forKey:key];
         }
@@ -322,22 +312,15 @@
         [userData writeToFile:filename atomically:YES];
         //那怎么证明我的数据写入了呢？读出来看看
         NSMutableDictionary *userData2 = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
-        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ChangesData" object:nil];
         NSLog(@"userData2%@", userData2);
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    }else {
+        [self showAlert:dic[@"result"] time:1.2];
     }
 }
 //忘记密码
 - (void)handleForgotPasswordBtn {
-    [self managedContext];
-    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"UserDataModel"];//判断是否登陆, 然后获取会员的信息
-    //执行 获取结果
-    NSArray *arr1 = [self.managedContext executeFetchRequest:request error:nil];
-    NSLog(@"arr1%@", arr1);
-    //第二次获取判断有没有超过三个.如果是三个 就删除第一个在存进去
-    NSFetchRequest *requestTwo = [[NSFetchRequest alloc] initWithEntityName:@"RecentSearchCity"];
-    //执行 获取结果
-    NSArray *arrTwo = [self.managedContext executeFetchRequest:requestTwo error:nil];
     ForgotPasswordVC *VC = [[ForgotPasswordVC alloc] init];
     [self.navigationController pushViewController:VC animated:YES];
     
@@ -352,17 +335,6 @@
 - (UIStatusBarStyle)preferredStatusBarStyle { //改变状态条颜色
     
     return UIStatusBarStyleLightContent;
-    
-}
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    
-    if ([string isEqualToString:@"\n"]) {
-        [textField resignFirstResponder];
-        return NO;
-    }
-    return YES;
-    
     
 }
 

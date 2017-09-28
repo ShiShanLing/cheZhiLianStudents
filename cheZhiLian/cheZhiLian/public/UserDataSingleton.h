@@ -12,7 +12,8 @@
 + (UserDataSingleton *)mainSingleton;
 
 @property (nonatomic, copy)NSString *subState;
+@property (nonatomic, copy)NSString *state;
 @property (nonatomic, copy)NSString *studentsId;
-@property (nonatomic, copy)NSString *memberId;
 @property (nonatomic, copy)NSString *coachId;
+
 @end

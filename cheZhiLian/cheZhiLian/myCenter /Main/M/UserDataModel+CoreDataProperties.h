@@ -2,7 +2,7 @@
 //  UserDataModel+CoreDataProperties.h
 //  cheZhiLian
 //
-//  Created by 石山岭 on 2017/8/17.
+//  Created by 石山岭 on 2017/9/4.
 //  Copyright © 2017年 石山岭. All rights reserved.
 //
 
@@ -15,18 +15,35 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSFetchRequest<UserDataModel *> *)fetchRequest;
 
-@property (nullable, nonatomic, copy) NSString *memberAvatar;
+@property (nullable, nonatomic, copy) NSString *coachId;
+@property (nullable, nonatomic, copy) NSString *stuId;
 @property (nonatomic) int16_t subState;
-@property (nullable, nonatomic, copy) NSString *memberName;
-@property (nullable, nonatomic, copy) NSString *memberTruename;
-@property (nullable, nonatomic, copy) NSString *memberMobile;
-@property (nonatomic) int16_t noPayOrder;
-@property (nullable, nonatomic, copy) NSString *memberId;
-@property (nonatomic) int16_t memberRankPoints;
-@property (nonatomic) int16_t noReceiveOrder;
-@property (nonatomic) int16_t coachId;
-@property (nonatomic) int16_t studentId;
--(void)setValue:(id)value forKey:(NSString *)key;
+@property (nonatomic) int16_t enrollState;
+@property (nonatomic) int64_t points;
+@property (nullable, nonatomic, copy) NSString *stuCard;
+@property (nullable, nonatomic, copy) NSString *idCard;
+@property (nullable, nonatomic, copy) NSDate *birthday;
+@property (nonatomic) int16_t subTwoTime;
+@property (nonatomic) int32_t balance;
+@property (nullable, nonatomic, copy) NSString *schoolId;
+@property (nonatomic) int16_t state;
+@property (nonatomic) int32_t credit;
+@property (nullable, nonatomic, copy) NSString *schoolName;
+@property (nullable, nonatomic, copy) NSString *subThreeTime;
+@property (nonatomic) int16_t ticket;
+@property (nonatomic) int16_t sex;
+@property (nullable, nonatomic, copy) NSString *avatar;
+@property (nullable, nonatomic, copy) NSString *userName;
+@property (nullable, nonatomic, copy) NSString *idCardFront;
+@property (nullable, nonatomic, copy) NSString *realName;
+@property (nullable, nonatomic, copy) NSString *referrer;
+@property (nullable, nonatomic, copy) NSDate *createTime;
+@property (nullable, nonatomic, copy) NSString *phone;
+@property (nullable, nonatomic, copy) NSDate *stuCardTime;
+@property (nullable, nonatomic, copy) NSString *idCardBack;
+
+- (void)setValue:(id)value forKey:(NSString *)key;
+
 @end
 
 NS_ASSUME_NONNULL_END

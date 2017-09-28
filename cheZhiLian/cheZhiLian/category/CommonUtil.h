@@ -28,13 +28,12 @@
 //存储 NSUserDefaults
 + (void)saveObjectToUD:(id)value key:(NSString *)key;
 + (void)deleteObjectFromUD:(NSString *)key;
-
 //MD5加密
 + (NSString *)md5:(NSString *)password;
-
 //手机号码验证
 + (BOOL)checkPhonenum:(NSString *)phone;
-
+//身份证号码验证
++(BOOL)checkUserID:(NSString *)userID;
 //获得设备型号
 + (NSString *)getCurrentDeviceModel;
 

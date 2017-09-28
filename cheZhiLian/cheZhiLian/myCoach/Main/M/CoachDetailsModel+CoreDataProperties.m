@@ -16,10 +16,17 @@
 
 @dynamic phone;
 @dynamic address;
-@dynamic realname;
+@dynamic realName;
+@dynamic carTypeName;
+@dynamic avatar;
+@dynamic reservationNum;
 
 -(void)setValue:(id)value forKey:(NSString *)key {
-    [super setValue:value forKey:key];
+    if ([key isEqualToString:@"reservationNum"]) {
+        self.reservationNum = [NSString stringWithFormat:@"%@", value];
+    }else {
+        [super setValue:value forKey:key];
+    }
 }
 
 -(void)setValue:(id)value forUndefinedKey:(NSString *)key {

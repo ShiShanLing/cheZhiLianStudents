@@ -45,6 +45,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+ //   int 转 nsstring 再转 nsdate
+    NSString *str=[NSString stringWithFormat:@"%@", @"1504022400000"];
+    NSTimeInterval time=[str doubleValue]/1000;//因为时差问题要加8小时 == 28800 sec
+    NSDate *detaildate=[NSDate dateWithTimeIntervalSince1970:time];
+  
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"YYYY-MM-dd"];
+    NSString *newTime = [NSString stringWithFormat:@"%@ 00:00:00", [dateFormatter stringFromDate:detaildate]];
+    
+    NSString *SJCStr = [NSString stringWithFormat:@"%.0f000", [[CommonUtil getDateForString:newTime format:nil] timeIntervalSince1970]];
+//    NSLog(@"最终转为字符串时间1 = %@  SJCStr%@", newTime, SJCStr);
+
+    
     [self ShoppingCellClickEvent];
     self.navigationController.navigationBar.hidden = YES;
     self.homePageVC = [[HomePageVC alloc] init];
