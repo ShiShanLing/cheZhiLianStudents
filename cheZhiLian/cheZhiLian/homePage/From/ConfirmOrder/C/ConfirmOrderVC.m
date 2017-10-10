@@ -129,6 +129,7 @@
         //[VC showAlert:responseObject[@"msg"] time:1.2];
         [self performSelector:@selector(delayMethod)];
         if ([resultStr isEqualToString:@"1"]) {
+            
             NSString *price;
             NSString *subject;
             NSString *outTradeNo;
@@ -142,7 +143,7 @@
             [self requestAliPaymentSignature:price subject:subject outTradeNo:outTradeNo body:body];
      
         }else {
-            [VC makeToast:@"报名失败,请重试!"];
+            [VC showAlert:responseObject[@"msg"] time:1.2];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [self performSelector:@selector(delayMethod)];
