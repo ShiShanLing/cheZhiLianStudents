@@ -113,6 +113,22 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    UIAlertController *alertV = [UIAlertController alertControllerWithTitle:@"警告!" message:@"你点我干嘛" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"我错了" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        NSLog(@"我错了");
+    }];
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"对不起" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        NSLog(@"对不起");
+    }];
+    // 3.将“取消”和“确定”按钮加入到弹框控制器中
+    [alertV addAction:cancle];
+    [alertV addAction:confirm];
+    // 4.控制器 展示弹框控件，完成时不做操作
+    [self presentViewController:alertV animated:YES completion:^{
+        nil;
+    }];
+
+    
     [self.tableView.mj_header beginRefreshing];
     [self setHidesBottomBarWhenPushed:NO];
 }

@@ -36,6 +36,15 @@
 
 @implementation MyOrderComplainViewController
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
+}
+
+- (IBAction)ClickReturn:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self settingView];
@@ -155,7 +164,22 @@
 
 // 提交投诉
 - (void)postComplaint {
-  [self  makeToast:@"该功能未开通"];
+    //http://106.14.158.95:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT/student/api/appealOrder?orderId=001e6f2264c844f2b43c3bb61127539d&appealReason=123
+    NSString *URL_Str = [NSString stringWithFormat:@"%@/student/api/appealOrder",kURL_SHY];
+    NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
+    URL_Dic[@"orderId"] = self.orderid;
+    URL_Dic[@"appealReason"] = _complainContentStr;
+    NSLog(@"URL_Dic%@",URL_Dic);
+    __weak  MyOrderComplainViewController  * VC = self;
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
+        NSLog(@"uploadProgress%@", uploadProgress);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [VC showAlert:responseObject[@"msg"] time:1.2];
+        NSLog(@"responseObject%@", responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"error%@", error);
+    }];
 }
 
 #pragma mark - 数据处理
@@ -197,12 +221,12 @@
 // 提交
 - (IBAction)clickForCommit:(id)sender {
     [self catchInputData];
-    if ([_complainReasonLabel.text isEqualToString:@"请选择投诉类型"]) {
-        [self makeToast:@"请选择投诉原因"];
-        return;
-    }
+//    if ([_complainReasonLabel.text isEqualToString:@"请选择投诉类型"]) {
+//        [self showAlert:@"请选择投诉原因" time:1.2];
+//        return;
+//    }
     if ([CommonUtil isEmpty:_complainContentStr]) {
-        [self makeToast:@"请输入投诉内容"];
+         [self showAlert:@"请输入投诉内容" time:1.2];
         return;
     }
     [self postComplaint];

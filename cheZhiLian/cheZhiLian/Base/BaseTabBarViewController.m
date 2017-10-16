@@ -155,6 +155,12 @@
             if ([key isEqualToString:@"coachId"]) {
                 [UserDataSingleton mainSingleton].coachId =[NSString stringWithFormat:@"%@", userDataDic[key]];
             }
+            if ([key isEqualToString:@"state"]) {
+                [UserDataSingleton mainSingleton].state = [NSString stringWithFormat:@"%@", userDataDic[key]];
+            }
+            if ([key isEqualToString:@"balance"]) {
+                [UserDataSingleton mainSingleton].balance = [NSString stringWithFormat:@"%@", userDataDic[key]];
+            }
             [userData setObject:userDataDic[key] forKey:key];
         }
         NSLog(@"[UserDataSingleton mainSingleton].studentsId%@", [UserDataSingleton mainSingleton].studentsId);

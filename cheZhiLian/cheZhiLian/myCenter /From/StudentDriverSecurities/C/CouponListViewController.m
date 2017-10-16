@@ -19,6 +19,10 @@
 - (IBAction)clickForTitleRight:(id)sender;
 @property (strong, nonatomic) IBOutlet UITableView *couponTableView;
 @property (strong, nonatomic) IBOutlet UIView *noDataView; // 无数据提示页
+/**
+ *可变数组
+ */
+@property (nonatomic, strong)NSMutableArray * couponsListAray;
 
 @end
 
@@ -29,10 +33,16 @@
     BOOL getDateSuccess;
     BOOL getHisDateSuccess;
 }
-
+- (NSMutableArray *)couponsListAray {
+    if (!_couponsListAray) {
+        _couponsListAray = [NSMutableArray array];
+    }
+    return _couponsListAray;
+}
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
+    [self requestData:@"0"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -54,33 +64,82 @@
     getDateSuccess = NO;
     getHisDateSuccess = YES;
     self.noDataView.hidden = YES;
-    [self getCouponDate];
-    [self getHisCouponDate];
+    
+}
+
+- (void)accessCouponsType{
+    
+    NSString *URL_Str = [NSString stringWithFormat:@"%@/coupon/api/getCouponClass", kURL_SHY];
+    NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
+    __weak  CouponListViewController *VC = self;
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
+        NSLog(@"uploadProgress%@", uploadProgress);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"responseObject%@", responseObject);
+        NSString *resultStr = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
+        if ([resultStr isEqualToString:@"1"]) {
+            
+        }else {
+            [VC showAlert:responseObject[@"msg"] time:1.2];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"error%@", error);
+    }];
+
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 #pragma mark - 网络请求
-- (void) getCouponDate{
-    
-    
+- (void) requestData:(NSString *)type{
+  //  http://106.14.158.95:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT/coupon/api/couponMemberList?memberId=083ed50cb97d418db29110ff12ab93ed&couponIsUsed=0
+    NSString *URL_Str = [NSString stringWithFormat:@"%@/coupon/api/couponMemberList",kURL_SHY];
+    NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
+    URL_Dic[@"memberId"] = [UserDataSingleton mainSingleton].studentsId;
+    URL_Dic[@"couponIsUsed"] = type;
+    __weak  CouponListViewController  *VC = self;
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
+        NSLog(@"uploadProgress%@", uploadProgress);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"responseObject%@", responseObject);
+        NSString *resultStr = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
+        if ([resultStr isEqualToString:@"1"]) {
+            [VC parsingData:responseObject];
+        }else {
+            [VC showAlert:responseObject[@"msg"] time:1.2];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"error%@", error);
+    }];
 }
 
-- (void) backLogin{
- 
-}
-
-- (void) getHisCouponDate{
+- (void)parsingData:(NSDictionary *)dataDic {
+    [self.couponsListAray removeAllObjects];
+    NSArray *dataArray =dataDic[@"data"];
+    if (dataArray.count == 0) {
+        return;
+    }
     
-    
+    for (NSDictionary *modelDic in dataArray) {
+        NSEntityDescription *des = [NSEntityDescription entityForName:@"CouponsModel" inManagedObjectContext:self.managedContext];
+        //根据描述 创建实体对象
+        CouponsModel *model = [[CouponsModel alloc] initWithEntity:des insertIntoManagedObjectContext:self.managedContext];
+        for (NSString *key in modelDic) {
+            [model setValue:modelDic[key] forKey:key];
+        }
+        [self.couponsListAray addObject:model];
+    }
+    [self.couponTableView reloadData];
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
   
-    return 20;
+    return self.couponsListAray.count;
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -90,27 +149,38 @@
         [tableView registerNib:[UINib nibWithNibName:@"CouponTableViewCell" bundle:nil] forCellReuseIdentifier:indentifier];
         cell = [tableView dequeueReusableCellWithIdentifier:indentifier];
     }
+    CouponsModel *model = self.couponsListAray[indexPath.row];
+
     cell.couponTipView.layer.cornerRadius = 3;
     cell.couponTipView.layer.masksToBounds = YES;
     int coupontype = arc4random()%2 +1;
-    if(coupontype == 1){
-        cell.couponTitleLabel.text = @"小巴券－学时券";
-        cell.labeltitle2.text = [NSString stringWithFormat:@"本券可以抵用%d学时学费",2];
-    }else{
-        cell.couponTitleLabel.text = @"小巴券－抵价券";
-        cell.labeltitle2.text = [NSString stringWithFormat:@"本券可以抵用学费%d元",1000];
-    }
-    cell.couponPublishLabel.text = @"测试标题";
-         cell.couponEndTime.text = [NSString stringWithFormat:@"有效期:%@",@"无限制"];
-   
-    int a = arc4random()%2 +1;
-    if(a == 1){
-        cell.couponTipView.hidden = YES;
-    }else{
-        cell.couponTipView.hidden = NO;
-        cell.couponStateLabel.text = @"已使用";
-    }
+//    if(coupontype == 1){
+//        cell.couponTitleLabel.text = @"学车券－学时券";
+//        cell.labeltitle2.text = [NSString stringWithFormat:@"本券可以抵用%d学时学费",2];
+//    }else{
+//        cell.couponTitleLabel.text = @"学车券－抵价券";
+//        cell.labeltitle2.text = [NSString stringWithFormat:@"本券可以抵用学费%d元",1000];
+//    }
+    cell.couponTitleLabel.text = model.couponDesc;
+    cell.couponPublishLabel.text = model.couponDesc;
+    cell.labeltitle2.text = [NSString stringWithFormat:@"本券%@",model.couponDesc];
+    cell.couponEndTime.text = [NSString stringWithFormat:@"到期时间:%@",[CommonUtil getStringForDate:model.endTime]];
+    cell.couponTipView.hidden = YES;
+    cell.couponStateLabel.text = @"未使用";
+//    int a = model.couponIsused;
+//    if(a == 1){
+//        cell.couponTipView.hidden = YES;
+//    }else{
+//        cell.couponTipView.hidden = NO;
+//        cell.couponStateLabel.text = @"已使用";
+//    }
     
+    if ([self.type isEqualToString:@"1"]) {
+        if ([model.couponClassId isEqualToString:@"3"]) {
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.backgroundColor = MColor(238, 238, 238);
+        }
+    }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     
@@ -121,6 +191,47 @@
     return 90;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    
+    CouponsModel *model = self.couponsListAray[indexPath.row];
+    
+    if ([self.type isEqualToString:@"1"]) {
+        if ([model.couponClassId isEqualToString:@"3"]) {
+            
+        }else {
+            self.obtainCoupons(model.couponMemberId, model.couponPrice, model.couponClassId);
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
+    
+}
+
+- (void)GetCoupon:(NSString *)couponId amount:(NSInteger)amount type:(NSString *)type{
+    NSString *URL_Str = [NSString stringWithFormat:@"%@/student/api/getCouponMember", kURL_SHY];
+    NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
+    URL_Dic[@"couponId"] = couponId;
+    URL_Dic[@"memberId"] = [UserDataSingleton mainSingleton].studentsId;
+    __weak  CouponListViewController *VC = self;
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
+        NSLog(@"uploadProgress%@", uploadProgress);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"responseObject%@", responseObject);
+        NSString *resultStr = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
+        if ([resultStr isEqualToString:@"1"]) {
+            NSArray *couponArray = responseObject[@"data"];
+            NSDictionary *couponDic = couponArray[0];
+            NSString *couponMemberId = couponDic[@"couponMemberId"];
+            self.obtainCoupons(couponMemberId, amount,type);
+            [self.navigationController popViewControllerAnimated:YES];
+        }else {
+            [VC showAlert:responseObject[@"msg"] time:1.2];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"error%@", error);
+    }];
+}
+
 // 可用小巴券
 - (IBAction)clickForTitleLeft:(id)sender {
     if(selectIndex == 1)
@@ -129,7 +240,7 @@
     self.titleLeftLabel.textColor = MColor(255, 255, 255);
     self.titleRightLabel.textColor = MColor(184, 184, 184);
     selectIndex = 1;
-    [self.couponTableView reloadData];
+    [self requestData:@"0"];
 }
 
 // 历史小巴券
@@ -140,7 +251,8 @@
     self.titleLeftLabel.textColor = MColor(184, 184, 184);
     self.titleRightLabel.textColor = MColor(255, 255, 255);
     selectIndex = 2;
-    [self.couponTableView reloadData];
+    [self requestData:@"1"];
+    
 }
 
 @end

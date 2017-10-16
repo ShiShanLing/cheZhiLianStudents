@@ -379,15 +379,17 @@
     NSString *URL_Str = [NSString stringWithFormat:@"%@/student/api/detail", kURL_SHY];
     NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
     URL_Dic[@"studentId"] =userData[@"stuId"];
+        NSLog(@"URL_Dic%@", URL_Dic);
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     __block MyCenterVC *VC = self;
     [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"%@", responseObject);
         NSString *resultStr = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
         [_tableView.mj_header endRefreshing];
         if ([resultStr isEqualToString:@"0"]) {
-            
+            [VC showAlert:responseObject[@"msg"] time:1.2];
         }else {
             [VC AnalyticalData:responseObject];
         }
@@ -424,6 +426,9 @@
                 
                 [UserDataSingleton mainSingleton].state = [NSString stringWithFormat:@"%@", urseDataDic[key]];
             }
+              if ([key isEqualToString:@"balance"]) {
+                  [UserDataSingleton mainSingleton].balance = [NSString stringWithFormat:@"%@", urseDataDic[key]];
+              }
             NSLog(@"key%@",key);
             [userData setObject:urseDataDic[key] forKey:key];
             [model setValue:urseDataDic[key] forKey:key];
@@ -444,7 +449,6 @@
     
     NSLog(@"userDataArray%@", self.userDataArray);
     [self.tableView reloadData];
-    
 }
 
 

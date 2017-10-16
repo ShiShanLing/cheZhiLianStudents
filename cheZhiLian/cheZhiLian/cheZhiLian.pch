@@ -44,6 +44,8 @@
 #import "CoachDetailsModel+CoreDataProperties.h"
 #import "GoodsOrderDetailsModel+CoreDataProperties.h"
 #import "UserDataModel+CoreDataProperties.h"
+#import "TradingRecordsModel+CoreDataClass.h"
+#import "CouponsModel+CoreDataClass.h"
 #import "LogInViewController.h"
 
 #define  kScreen_heigth [UIScreen mainScreen].bounds.size.height//屏幕高度
@@ -61,7 +63,7 @@
 #define YouLikeCellH kFit((kFit(259) - YouLikeInset))
 #define SScreen_Width [UIScreen mainScreen].bounds.size.width
 #define SScreen_Height [UIScreen mainScreen].bounds.size.height
-#define kFit(x) (SScreen_Width*((x)/kIphone6Width))
+#define kFit(x)  (SScreen_Width*((x)/kIphone6Width))
 #define MColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0f]
 #define TextSize kFit(16)
 #define kTopSpacing  64
@@ -73,7 +75,8 @@
 #define kStudentId  @"1000"
 #define kUserId   @"4c7101faa2f84f7586c6fe52373f3729"
 #define kStoreId @"1"
-
+//0246fb21a2c346268a6359f32279615e
+//0246fb21a2c346268a6359f32279615e
 //下面三个是我复制的
 #define CUSTOM_RED MColor(247,100,92)
 #define CUSTOM_BLUE MColor(110,197,217)

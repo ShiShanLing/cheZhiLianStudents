@@ -11,7 +11,8 @@
 #import "LoginViewController.h"
 #include <ifaddrs.h>
 #include <arpa/inet.h>
-
+#import <AlipaySDK/AlipaySDK.h>
+#import "AccountViewController.h"
 typedef NS_ENUM(NSUInteger, PayType) {
     PayTypeWeixin = 0,  // 微信支付
     PayTypeAli          // 支付宝支付
@@ -53,20 +54,94 @@ typedef NS_ENUM(NSUInteger, PayType) {
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
 #pragma mark 微信支付
 - (void)requestWeixinPayWithRechargeInfo:(NSDictionary *)rechargeInfo
 {
     [self makeToast:@"该功能未开通"];
 }
 #pragma mark 支付宝
-- (void)requestAlipayWithRechargeInfo:(NSDictionary *)rechargeInfo
-{
-    [self makeToast:@"该功能未开通"];
+- (void)requestAlipayWithRechargeInfo:(NSDictionary *)rechargeInfo {
+
 }
 #pragma mark - Custom
 - (void) backLogin{
   
+}
+//支付宝支付
+- (void)requestAliPaymentSignature:(NSString *)price subject:(NSString *)subject outTradeNo:(NSString *)outTradeNo body:(NSString *)body {
+    NSString *URL_Str = [NSString stringWithFormat:@"%@/alipay/api/generateSignature",kURL_SHY];
+    NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
+    URL_Dic[@"body"] = body;
+    URL_Dic[@"subject"]=subject;
+    URL_Dic[@"outTradeNo"]=outTradeNo;
+    URL_Dic[@"totalAmount"] = @"0.01";
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    __block PayViewController *VC = self;
+    [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
+        NSLog(@"%@", uploadProgress);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"requestPaymentSignature%@", responseObject);
+        NSString *str = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
+        [VC performSelector:@selector(delayMethod)];
+        if ([str isEqualToString:@"1"]) {
+            NSString *signature = responseObject[@"data"];
+            //应用注册scheme,在AliSDKDemo-Info.plist定义URL types
+            NSString *appScheme = @"chezhilianScheme";
+            // NOTE: 调用支付结果开始支付
+            [[AlipaySDK defaultService] payOrder:signature fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+                
+                NSString *resultStatus = [NSString stringWithFormat:@"%@", resultDic[@"resultStatus"]];
+                NSInteger state = resultStatus.integerValue;
+                switch (state) {
+                    case 9000:{
+                        [VC showAlert:@"订单支付成功"];
+                        UINavigationController *navigationVC = VC.navigationController;
+                        NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
+                        for (UIViewController *tempVC in navigationVC.viewControllers) {
+                            [viewControllers addObject:tempVC];
+                            if ([tempVC isKindOfClass:[AccountViewController class]]) {
+                                break;
+                            }
+                        }
+                        [navigationVC setViewControllers:viewControllers animated:YES];
+                        [navigationVC popViewControllerAnimated:YES];
+                        
+                    }
+                        break;
+                    case 8000:
+                        [VC showAlert:@"正在处理中，支付结果未知（有可能已经支付成功），请查询订单列表中订单的支付状态"];
+                        [VC.navigationController popViewControllerAnimated:YES];
+                        break;
+                    case 4000:
+                        [VC showAlert:@"订单支付失败"];
+                        [VC.navigationController popViewControllerAnimated:YES];
+                        break;
+                    case 6001:
+                        [VC showAlert:@"用户中途取消"];
+                        [VC.navigationController popViewControllerAnimated:YES];
+                        break;
+                    case 6002:
+                        [VC showAlert:@"网络连接出错"];
+                        [VC.navigationController popViewControllerAnimated:YES];
+                        break;
+                    default:
+                        break;
+                }
+                
+                NSLog(@"DetermineBtnClick = %@",resultDic);
+                
+            }];
+        }else {
+            [VC showAlert:@"订单提交失败请重试!"];
+            NSNotification * notice = [NSNotification notificationWithName:@"return" object:nil userInfo:@{@"1":@"123"}];
+            //发送消息
+            [[NSNotificationCenter defaultCenter]postNotification:notice];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [VC performSelector:@selector(delayMethod)];
+        [VC showAlert:@"网络出现问题.请稍后再试!" time:1.0];
+        NSLog(@"%@", error);
+    }];
 }
 
 // Alert提示
@@ -125,11 +200,39 @@ typedef NS_ENUM(NSUInteger, PayType) {
 }
 
 - (IBAction)payClick:(id)sender {
-    if (self.purpose == 0) { // 充值
-       [self makeToast:@"该功能未开通"];
-    }
-    else if (self.purpose == 1) { // 报名支付
-       [self makeToast:@"该功能未开通"];
-    }
+    
+    NSString *URL_Str = [NSString stringWithFormat:@"%@/student/api/recharge", kURL_SHY];
+    NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
+    URL_Dic[@"stuId"] = [UserDataSingleton mainSingleton].studentsId;
+    URL_Dic[@"schoolId"] = kStoreId;
+    URL_Dic[@"amount"] = self.cashNum;
+    __weak  PayViewController *VC = self;
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
+        NSLog(@"uploadProgress%@", uploadProgress);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"报名数据responseObject%@", responseObject);
+        NSString *resultStr= [NSString stringWithFormat:@"%@", responseObject[@"result"]];
+        //[VC showAlert:responseObject[@"msg"] time:1.2];
+        [self performSelector:@selector(delayMethod)];
+        if ([resultStr isEqualToString:@"1"]) {
+            NSString *price;
+            NSString *subject;
+            NSString *outTradeNo;
+            NSString *body;
+            NSArray *dataArray = responseObject[@"data"];
+            NSDictionary *dataDic = dataArray[0];
+            outTradeNo = dataDic[@"outTradeNo"];
+            price=[NSString stringWithFormat:@"%@", dataDic[@"totalAmount"]];
+            subject =dataDic[@"subject"];
+            body = dataDic[@"body"];
+            [self requestAliPaymentSignature:price subject:subject outTradeNo:outTradeNo body:body];
+            
+        }else {
+            [VC makeToast:@"报名失败,请重试!"];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"error%@", error);
+    }];
 }
 @end

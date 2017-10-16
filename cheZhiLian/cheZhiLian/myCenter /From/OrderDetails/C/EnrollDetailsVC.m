@@ -95,10 +95,10 @@
  *请求数据
  */
 - (void)RequestInterface {
-    //http://106.14.158.95:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT/order/api/orderlist?memberId=d30fe3ffe32c408aaa22b799f795e044&status=10&pageNo=1&pageSize=10&orderType=1
+    //http://106.14.158.95:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT/order/api/orderlist?stuId=d30fe3ffe32c408aaa22b799f795e044&status=10&pageNo=1&pageSize=10&orderType=1
     NSString *URL_Str = [NSString stringWithFormat:@"%@/order/api/orderlist", kURL_SHY];
     NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
-    URL_Dic[@"memberId"] = [UserDataSingleton mainSingleton].studentsId;
+    URL_Dic[@"studentId"] = [UserDataSingleton mainSingleton].studentsId;
     URL_Dic[@"status"] = @"10";
     URL_Dic[@"pageNo"] = @"1";
     URL_Dic[@"pageSize"] = @"10";

@@ -12,7 +12,8 @@
 #import "DSPullToRefreshManager.h"
 #import "DSBottomPullToMoreManager.h"
 #import "AppointCoachViewController.h"
-
+#import "MyOrderComplainViewController.h"
+#import "MyOrderEvaluationViewController.h"
 typedef NS_OPTIONS(NSUInteger, OrderListType) {
     OrderListTypeUncomplete = 0,    // 未完成订单
     OrderListTypeWaitEvaluate,      // 待评价订单
@@ -45,7 +46,7 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
 - (IBAction)clickForUnfinishedOrder:(id)sender;
 - (IBAction)clickForWaitEvaluateOrder:(id)sender;
 - (IBAction)clickForHistoricOrder:(id)sender;
-
+@property (copy, nonatomic) NSString *cancelOrderId;
 
 /**
  *可变数组
@@ -81,12 +82,13 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
 }
 #pragma mark 请求数据
 - (void)requestData{
-    //http://192.168.100.101:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT/train/api/listReservation?studentId=794c68fe981a448b88ba4e4061bacedf
+    //http://192.168.100.101:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT/train/api/listReservation?stuId=794c68fe981a448b88ba4e4061bacedf
     NSString *URL_Str = [NSString stringWithFormat:@"%@/train/api/listReservation", kURL_SHY];
     NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
     URL_Dic[@"studentId"] = [UserDataSingleton mainSingleton].studentsId;
-    
     NSLog(@"URL_Dic%@", URL_Dic);
+    
+    
     __weak MyOrderViewController *VC = self;
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     // manager.requestSerializer.timeoutInterval = 20;// 网络超时时长设置
@@ -94,11 +96,12 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"responseObject%@",responseObject);
-        
-        [VC  showAlert:responseObject[@"msg"] time:1.2];
-        
+        NSString *resultStr =[NSString stringWithFormat:@"%@", responseObject[@"result"]];
+        if ([resultStr isEqualToString:@"1"]) {
         [VC ParsingOrderData:responseObject[@"data"]];
-        
+        }else {
+            [VC  showAlert:responseObject[@"msg"] time:1.2];
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [VC showAlert:@"网络出错!!" time:1.2];
     }];
@@ -114,7 +117,7 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
     for (NSDictionary *dataDic in dataArray) {
         NSEntityDescription *des = [NSEntityDescription entityForName:@"ParsingOrderDataModel" inManagedObjectContext:self.managedContext];
         //根据描述 创建实体对象
-        ParsingOrderDataModel *model = [[ParsingOrderDataModel alloc] initWithEntity:des insertIntoManagedObjectContext:self.managedContext];
+        ParsingOrderDataModel *model = [[ParsingOrderDataModel  alloc] initWithEntity:des insertIntoManagedObjectContext:self.managedContext];
         
         for (NSString *key in dataDic) {
             NSLog(@"%@key", key);
@@ -286,30 +289,127 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
 }
 // 设置按钮状态
 
+// 取消订单
+- (void)cancelOrder:(ParsingOrderDataModel *)order {
+    self.cancelOrderId = order.orderId;
+    [self.view addSubview:self.moreOperationView];
+    
+}
 
 // 关闭更多操作页
 - (IBAction)clickForCloseMoreOperation:(UIButton *)sender {
     [self.moreOperationView removeFromSuperview];
 }
 
-// 确认取消订单
+// 确认申请取消订单
 - (IBAction)clickForSureCancelOrder:(UIButton *)sender {
-    
+    [self respondsToSelector:@selector(indeterminateExample)];
+    NSString *URL_Str = [NSString stringWithFormat:@"%@/student/api/cancelTrainTime", kURL_SHY];
+    NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
+    URL_Dic[@"schoolId"] = kStoreId;
+    URL_Dic[@"trainTimeId"] = self.cancelOrderId;
+    __weak  MyOrderViewController *VC = self;
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
+        NSLog(@"uploadProgress%@", uploadProgress);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"responseObject%@", responseObject);
+        NSString *resultStr = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
+        [VC respondsToSelector:@selector(delayMethod)];
+        if ([resultStr isEqualToString:@"1"]) {
+            [VC showAlert:responseObject[@"msg"] time:1.2];
+            [VC requestData];
+        }else {
+            [VC showAlert:responseObject[@"msg"] time:1.2];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [VC respondsToSelector:@selector(delayMethod)];
+        NSLog(@"error%@", error);
+    }];
+
+    [self.moreOperationView removeFromSuperview];
 }
 
 
-// 确认取消订单
 - (IBAction)backClick:(id)sender {
-    
+
     [self dismissViewControllerAnimated:YES completion:nil];
-//    if (self.comeFrom == 1) {
-//        NSUInteger index = self.navigationController.viewControllers.count;
-//        index -= 3;
-//        [self.navigationController popToViewController:self.navigationController.viewControllers[index] animated:YES];
-//    } else {
-//        [self.navigationController popViewControllerAnimated:YES];
-//    }
+
 }
 
+// 投诉
+- (void)complain:(ParsingOrderDataModel *)order {
+    MyOrderComplainViewController *targetController = [[MyOrderComplainViewController alloc] initWithNibName:@"MyOrderComplainViewController" bundle:nil];
+    targetController.orderid = order.orderId;
+    [self.navigationController pushViewController:targetController animated:YES];
+}
+// 取消投诉
+- (void)cancelComplain:(ParsingOrderDataModel *)order {
+    
+    
+}
+- (void)alertTextFieldDidChange:(NSNotification *)notification{
+    UIAlertController *alertController = (UIAlertController *)self.presentedViewController;
+    if (alertController) {
+        UITextField *comments = alertController.textFields.firstObject;
+        UIAlertAction *okAction = alertController.actions.lastObject;
+        okAction.enabled = comments.text.length >= 1;
+    }
+}
+// 评价
+- (void)eveluate:(ParsingOrderDataModel *)order {
+    __weak  MyOrderViewController *VC = self;
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"对订单进行评论" message:@"请填写" preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField){
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(alertTextFieldDidChange:) name:UITextFieldTextDidChangeNotification object:textField];
+        textField.placeholder = @"评论";
+    }];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"提交" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UITextField *comments = alertController.textFields.firstObject;
+        [VC performSelector:@selector(indeterminateExample)];
+        NSString *URL_Str = [NSString stringWithFormat:@"%@/student/api/appraiseCoach", kURL_SHY];
+        NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
+        URL_Dic[@"appraise"] = comments.text;
+        URL_Dic[@"id"] = order.orderId;
+        AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+        [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
+            NSLog(@"uploadProgress%@", uploadProgress);
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSLog(@"responseObject%@", responseObject);
+            NSString *resultStr = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
+            if ([resultStr isEqualToString:@"1"]) {
+                [VC showAlert:responseObject[@"msg"] time:1.2];
+                [VC requestData];
+            }else {
+                [VC showAlert:responseObject[@"msg"] time:1.2];
+            }
+            [VC performSelector:@selector(delayMethod)];
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            [VC performSelector:@selector(delayMethod)];
+            NSLog(@"error%@", error);
+        }];
+
+    }];
+    UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        
+    }];
+    
+    okAction.enabled = NO;
+    // 3.将“取消”和“确定”按钮加入到弹框控制器中
+    [alertController addAction:noAction];
+    [alertController addAction:okAction];
+    
+    // 4.控制器 展示弹框控件，完成时不做操作
+    [self presentViewController:alertController animated:YES completion:^{
+        nil;
+    }];
+    
+//    NSString *orderId = order.orderId;
+//    MyOrderEvaluationViewController *targetController = [[MyOrderEvaluationViewController alloc] initWithNibName:@"MyOrderEvaluationViewController" bundle:nil];
+//    targetController.orderid = orderId;
+//    [self.navigationController pushViewController:targetController animated:YES];
+//  //  [self showAlert:@"评论功能未开通" time:1.2];
+}
 
 @end

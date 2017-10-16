@@ -22,7 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *price;
 @property (nullable, nonatomic, copy) NSString *commentState;
 @property (nullable, nonatomic, copy) NSString *studentId;
+@property (nullable, nonatomic, copy) NSString *coachName;
 @property (nonatomic) int16_t state;
+@property (nonatomic) int16_t subType;
 @property (nonatomic) int16_t payState;
 @property (nonatomic) int16_t trainState;
 

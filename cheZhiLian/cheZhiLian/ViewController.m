@@ -320,8 +320,6 @@
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, kScreen_heigth - 80, kScreen_widht, 80)];
     view.backgroundColor = [UIColor redColor];
     [topVC.view addSubview:view];
-    
- 
 }
 
 @end

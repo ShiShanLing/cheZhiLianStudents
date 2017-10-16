@@ -22,5 +22,5 @@
 
 - (void)indeterminateExample;
 - (void)delayMethod;
-
+- (void)showAlert:(NSString *) _message;
 @end

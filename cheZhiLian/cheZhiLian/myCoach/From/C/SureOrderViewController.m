@@ -59,7 +59,6 @@
 
 // 选择支付方式
 @property (strong, nonatomic) IBOutlet UIView *payTypeSelectView;
-@property (weak, nonatomic) IBOutlet UIControl *coverView;
 @property (strong, nonatomic) UIButton *coverBgBtn;
 @property (weak, nonatomic) IBOutlet UILabel *remainCouponLabel;
 @property (weak, nonatomic) IBOutlet UILabel *remainCoinLabel;
@@ -74,18 +73,20 @@
 // 页面数据
 @property (strong, nonatomic) NSMutableArray *bookOrdersArray;  // 预约订单数组
 
-@property (assign, nonatomic) BOOL moneyIsDeficit;              // 余额是否不足
+@property (assign, nonatomic) BOOL moneyIsDeficit;// 余额是否不足
 
 @end
 
 @implementation SureOrderViewController
+- (IBAction)returnView:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     if ([self.carModelID isEqualToString:@"19"] && self.needCar) {
        
-    }
-    else {
+    } else {
        
     }
     self.priceSumLabel.text = [NSString stringWithFormat:@"应付金额%@元", self.priceSum];
@@ -94,13 +95,10 @@
     _couponArray = [NSMutableArray array];
     _delMoney = 0;
     self.payMoney = [self.priceSum floatValue];
-    self.couponCountLabel.text = @"您是交全款的用户所以不用付钱";
-    
+    self.couponCountLabel.text = [NSString stringWithFormat:@"您的余额%@元", [UserDataSingleton mainSingleton].balance];
     self.canUseDiffCoupon = 0;
     self.canUsedMaxCouponCount = 1;
-    
     [self goAppointBtnConfig];
-    
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_widht, 44)];
     view.backgroundColor = [UIColor whiteColor];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kScreen_widht, 44)];
@@ -271,12 +269,8 @@
     payTypeLabel.font = [UIFont systemFontOfSize:14];
     payTypeLabel.textColor = [UIColor blackColor];
     payTypeLabel.textAlignment = NSTextAlignmentRight;
-    
         payTypeLabel.text = @"账户余额";
-   
-        payTypeLabel.text = [NSString stringWithFormat:@"余额支付%.2f元", _remainderMoney];
-   
-    
+        payTypeLabel.text = [NSString stringWithFormat:@"余额支付%@元", self.priceSum];
     // 选择支付方式
     UIButton *selectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [view addSubview:selectBtn];
@@ -361,8 +355,6 @@
 #pragma mark - 配置支付方式选择view
 - (void)payTypeSelectViewConfig {
     
-    
-    
     [self selectButton:self.moneySelectBtn];
     _remainderMoney = 1800;
     
@@ -377,6 +369,9 @@
     } else {
         [self validSelectBtn:self.coinSelectBtn];
     }
+    //没有优惠券
+   // [self invalidSelectBtn:self.couponSelectBtn];
+    
 }
 // 显示可用的剩余财富
 - (void)remainWealthShow {
@@ -388,20 +383,19 @@
         self.remainCoinLabel.text = [NSString stringWithFormat:@"%d个可用", _remainderCoinNum];
 
     } else {
-        self.remainCoinLabel.text = [NSString stringWithFormat:@"小巴币不足"];
+        self.remainCoinLabel.text = [NSString stringWithFormat:@"学车币不足"];
         [self invalidSelectBtn:self.coinSelectBtn];
     }
     NSString *remainMoneyStr = nil;
     if (_remainderMoney >= 0) { // 余额足够支付
-        remainMoneyStr =  [NSString stringWithFormat:@"%d元可用", (int)_remainderMoney];
+        
+        remainMoneyStr =  [NSString stringWithFormat:@"%@元可用", [UserDataSingleton mainSingleton].balance];
     } else { // 余额不足
         remainMoneyStr = [NSString stringWithFormat:@"余额不足，需充值"];
     }
     self.remainMoneyLabel.text = remainMoneyStr;
 }
-// 确认并隐藏选择支付方式view
-- (IBAction)clickForHideSelectionView:(id)sender {
-    
+- (IBAction)hiddenPayView:(id)sender {
     [UIView animateWithDuration:0.35 animations:^{
         self.coverBgBtn.alpha = 0;
         self.payTypeSelectView.frame = CGRectMake(0, kScreen_heigth, kScreen_widht, SELVIEW_HEIGHT);
@@ -409,45 +403,150 @@
         [self.coverBgBtn removeFromSuperview];
         [self.payTypeSelectView removeFromSuperview];
     }];
+}
+
+// 确认并隐藏选择支付方式view
+- (IBAction)clickForHideSelectionView:(UIButton *)sender {
     
-    [self.tableView reloadData];
-    [self payDetailStatistics];
-    
+    if (sender.tag == 1002) {
+        [UIView animateWithDuration:0.35 animations:^{
+            self.coverBgBtn.alpha = 0;
+            self.payTypeSelectView.frame = CGRectMake(0, kScreen_heigth, kScreen_widht, SELVIEW_HEIGHT);
+        }completion:^(BOOL finished) {
+            [self.coverBgBtn removeFromSuperview];
+            [self.payTypeSelectView removeFromSuperview];
+        }];
+        [self.tableView reloadData];
+        [self payDetailStatistics];
+    }else {
+        [UIView animateWithDuration:0.35 animations:^{
+            self.coverBgBtn.alpha = 0;
+            self.payTypeSelectView.frame = CGRectMake(0, kScreen_heigth, kScreen_widht, SELVIEW_HEIGHT);
+        }completion:^(BOOL finished) {
+            [self.coverBgBtn removeFromSuperview];
+            [self.payTypeSelectView removeFromSuperview];
+        }];
+    }
 }
 
 - (void)payDetailStatistics {
-
-http://192.168.100.101:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT/train/api/makeReservation?coachId=ef6334ff740a4d2e934b895d8a9b62dc&endTime=1504753200000&price=180&startTime=1504749600000&studentId=2543216315314435bfa72e61aa55faa3
-    
-     for (int i = 0; i  < self.dateTimeSelectedList.count; i ++) {
+ //http://192.168.100.101:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT/train/api/makeReservation?coachId=ef6334ff740a4d2e934b895d8a9b62dc&endTime=1504753200000&price=180&startTime=1504749600000&studentId=2543216315314435bfa72e61aa55faa3
+    NSString *timeStr;
+    [self respondsToSelector:@selector(indeterminateExample)];
+    for (int i = 0; i < self.dateTimeSelectedList.count; i ++) {
         CoachTimeListModel *model = self.dateTimeSelectedList[i];
+            if (i == 0) {
+                timeStr =  [NSString stringWithFormat:@"%ld%@", (long)[model.startTime timeIntervalSince1970], @"000"];
+                timeStr =  [NSString stringWithFormat:@"%@,%ld%@,", timeStr,(long)[model.endTime timeIntervalSince1970], @"000"];
+            }else {
+                timeStr =  [NSString stringWithFormat:@"%@,%ld%@", timeStr,(long)[model.startTime timeIntervalSince1970], @"000"];
+                timeStr =  [NSString stringWithFormat:@"%@,%ld%@,", timeStr,(long)[model.endTime timeIntervalSince1970], @"000"];
+            }
+    }
+    NSLog(@"payDetailStatisticstimeStr%@", timeStr);
+    
         NSString *URL_Str = [NSString stringWithFormat:@"%@/train/api/makeReservation", kURL_SHY];
         NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
         URL_Dic[@"coachId"]=[UserDataSingleton mainSingleton].coachId;
         URL_Dic[@"studentId"] = [UserDataSingleton mainSingleton].studentsId;
-        NSString *startTimeSp = [NSString stringWithFormat:@"%ld%@", (long)[model.startTime timeIntervalSince1970], @"000"];
-        URL_Dic[@"startTime"] = startTimeSp;
-        //NSDate 转 时间戳
-        NSString *endTimeSp = [NSString stringWithFormat:@"%ld%@", (long)[model.endTime timeIntervalSince1970], @"000"];
-        URL_Dic[@"endTime"] = endTimeSp;
-        URL_Dic[@"price"] = [NSString stringWithFormat:@"%.0f", model.unitPrice];
+        URL_Dic[@"timeStr"] = timeStr;
+         URL_Dic[@"couponMemberId"] = @"";
+         URL_Dic[@"payType"] = @"0";
+        URL_Dic[@"price"] = [NSString stringWithFormat:@"%.0f", self.payMoney];
         NSLog(@"URL_Dic%@", URL_Dic);
         AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
         __weak SureOrderViewController *VC = self;
         [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
             NSLog(@"uploadProgress%@", uploadProgress);
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            
+            NSLog(@"responseObject%@", responseObject);
             [VC showAlert:responseObject[@"msg"] time:1.2];
+            [VC respondsToSelector:@selector(delayMethod)];
             NSString *resultStr = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
-            if ([resultStr isEqualToString:@"1"]) {
-                [VC.navigationController popViewControllerAnimated:YES];
+            if ( [resultStr isEqualToString:@"1"]) {
+                [VC AnalysisUserData];
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            [VC respondsToSelector:@selector(delayMethod)];
+            [VC showAlert:@"网络超时"];
             NSLog(@"error%@", error);
         }];
-    }
+    
  
 
 }
+- (void)AnalysisUserData{
+    
+        NSString *URL_Str = [NSString stringWithFormat:@"%@/student/api/detail", kURL_SHY];
+        NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
+    URL_Dic[@"studentId"] =[UserDataSingleton  mainSingleton].studentsId;
+        NSLog(@"URL_Dic%@", URL_Dic);
+        AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+        __block SureOrderViewController *VC = self;
+        [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
+            
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSLog(@"%@", responseObject);
+            NSString *resultStr = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
+            [_tableView.mj_header endRefreshing];
+            if ([resultStr isEqualToString:@"0"]) {
+                [VC showAlert:responseObject[@"msg"] time:1.2];
+            }else {
+                [VC AnalyticalData:responseObject];
+            }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            [_tableView.mj_header endRefreshing];
+            [VC showAlert:@"请求失败请重试" time:1.0];
+        }];
+    
+}
+//解析的用户详情的数据
+- (void)AnalyticalData:(NSDictionary *)dic {
+    NSString *state = [NSString stringWithFormat:@"%@", dic[@"result"]];
+    if ([state isEqualToString:@"1"]) {
+        NSDictionary *urseDataDic = dic[@"data"][0];
+        NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"UserLogInData" ofType:@"plist"];
+        NSMutableDictionary *userData = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
+        
+        NSEntityDescription *des = [NSEntityDescription entityForName:@"UserDataModel" inManagedObjectContext:self.managedContext];
+        //根据描述 创建实体对象
+        UserDataModel *model = [[UserDataModel alloc] initWithEntity:des insertIntoManagedObjectContext:self.managedContext];
+        [userData removeAllObjects];
+        for (NSString *key in urseDataDic) {
+            if ([key isEqualToString:@"subState"]) {
+                [UserDataSingleton mainSingleton].subState =[NSString stringWithFormat:@"%@", urseDataDic[key]];
+            }
+            if ([key isEqualToString:@"stuId"]) {
+                [UserDataSingleton mainSingleton].studentsId =[NSString stringWithFormat:@"%@", urseDataDic[key]];
+            }
+            if ([key isEqualToString:@"coachId"]) {
+                [UserDataSingleton mainSingleton].coachId =[NSString stringWithFormat:@"%@", urseDataDic[key]];
+            }
+            if ([key isEqualToString:@"state"]) {
+                
+                [UserDataSingleton mainSingleton].state = [NSString stringWithFormat:@"%@", urseDataDic[key]];
+            }
+            if ([key isEqualToString:@"balance"]) {
+                [UserDataSingleton mainSingleton].balance = [NSString stringWithFormat:@"%@", urseDataDic[key]];
+            }
+            NSLog(@"key%@",key);
+            [userData setObject:urseDataDic[key] forKey:key];
+            [model setValue:urseDataDic[key] forKey:key];
+        }
+        //获取应用程序沙盒的Documents目录
+        NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+        NSString *plistPath1 = [paths objectAtIndex:0];
+        //得到完整的文件名
+        NSString *filename=[plistPath1 stringByAppendingPathComponent:@"UserLogInData.plist"];
+        //输入写入
+        [userData writeToFile:filename atomically:YES];
+        
+        //那怎么证明我的数据写入了呢？读出来看看
+        NSMutableDictionary *userData2 = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ChangesData" object:nil];
+    }
+[self.navigationController popViewControllerAnimated:YES];
+}
+
+
 @end

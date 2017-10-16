@@ -296,12 +296,10 @@ static  BOOL EditTime;
 
 // 提醒教练开课标签设置
 - (void)remindTapConfig:(NSDictionary *)dict {
-    
     // 教练状态 0:未开课 1:已开课
     int coachState = 1;
     // 提醒状态 1:已提醒过  0:未提醒
     int remindState = 0;
-    
     // 非陪驾课表
     if (![self.carModelID isEqualToString:@"19"]) {
         

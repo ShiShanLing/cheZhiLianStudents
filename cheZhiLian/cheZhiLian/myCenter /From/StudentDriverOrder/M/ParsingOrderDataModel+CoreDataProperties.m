@@ -24,6 +24,8 @@
 @dynamic state;
 @dynamic payState;
 @dynamic trainState;
+@dynamic subType;
+@dynamic coachName;
 
 -(void)setValue:(id)value forKey:(NSString *)key {
     if ([key isEqualToString:@"id"]) {

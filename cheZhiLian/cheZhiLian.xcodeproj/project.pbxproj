@@ -20,6 +20,10 @@
 		A109DC741F419101008C1082 /* logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A109DC731F419101008C1082 /* logo.jpg */; };
 		A109DC791F41A1FE008C1082 /* CourseListModel+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A109DC761F41A1FE008C1082 /* CourseListModel+CoreDataClass.m */; };
 		A109DC7A1F41A1FE008C1082 /* CourseListModel+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A109DC781F41A1FE008C1082 /* CourseListModel+CoreDataProperties.m */; };
+		A10EDD5D1F8F438B00434843 /* TradingRecordsModel+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A10EDD5A1F8F438A00434843 /* TradingRecordsModel+CoreDataClass.m */; };
+		A10EDD5E1F8F438B00434843 /* TradingRecordsModel+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A10EDD5C1F8F438A00434843 /* TradingRecordsModel+CoreDataProperties.m */; };
+		A10EDD631F8F5F1700434843 /* CouponsModel+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A10EDD601F8F5F1700434843 /* CouponsModel+CoreDataClass.m */; };
+		A10EDD641F8F5F1700434843 /* CouponsModel+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A10EDD621F8F5F1700434843 /* CouponsModel+CoreDataProperties.m */; };
 		A128B5E71F7B8ED200D11664 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A128B5E61F7B8E8D00D11664 /* AlipaySDK.framework */; };
 		A128B5E91F7B8EE700D11664 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A128B5E81F7B8EE700D11664 /* libc++.tbd */; };
 		A128B5EB1F7B8EF400D11664 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A128B5EA1F7B8EF400D11664 /* libz.tbd */; };
@@ -135,6 +139,7 @@
 		A141D7A51F5AA55B0099BA53 /* GuangdaCoach.m in Sources */ = {isa = PBXBuildFile; fileRef = A141D7A41F5AA55B0099BA53 /* GuangdaCoach.m */; };
 		A141D7AA1F5D35100099BA53 /* UserDataModel+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A141D7A71F5D35100099BA53 /* UserDataModel+CoreDataClass.m */; };
 		A141D7AB1F5D35100099BA53 /* UserDataModel+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A141D7A91F5D35100099BA53 /* UserDataModel+CoreDataProperties.m */; };
+		A159673B1F8CAB8E00FF0F77 /* MyOrderEvaluationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A15967381F8CAB8D00FF0F77 /* MyOrderEvaluationViewController.m */; };
 		A1640FEA1F3D4F98007DCF0E /* MyCenterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A1640FE91F3D4F98007DCF0E /* MyCenterVC.m */; };
 		A1640FEE1F3D51C1007DCF0E /* ServiceDisplayTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A1640FEC1F3D51C1007DCF0E /* ServiceDisplayTVCell.m */; };
 		A1640FEF1F3D51C1007DCF0E /* ServiceDisplayTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1640FED1F3D51C1007DCF0E /* ServiceDisplayTVCell.xib */; };
@@ -291,6 +296,14 @@
 		A109DC761F41A1FE008C1082 /* CourseListModel+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CourseListModel+CoreDataClass.m"; sourceTree = "<group>"; };
 		A109DC771F41A1FE008C1082 /* CourseListModel+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CourseListModel+CoreDataProperties.h"; sourceTree = "<group>"; };
 		A109DC781F41A1FE008C1082 /* CourseListModel+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CourseListModel+CoreDataProperties.m"; sourceTree = "<group>"; };
+		A10EDD591F8F438A00434843 /* TradingRecordsModel+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TradingRecordsModel+CoreDataClass.h"; sourceTree = "<group>"; };
+		A10EDD5A1F8F438A00434843 /* TradingRecordsModel+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "TradingRecordsModel+CoreDataClass.m"; sourceTree = "<group>"; };
+		A10EDD5B1F8F438A00434843 /* TradingRecordsModel+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TradingRecordsModel+CoreDataProperties.h"; sourceTree = "<group>"; };
+		A10EDD5C1F8F438A00434843 /* TradingRecordsModel+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "TradingRecordsModel+CoreDataProperties.m"; sourceTree = "<group>"; };
+		A10EDD5F1F8F5F1700434843 /* CouponsModel+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CouponsModel+CoreDataClass.h"; sourceTree = "<group>"; };
+		A10EDD601F8F5F1700434843 /* CouponsModel+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CouponsModel+CoreDataClass.m"; sourceTree = "<group>"; };
+		A10EDD611F8F5F1700434843 /* CouponsModel+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CouponsModel+CoreDataProperties.h"; sourceTree = "<group>"; };
+		A10EDD621F8F5F1700434843 /* CouponsModel+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CouponsModel+CoreDataProperties.m"; sourceTree = "<group>"; };
 		A128B5E51F7B8E8D00D11664 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		A128B5E61F7B8E8D00D11664 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		A128B5E81F7B8EE700D11664 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -465,6 +478,9 @@
 		A141D7A71F5D35100099BA53 /* UserDataModel+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UserDataModel+CoreDataClass.m"; sourceTree = "<group>"; };
 		A141D7A81F5D35100099BA53 /* UserDataModel+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UserDataModel+CoreDataProperties.h"; sourceTree = "<group>"; };
 		A141D7A91F5D35100099BA53 /* UserDataModel+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UserDataModel+CoreDataProperties.m"; sourceTree = "<group>"; };
+		A15967381F8CAB8D00FF0F77 /* MyOrderEvaluationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyOrderEvaluationViewController.m; sourceTree = "<group>"; };
+		A15967391F8CAB8D00FF0F77 /* MyOrderEvaluationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyOrderEvaluationViewController.xib; sourceTree = "<group>"; };
+		A159673A1F8CAB8E00FF0F77 /* MyOrderEvaluationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyOrderEvaluationViewController.h; sourceTree = "<group>"; };
 		A1640FE81F3D4F98007DCF0E /* MyCenterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCenterVC.h; sourceTree = "<group>"; };
 		A1640FE91F3D4F98007DCF0E /* MyCenterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCenterVC.m; sourceTree = "<group>"; };
 		A1640FEB1F3D51C1007DCF0E /* ServiceDisplayTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceDisplayTVCell.h; sourceTree = "<group>"; };
@@ -736,6 +752,9 @@
 				A100A4D81F4423250094BCF0 /* MyOrderViewController.h */,
 				A100A4D91F4423250094BCF0 /* MyOrderViewController.m */,
 				A100A4DA1F4423250094BCF0 /* MyOrderViewController.xib */,
+				A159673A1F8CAB8E00FF0F77 /* MyOrderEvaluationViewController.h */,
+				A15967381F8CAB8D00FF0F77 /* MyOrderEvaluationViewController.m */,
+				A15967391F8CAB8D00FF0F77 /* MyOrderEvaluationViewController.xib */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -906,6 +925,9 @@
 		A141D6B21F5A93FB0099BA53 /* C */ = {
 			isa = PBXGroup;
 			children = (
+				A141D6C11F5A947E0099BA53 /* AccountListViewController.h */,
+				A141D6C21F5A947E0099BA53 /* AccountListViewController.m */,
+				A141D6C31F5A947E0099BA53 /* AccountListViewController.xib */,
 				A141D6D01F5A94970099BA53 /* CoinListViewController.h */,
 				A141D6D11F5A94970099BA53 /* CoinListViewController.m */,
 				A141D6D21F5A94970099BA53 /* CoinListViewController.xib */,
@@ -918,9 +940,6 @@
 				A141D6D91F5A94970099BA53 /* UseRuleViewController.h */,
 				A141D6DA1F5A94970099BA53 /* UseRuleViewController.m */,
 				A141D6DB1F5A94970099BA53 /* UseRuleViewController.xib */,
-				A141D6C11F5A947E0099BA53 /* AccountListViewController.h */,
-				A141D6C21F5A947E0099BA53 /* AccountListViewController.m */,
-				A141D6C31F5A947E0099BA53 /* AccountListViewController.xib */,
 				A141D6C41F5A947E0099BA53 /* AccountManagerViewController.h */,
 				A141D6C51F5A947E0099BA53 /* AccountManagerViewController.m */,
 				A141D6C61F5A947E0099BA53 /* AccountManagerViewController.xib */,
@@ -934,6 +953,10 @@
 		A141D6B31F5A93FB0099BA53 /* M */ = {
 			isa = PBXGroup;
 			children = (
+				A10EDD591F8F438A00434843 /* TradingRecordsModel+CoreDataClass.h */,
+				A10EDD5A1F8F438A00434843 /* TradingRecordsModel+CoreDataClass.m */,
+				A10EDD5B1F8F438A00434843 /* TradingRecordsModel+CoreDataProperties.h */,
+				A10EDD5C1F8F438A00434843 /* TradingRecordsModel+CoreDataProperties.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -1074,6 +1097,10 @@
 		A141D6BF1F5A93FB0099BA53 /* M */ = {
 			isa = PBXGroup;
 			children = (
+				A10EDD5F1F8F5F1700434843 /* CouponsModel+CoreDataClass.h */,
+				A10EDD601F8F5F1700434843 /* CouponsModel+CoreDataClass.m */,
+				A10EDD611F8F5F1700434843 /* CouponsModel+CoreDataProperties.h */,
+				A10EDD621F8F5F1700434843 /* CouponsModel+CoreDataProperties.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -2232,7 +2259,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A141D6A31F5A8C6A0099BA53 /* XYSideViewController.m in Sources */,
+				A10EDD5E1F8F438B00434843 /* TradingRecordsModel+CoreDataProperties.m in Sources */,
 				A1F740951F3802FE00F0B71C /* CommonUtil+Date.m in Sources */,
+				A10EDD631F8F5F1700434843 /* CouponsModel+CoreDataClass.m in Sources */,
 				A1F740061F35AF2800F0B71C /* UIViewController+Toast.m in Sources */,
 				A16F42821F45481D007BF51C /* MyOrderCViewCell.m in Sources */,
 				A141D7951F5AA0170099BA53 /* XBCity.m in Sources */,
@@ -2248,6 +2277,7 @@
 				A1F740911F3800E900F0B71C /* SelectCouponTableViewCell.m in Sources */,
 				A167A43C1F46E5DA00A9D224 /* SecurityUtil.m in Sources */,
 				A1F740731F37FD6F00F0B71C /* CoachScreenViewController.m in Sources */,
+				A10EDD641F8F5F1700434843 /* CouponsModel+CoreDataProperties.m in Sources */,
 				A192D61A1F3C44EC00E6D2CA /* ConfirmBuyersTVCell.m in Sources */,
 				A141D7281F5A97DB0099BA53 /* LearnDriveInfoViewController.m in Sources */,
 				A1F7400D1F35AF6C00F0B71C /* GreyTopViewController.m in Sources */,
@@ -2275,6 +2305,7 @@
 				A1F7408F1F3800E900F0B71C /* CommentTableViewCell.m in Sources */,
 				A1B2FB441F39A4A90049D2B8 /* FeeItemizationsTVCell.m in Sources */,
 				A141D6A71F5A8D1A0099BA53 /* SideBarViewController.m in Sources */,
+				A10EDD5D1F8F438B00434843 /* TradingRecordsModel+CoreDataClass.m in Sources */,
 				A141D6CC1F5A947E0099BA53 /* AccountManagerViewController.m in Sources */,
 				A141D7591F5A98F50099BA53 /* CZPhotoPickerController.m in Sources */,
 				A141D6F11F5A94BF0099BA53 /* UserRuleTableViewCell.m in Sources */,
@@ -2353,6 +2384,7 @@
 				A1F740861F37FFA000F0B71C /* DSPullToRefreshManager.m in Sources */,
 				A1E9992C1F38459000EA7CD4 /* timeStateCVCell.m in Sources */,
 				A100A4EC1F442E750094BCF0 /* ParsingOrderDataModel+CoreDataProperties.m in Sources */,
+				A159673B1F8CAB8E00FF0F77 /* MyOrderEvaluationViewController.m in Sources */,
 				A16410061F3DA4D6007DCF0E /* CoachTimeListModel+CoreDataProperties.m in Sources */,
 				A141D7051F5A96590099BA53 /* ComplaintViewController.m in Sources */,
 				A16DD79E1F445C6F000FA8BE /* CoachDetailsModel+CoreDataClass.m in Sources */,
@@ -2523,6 +2555,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3ZC4VG35Y5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2541,6 +2574,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.cheZhiLian.www-iOSApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -2549,6 +2584,8 @@
 			baseConfigurationReference = 6D18E9A10D225F136BBAF6CA /* Pods-cheZhiLian.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3ZC4VG35Y5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2567,6 +2604,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.cheZhiLian.www-iOSApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

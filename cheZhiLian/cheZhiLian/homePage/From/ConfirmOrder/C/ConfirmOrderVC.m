@@ -13,6 +13,7 @@
 #import "TotalPriceView.h"
 #import "UserBaseInfoViewController.h"
 #import <AlipaySDK/AlipaySDK.h>
+#import "CouponListViewController.h"
 @interface ConfirmOrderVC ()<UITableViewDelegate, UITableViewDataSource, TotalPriceViewDelegate>
 
 @property (nonatomic, strong)UITableView *tableView;
@@ -25,6 +26,9 @@
 @end
 
 @implementation ConfirmOrderVC {
+    NSInteger couponsAmounte;
+    NSString *couponMemberId;
+    NSString *couponsType;
     NSString *realName;
     NSString *phone;
     NSString *IdNum;
@@ -109,13 +113,14 @@
         }];
         return;
     }
-    
+    //http://106.14.158.95:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT/order/api/saveEnrollOrder?studentId=e773b4cd7a884f2196543ac17f6456ce&storeId=1&goodsId=6d0e8b211fc943aa85b3704556dcc3b6&couponMemberId=3e11ee50f1644446bc6bb20a839b8608
     [self performSelector:@selector(indeterminateExample)];
     NSString *URL_Str = [NSString stringWithFormat:@"%@/order/api/saveEnrollOrder", kURL_SHY];
     NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
     URL_Dic[@"studentId"] = [UserDataSingleton mainSingleton].studentsId;
     URL_Dic[@"storeId"] = kStoreId;
     URL_Dic[@"goodsId"] = _goodsDetailsModel.goodsId;
+    URL_Dic[@"couponMemberId"] = couponMemberId.length == 0?@"":couponMemberId;
     NSLog(@"RequestInterface%@", URL_Dic);
     __weak ConfirmOrderVC *VC = self;
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
@@ -239,7 +244,12 @@
     
     if (indexPath.section == 0) {
         confirmGoodsTVCell *cell = [tableView dequeueReusableCellWithIdentifier:@"confirmGoodsTVCell" forIndexPath:indexPath];
-        _totalPriceView.priceLabel.text = [NSString stringWithFormat:@"需付款:¥ %.2f", _goodsDetailsModel.goodsStorePrice];
+        if (_goodsDetailsModel.goodsStorePrice<couponsAmounte) {
+            _totalPriceView.priceLabel.text = [NSString stringWithFormat:@"需付款:¥ %.2f", _goodsDetailsModel.goodsStorePrice];
+        }else {
+            _totalPriceView.priceLabel.text = [NSString stringWithFormat:@"需付款:¥ %.2f", _goodsDetailsModel.goodsStorePrice-couponsAmounte];
+        }
+        
         cell.model = self.goodsDetailsModel;
         return cell;
     }else if(indexPath.section == 1){
@@ -261,7 +271,12 @@
         }
         if (indexPath.row == 0) {
             cell.titleNameLabel.text = @"优惠券";
-            cell.ContentNameLabel.text = @"你还没有优惠券";
+            if (_goodsDetailsModel.goodsStorePrice<couponsAmounte) {
+                cell.ContentNameLabel.text = @"优惠券金额大于实付金额";
+            }else {
+                NSLog(@"couponsID%@", couponMemberId);
+                  cell.ContentNameLabel.text = couponMemberId.length == 0?@"你还没有优惠券":[NSString stringWithFormat:@"优惠金额%ld", (long)couponsAmounte];
+            }
         }
         return cell;
     }
@@ -270,6 +285,19 @@
     
     if (indexPath.section == 1) {
         UserBaseInfoViewController *VC = [[UserBaseInfoViewController alloc] initWithNibName:@"UserBaseInfoViewController" bundle:nil];
+        [self.navigationController pushViewController:VC animated:YES];
+    }
+    if (indexPath.section == 2) {
+        CouponListViewController *VC = [[CouponListViewController alloc] initWithNibName:@"CouponListViewController" bundle:nil];
+        VC.type = @"1";
+        __weak ConfirmOrderVC *CVC = self;
+        VC.obtainCoupons = ^(NSString *couponsID, NSInteger amount,NSString *type) {
+            NSLog(@"couponsID%@ amount%d type%@", couponsID, amount, type);
+            couponMemberId = couponsID;
+            couponsAmounte = amount;
+            couponsType = type;
+            [CVC.tableView reloadData];
+        };
         [self.navigationController pushViewController:VC animated:YES];
     }
 }

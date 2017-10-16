@@ -8,6 +8,12 @@
 
 #import "GreyTopViewController.h"
 
+
+
 @interface CouponListViewController : GreyTopViewController
+//
+@property (nonatomic, strong)NSString *type;
+
+@property (nonatomic,copy) void(^obtainCoupons)(NSString *couponsID,NSInteger amount ,NSString *couponsType);
 
 @end

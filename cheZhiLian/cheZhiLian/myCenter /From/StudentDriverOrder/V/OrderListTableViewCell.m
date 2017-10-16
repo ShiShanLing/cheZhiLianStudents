@@ -38,25 +38,12 @@
     [super setSelected:selected animated:animated];
 }
 
-- (void)loadData
-{
+- (void)loadData {
   }
-
 // 订单状态文字配置
-- (void)orderStateTextConfig
-{
+- (void)orderStateTextConfig{
     // 未完成订单
-    
-    
 }
-
-// 按钮组配置
-- (void)operationBtnsConfig {
-    self.rightBtn.hidden = YES;
-    self.leftBtn.hidden = YES;
-    [self cancelOrderBtnConfig:self.rightBtn];
-}
-
 #pragma mark - 按钮样式
 - (void)btnConfig:(UIButton *)btn
   withBorderWidth:(CGFloat)borderWidth
@@ -136,10 +123,8 @@
          titleColor:CUSTOM_GREEN
              action:@selector(cancelComplainClick)];
 }
-
 // 评价按钮
-- (void)eveluateBtnConfig:(UIButton *)btn
-{
+- (void)eveluateBtnConfig:(UIButton *)btn  {
     [self btnConfig:btn withBorderWidth:0
         borderColor:[[UIColor clearColor] CGColor]
        cornerRadius:4
@@ -148,7 +133,6 @@
          titleColor:[UIColor whiteColor]
              action:@selector(eveluateClick)];
 }
-
 // 继续预约按钮
 - (void)bookMoreBtnConfig:(UIButton *)btn
 {
@@ -165,74 +149,58 @@
 // 取消订单
 - (void)cancelOrderClick
 {
-//    if ([self.delegate respondsToSelector:@selector(cancelOrder:)]) {
-//        [self.delegate cancelOrder:self.order];
-//    }
+    if ([self.delegate respondsToSelector:@selector(cancelOrder:)]) {
+        [self.delegate cancelOrder:_model];
+    }
 }
 
 // 确认上车
 - (void)confirmOnClick
 {
-//    if ([self.delegate respondsToSelector:@selector(confirmOn:)]) {
-//        [self.delegate confirmOn:self.order];
-//    }
+    if ([self.delegate respondsToSelector:@selector(confirmOn:)]) {
+        [self.delegate confirmOn:_model];
+    }
 }
 
 // 确认下车
 - (void)confirmDownClick
 {
-//    if ([self.delegate respondsToSelector:@selector(confirmDown:)]) {
-//        [self.delegate confirmDown:self.order];
-//    }
+    if ([self.delegate respondsToSelector:@selector(confirmDown:)]) {
+        [self.delegate confirmDown:_model];
+    }
 }
 
 // 投诉
 - (void)complainClick
 {
-//    if ([self.delegate respondsToSelector:@selector(complain:)]) {
-//        [self.delegate complain:self.order];
-//    }
+    if ([self.delegate respondsToSelector:@selector(complain:)]) {
+        [self.delegate complain:_model];
+    }
 }
 
 // 取消投诉
 - (void)cancelComplainClick
 {
-//    if ([self.delegate respondsToSelector:@selector(cancelComplain:)]) {
-//        [self.delegate cancelComplain:self.order];
-//    }
+    if ([self.delegate respondsToSelector:@selector(cancelComplain:)]) {
+        [self.delegate cancelComplain:_model];
+    }
 }
 
 // 评价
-- (void)eveluateClick
-{
-//    if ([self.delegate respondsToSelector:@selector(eveluate:)]) {
-//        [self.delegate eveluate:self.order];
-//    }
+- (void)eveluateClick {
+    if ([self.delegate respondsToSelector:@selector(eveluate:)]) {
+        [self.delegate eveluate:_model];
+    }
 }
 
 // 继续预约
-- (void)bookMoreClick
-{
-//    if ([self.delegate respondsToSelector:@selector(bookMore:)]) {
-//        [self.delegate bookMore:self.order];
-//    }
+- (void)bookMoreClick {
+
 }
 
 - (void)setModel:(ParsingOrderDataModel *)model {
-    
-    switch (model.trainState) {
-        case 0:
-            self.statusLabel.text = @"订单未开始";
-            break;
-        case 1:
-            self.statusLabel.text = @"学员已上车!";
-            break;
-        case 2:
-            self.statusLabel.text = @"学员已下车!";
-            break;
-        default:
-            break;
-    }
+    _model = model;
+
     
     NSString *startTime = [CommonUtil getStringForDate:model.startTime format:@"HH:mm"];
     NSString * endTime = [CommonUtil getStringForDate:model.endTime format:@"HH:mm"];
@@ -242,7 +210,7 @@
     //self.statusLabel.text = [NSString stringWithFormat:@"离学车还有XX%@",[CommonUtil getTimeDiff:model.startTime]];
     // 教练
     NSString *coachText = nil;
-    NSString *nameStr = [NSString stringWithFormat:@"教练: %@", @"SHY"];
+    NSString *nameStr = [NSString stringWithFormat:@"教练: %@ %@", model.coachName ,model.subType==0?@"科目二":@"科目三"];
     NSString *carStr = nil;
     coachText =  nameStr;
     NSMutableAttributedString *coachAttText = [[NSMutableAttributedString alloc] initWithString:coachText];
@@ -260,8 +228,41 @@
     NSMutableAttributedString *costAttText = [[NSMutableAttributedString alloc] initWithString:costText];
     
     self.costLabel.attributedText = costAttText;
-    // 按钮配置
-    [self operationBtnsConfig];
+    
+    
+    
+    switch (model.trainState) {
+        case 0:
+            [self complainBtnConfig:self.leftBtn];
+            [self eveluateBtnConfig:self.rightBtn];
+            
+            if (model.state == 3) {
+                self.statusLabel.text = @"订单申请取消中.等待教练确认!";
+            }else {
+                self.statusLabel.text = @"订单未开始";
+            }
+            break;
+        case 1:
+            [self complainBtnConfig:self.leftBtn];
+            [self cancelOrderBtnConfig:self.rightBtn];
+            self.statusLabel.text = @"学员已上车!";
+            break;
+        case 2:
+            if (model.commentState == 0) {
+                self.statusLabel.text = @"订单已经结束,等待您的评论!";
+                [self complainBtnConfig:self.leftBtn];
+                [self eveluateBtnConfig:self.rightBtn];
+            }else {
+                [self complainBtnConfig:self.leftBtn];
+                self.statusLabel.text = @"已评论!";
+            }
+            
+            break;
+        default:
+            break;
+    }
+    //按钮配置
+    
     
     self.cancelOrderBannerLabel.hidden = YES;
     self.leftBtn.hidden = NO;

@@ -31,6 +31,10 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
 }
+- (IBAction)ClickReturn:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];

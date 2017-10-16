@@ -18,6 +18,10 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 - (void)saveContext;
-
+/**
+ *重要的但是没做.预约培训 显示预约失败的时间段
+ *报名订单 支付状态显示
+ *优惠券 满减金额是否达到
+ */
 @end
 

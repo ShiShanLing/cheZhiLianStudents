@@ -9,20 +9,20 @@
 #import <UIKit/UIKit.h>
 
 @protocol OrderListTableViewCellDelegate <NSObject>
-//// 取消订单
-//- (void)cancelOrder:(GuangdaOrder *)order;
-//// 确认上车
-//- (void)confirmOn:(GuangdaOrder *)order;
-//// 确认下车
-//- (void)confirmDown:(GuangdaOrder *)order;
-//// 投诉
-//- (void)complain:(GuangdaOrder *)order;
-//// 取消投诉
-//- (void)cancelComplain:(GuangdaOrder *)order;
-//// 评价
-//- (void)eveluate:(GuangdaOrder *)order;
-//// 继续预约
-//- (void)bookMore:(GuangdaOrder *)order;
+// 取消订单
+- (void)cancelOrder:(ParsingOrderDataModel *)order;
+// 确认上车
+- (void)confirmOn:(ParsingOrderDataModel *)order;
+// 确认下车
+- (void)confirmDown:(ParsingOrderDataModel *)order;
+// 投诉
+- (void)complain:(ParsingOrderDataModel *)order;
+// 取消投诉
+- (void)cancelComplain:(ParsingOrderDataModel *)order;
+// 评价
+- (void)eveluate:(ParsingOrderDataModel *)order;
+// 继续预约
+- (void)bookMore:(ParsingOrderDataModel *)order;
 @end
 
 @interface OrderListTableViewCell : UITableViewCell

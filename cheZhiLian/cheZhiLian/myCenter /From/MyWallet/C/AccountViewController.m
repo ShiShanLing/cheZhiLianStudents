@@ -28,7 +28,16 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *bottomLineHeight;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *topLineHeight;
 
+
+/**
+ *可变数组
+ */
+@property (nonatomic, strong)NSMutableArray *dataArray;
+
+
 @property (copy, nonatomic) NSString *balance;
+
+
 
 - (IBAction)clickForAccountManager:(id)sender;
 
@@ -36,13 +45,20 @@
 
 @implementation AccountViewController
 
+- (NSMutableArray *)dataArray {
+    if (!_dataArray) {
+        _dataArray = [NSMutableArray array];
+    }
+    return _dataArray;
+}
+
 - (IBAction)handleReturn:(id)sender {
     
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-       [self requestAccountRemainMoneyInterface];
+    [self requestData];
     self.navigationController.navigationBar.hidden = YES;
 }
 
@@ -64,39 +80,78 @@
     self.topLineHeight.constant = .5;
     self.bottomLineHeight.constant = .5;
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+//获取账交易数据
+- (void)requestData {
+    [self respondsToSelector:@selector(indeterminateExample)];
+    NSString *URL_Str = [NSString stringWithFormat:@"%@/student/api/findAccountLog", kURL_SHY];
+    NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
+    URL_Dic[@"stuId"] = [UserDataSingleton mainSingleton].studentsId;
+    NSLog(@"URL_Dic%@", URL_Dic);
+    __weak  AccountViewController *VC = self;
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
+        NSLog(@"uploadProgress%@", uploadProgress);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"responseObject%@", responseObject);
+        NSString *resultStr =[NSString stringWithFormat:@"%@", responseObject[@"result"]];
+        [VC respondsToSelector:@selector(delayMethod)];
+        if ([resultStr isEqualToString:@"1"]) {
+            [VC parsingData:responseObject];
+        }else {
+            [VC  showAlert:responseObject[@"msg"] time:1.2];
+            
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [VC respondsToSelector:@selector(delayMethod)];
+        [VC showAlert:@"网络超时请重试" time:1.2];
+        NSLog(@"error%@", error);
+    }];
 
+}
+- (void)parsingData:(NSDictionary *)dataDic {
+    [self.dataArray removeAllObjects];
+    self.currentMoneyLabel.text  = [NSString stringWithFormat:@"%@", dataDic[@"balance"]];
+    [UserDataSingleton mainSingleton].balance =[NSString stringWithFormat:@"%@", dataDic[@"balance"]];
+    NSArray *dataArray = dataDic[@"data"];
+    if (dataArray.count == 0) {
+        return;
+    }
+    for (NSDictionary *modelDic in dataArray) {
+        
+        NSEntityDescription *des = [NSEntityDescription entityForName:@"TradingRecordsModel" inManagedObjectContext:self.managedContext];
+        //根据描述 创建实体对象
+        TradingRecordsModel *model = [[TradingRecordsModel alloc] initWithEntity:des insertIntoManagedObjectContext:self.managedContext];
+        for (NSString *key in modelDic) {
+            [model setValue:modelDic[key] forKey:key];
+        }
+        [self.dataArray addObject:model];
+    }
+    [self.tableView reloadData];
+}
 // 充值
 - (IBAction)rechargeClick:(id)sender {
     TypeinNumberViewController *viewController = [[TypeinNumberViewController alloc] initWithNibName:@"TypeinNumberViewController" bundle:nil];
     viewController.status = @"1";
     [self.navigationController pushViewController:viewController animated:YES];
 }
-
 // 提现
 - (IBAction)getCashClick:(id)sender {
-    NSDictionary *user_info = [CommonUtil getObjectFromUD:@"UserInfo"];
-    NSString *aliaccount = user_info[@"alipay_account"];
-    if([CommonUtil isEmpty:aliaccount]){
-        [self makeToast:@"您还未设置支付宝账户,请先去账户管理页面设置您的支付宝账户"];
-        return;
-    }
-    
+//    NSDictionary *user_info = [CommonUtil getObjectFromUD:@"UserInfo"];
+//    NSString *aliaccount = user_info[@"alipay_account"];
+//    if([CommonUtil isEmpty:aliaccount]){
+//        [self makeToast:@"您还未设置支付宝账户,请先去账户管理页面设置您的支付宝账户"];
+//        return;
+//    }
     TypeinNumberViewController *viewController = [[TypeinNumberViewController alloc] initWithNibName:@"TypeinNumberViewController" bundle:nil];
     viewController.status = @"2";
     viewController.balance = self.balance;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
-# pragma mark - 网络请求
-- (void)requestAccountRemainMoneyInterface
-{
- 
-}
 
 - (void) backLogin{
     
@@ -105,7 +160,7 @@
 #pragma mark - UITableView
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _recordList.count;
+    return self.dataArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -122,8 +177,8 @@
         cell = [tableView dequeueReusableCellWithIdentifier:indentifier];
     }
     
-    NSDictionary *recordDic = self.recordList[indexPath.row];
-    [cell loadData:recordDic];
+    TradingRecordsModel *model = self.dataArray[indexPath.row];
+    [cell loadData:model];
     return cell;
 }
 

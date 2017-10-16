@@ -57,7 +57,7 @@
     NSMutableDictionary *userData = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
     NSLog(@"userData%@", userData);
     NSArray *keyArray =[userData allKeys];
-    if (keyArray.count == 0) {
+    if (keyArray.count == 0 || [UserDataSingleton mainSingleton].studentsId.length == 0) {
         self.userNameLabel.text = @"账号未登录";
         self.phoneNumLabel.text = @"";
         [self.userLogo setImage:[UIImage imageNamed:@"login_icon"]];
@@ -74,28 +74,42 @@
 
 // 个人信息
 - (IBAction)userInfo:(id)sender {
-    
-    UserInfoHomeViewController *viewController = [[UserInfoHomeViewController alloc] initWithNibName:@"UserInfoHomeViewController" bundle:nil];
-    UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:viewController];
-    [self presentViewController:NAVC animated:YES completion:nil];
-    
+    if ([UserDataSingleton mainSingleton].studentsId.length == 0) {
+        LogInViewController *VC = [[LogInViewController alloc] init];
+        UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:VC];
+        [self presentViewController:NAVC animated:YES completion:nil];
+    }else {
+        UserInfoHomeViewController *viewController = [[UserInfoHomeViewController alloc] initWithNibName:@"UserInfoHomeViewController" bundle:nil];
+        UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:viewController];
+        [self presentViewController:NAVC animated:YES completion:nil];
+    }
 }
 
 // 我的订单
 - (IBAction)myOrderClick:(id)sender {
-    
+    if ([UserDataSingleton mainSingleton].studentsId.length == 0) {
+        
+        LogInViewController *VC = [[LogInViewController alloc] init];
+        UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:VC];
+        [self presentViewController:NAVC animated:YES completion:nil];
+    }else {
     MyOrderViewController *viewController = [[MyOrderViewController alloc] initWithNibName:@"MyOrderViewController" bundle:nil];
     UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:viewController];
     [self presentViewController:NAVC animated:YES completion:nil];
-    
+    }
 }
 // 账户
 - (IBAction)accountClick:(id)sender {
-    
+    if ([UserDataSingleton mainSingleton].studentsId.length == 0) {
+        
+        LogInViewController *VC = [[LogInViewController alloc] init];
+        UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:VC];
+        [self presentViewController:NAVC animated:YES completion:nil];
+    }else {
     AccountListViewController *viewController = [[AccountListViewController alloc] initWithNibName:@"AccountListViewController" bundle:nil];
     UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:viewController];
     [self presentViewController:NAVC animated:YES completion:nil];
-    
+    }
 }
 //学车报名
 - (IBAction)clickForSignUp:(id)sender{
@@ -104,11 +118,16 @@
 }
 // 系统消息
 - (IBAction)messageClick:(id)sender {
-    
+    if ([UserDataSingleton mainSingleton].studentsId.length == 0) {
+        
+        LogInViewController *VC = [[LogInViewController alloc] init];
+        UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:VC];
+        [self presentViewController:NAVC animated:YES completion:nil];
+    }else {
     SystemMessageViewController *viewController = [[SystemMessageViewController alloc] initWithNibName:@"SystemMessageViewController" bundle:nil];
     UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:viewController];
     [self presentViewController:NAVC animated:YES completion:nil];
-    
+    }
 }
 
 // 设置

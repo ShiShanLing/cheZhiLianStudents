@@ -128,7 +128,6 @@
         [pickerView reloadComponent:2];
         [pickerView selectRow:0 inComponent:1 animated:YES];
         [pickerView selectRow:0 inComponent:2 animated:YES];
-        
     }
     // 市
     else if (component == 1) {

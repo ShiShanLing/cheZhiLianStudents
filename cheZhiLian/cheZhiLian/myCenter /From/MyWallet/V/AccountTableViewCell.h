@@ -14,6 +14,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *dateTimeLabel; 
 @property (strong, nonatomic) IBOutlet UILabel *moneyNum;
 
-- (void)loadData:(NSDictionary *)data;
+- (void)loadData:(TradingRecordsModel *)data;
 
 @end

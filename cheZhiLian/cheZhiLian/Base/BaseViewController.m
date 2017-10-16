@@ -99,5 +99,21 @@
     
 }
 
+- (void)timerFireMethod:(NSTimer*)theTimer//弹出框
+{
+    UIAlertView *promptAlert = (UIAlertView*)[theTimer userInfo];
+    [promptAlert dismissWithClickedButtonIndex:0 animated:NO];
+    promptAlert =NULL;
+}
+- (void)showAlert:(NSString *) _message{//时间
+    UIAlertView *promptAlert = [[UIAlertView alloc] initWithTitle:@"提示:" message:_message delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+    
+    [NSTimer scheduledTimerWithTimeInterval:2.0f
+                                     target:self
+                                   selector:@selector(timerFireMethod:)
+                                   userInfo:promptAlert
+                                    repeats:YES];
+    [promptAlert show];
+}
 
 @end

@@ -300,6 +300,13 @@
             if ([key isEqualToString:@"coachId"]) {
                 [UserDataSingleton mainSingleton].coachId =[NSString stringWithFormat:@"%@", userDataDic[key]];
             }
+            if ([key isEqualToString:@"state"]) {
+                
+                [UserDataSingleton mainSingleton].state = [NSString stringWithFormat:@"%@", userDataDic[key]];
+            }
+            if ([key isEqualToString:@"balance"]) {
+                [UserDataSingleton mainSingleton].balance = [NSString stringWithFormat:@"%@", userDataDic[key]];
+            }
             [userData setObject:userDic[key] forKey:key];
         }
         //获取应用程序沙盒的Documents目录

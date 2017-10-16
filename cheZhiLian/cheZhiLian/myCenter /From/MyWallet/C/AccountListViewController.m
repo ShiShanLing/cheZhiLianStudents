@@ -96,18 +96,18 @@
 
 - (void)showData
 {
-    NSString *money = @"100";
+    NSString *money = [UserDataSingleton mainSingleton].balance;
     NSString *moneyStr = [NSString stringWithFormat:@"%@ 元", money];
     NSMutableAttributedString *string1 = [[NSMutableAttributedString alloc] initWithString:moneyStr];
     [string1 addAttribute:NSForegroundColorAttributeName value:MColor(246, 102, 93) range:NSMakeRange(0,money.length)];
     self.moneyLabel.attributedText = string1;
     
-    NSString *couponStr = [NSString stringWithFormat:@"%@ 张", @"100"];
+    NSString *couponStr = [NSString stringWithFormat:@"%@ 张", @"0"];
     NSMutableAttributedString *string2 = [[NSMutableAttributedString alloc] initWithString:couponStr];
     [string2 addAttribute:NSForegroundColorAttributeName value:MColor(246, 102, 93) range:NSMakeRange(0,_couponsum.length)];
     self.couponLabel.attributedText = string2;
     
-    NSString *coinStr = [NSString stringWithFormat:@"%@ 个", @"100"];
+    NSString *coinStr = [NSString stringWithFormat:@"%@ 个", @"0"];
     NSMutableAttributedString *string3 = [[NSMutableAttributedString alloc] initWithString:coinStr];
     [string3 addAttribute:NSForegroundColorAttributeName value:MColor(246, 102, 93) range:NSMakeRange(0,_coinsum.length)];
     self.coinLabel.attributedText = string3;
