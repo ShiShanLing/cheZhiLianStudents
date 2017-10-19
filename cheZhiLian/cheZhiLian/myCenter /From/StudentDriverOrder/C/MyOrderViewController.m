@@ -47,7 +47,6 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
 - (IBAction)clickForWaitEvaluateOrder:(id)sender;
 - (IBAction)clickForHistoricOrder:(id)sender;
 @property (copy, nonatomic) NSString *cancelOrderId;
-
 /**
  *可变数组
  */
@@ -56,7 +55,11 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
 
 @end
 
-@implementation MyOrderViewController
+@implementation MyOrderViewController {
+    
+   NSString *  orderState;
+    
+}
 
 - (NSMutableArray *)orderArray {
     if (!_orderArray) {
@@ -69,7 +72,7 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
     [super viewWillAppear:YES];
       self.navigationController.navigationBarHidden = YES;
     [self getFreshData];
-    [self requestData];
+    [self requestData:nil];
 }
 -(void)viewWillDisappear:(BOOL)animated  {
     [super viewWillDisappear:animated];
@@ -77,18 +80,17 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    orderState = 0;
     _rowHeight = 235;
     [self settingView];
 }
 #pragma mark 请求数据
-- (void)requestData{
-    //http://192.168.100.101:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT/train/api/listReservation?stuId=794c68fe981a448b88ba4e4061bacedf
+- (void)requestData:(NSString *)state{
     NSString *URL_Str = [NSString stringWithFormat:@"%@/train/api/listReservation", kURL_SHY];
     NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
     URL_Dic[@"studentId"] = [UserDataSingleton mainSingleton].studentsId;
+    URL_Dic[@"state"] = state?@"0":state;
     NSLog(@"URL_Dic%@", URL_Dic);
-    
-    
     __weak MyOrderViewController *VC = self;
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     // manager.requestSerializer.timeoutInterval = 20;// 网络超时时长设置
@@ -113,19 +115,33 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
         [self  showAlert:@"您还没有订单" time:1.2];
         return;
     }
-    
     for (NSDictionary *dataDic in dataArray) {
-        NSEntityDescription *des = [NSEntityDescription entityForName:@"ParsingOrderDataModel" inManagedObjectContext:self.managedContext];
+        NSEntityDescription *des = [NSEntityDescription entityForName:@"StudentDriverOrderModel" inManagedObjectContext:self.managedContext];
         //根据描述 创建实体对象
-        ParsingOrderDataModel *model = [[ParsingOrderDataModel  alloc] initWithEntity:des insertIntoManagedObjectContext:self.managedContext];
-        
+        StudentDriverOrderModel *orderListModel = [[StudentDriverOrderModel alloc] initWithEntity:des insertIntoManagedObjectContext:self.managedContext];
         for (NSString *key in dataDic) {
-            NSLog(@"%@key", key);
-            [model setValue:dataDic[key] forKey:key];
+            NSLog(@"订单列表%@",key);
+            if ([key isEqualToString:@"orderTimes"]) {
+                NSArray *timeListArr = dataDic[key];
+                NSMutableArray *orderTimeListArr = [NSMutableArray array];
+                for (NSDictionary *timeDic in timeListArr) {
+                    NSEntityDescription *timeDes = [NSEntityDescription entityForName:@"OrderTimeModel" inManagedObjectContext:self.managedContext];
+                    //根据描述 创建实体对象
+                    OrderTimeModel *timeModel = [[OrderTimeModel alloc] initWithEntity:timeDes insertIntoManagedObjectContext:self.managedContext];
+                    for (NSString *timeKey in timeDic) {
+                        NSLog(@"时间列表%@ %@",timeKey,timeDic[timeKey]);
+                        [timeModel setValue:timeDic[timeKey] forKey:timeKey];
+                    }
+                    [orderTimeListArr addObject:timeModel];
+                }
+            [orderListModel setValue:orderTimeListArr forKey:key];
+            }else {
+                [orderListModel setValue:dataDic[key] forKey:key];
+            }
         }
-        [self.orderArray addObject:model];
+        [self.orderArray addObject:orderListModel];
     }
-   // NSLog(@"self.orderArray%@", self.orderArray);
+    NSLog(@"self.orderArray%@", self.orderArray);
     [self.mainTableView reloadData];
 }
 - (void)settingView {
@@ -167,8 +183,15 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
     self.postCancelOrderBtn.layer.cornerRadius = 3;
 }
 #pragma mark - TableView
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
     return self.orderArray.count;
+    
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    StudentDriverOrderModel *model = self.orderArray[section];
+    NSArray *timeArray =(NSArray *)model.orderTimes;
+    return timeArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -184,7 +207,9 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.delegate = self;
-    cell.model = self.orderArray[indexPath.row];
+    StudentDriverOrderModel *model = self.orderArray[indexPath.section];
+    NSArray *timeArray =(NSArray *)model.orderTimes;
+    cell.model = timeArray[indexPath.row];
     return cell;
 }
 
@@ -264,6 +289,8 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
     if (self.unfinishedBtn.selected == YES) return;
     self.targetOrderListType = OrderListTypeComplete;
     [self oneButtonSellected:sender];
+    [self requestData:@"0"];
+    orderState = @"0";
 }
 
 // 待评价订单
@@ -271,6 +298,8 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
     if (self.waiEvaluateBtn.selected == YES) return;
     self.targetOrderListType = OrderListTypeComplete;
     [self oneButtonSellected:sender];
+    [self requestData:@"1"];
+    orderState = @"1";
 }
 
 // 已完成订单
@@ -278,6 +307,8 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
     if (self.historyBtn.selected == YES) return;
     self.targetOrderListType = OrderListTypeComplete;
     [self oneButtonSellected:sender];
+    [self requestData:@"2"];
+    orderState = @"2";
 }
 
 // 已投诉订单
@@ -286,11 +317,13 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
     if (self.complainedOrdersBtn.selected == YES) return;
     self.targetOrderListType = OrderListTypeComplete;
     [self oneButtonSellected:sender];
+    [self requestData:@"3"];
+    orderState = @"3";
 }
 // 设置按钮状态
 
 // 取消订单
-- (void)cancelOrder:(ParsingOrderDataModel *)order {
+- (void)cancelOrder:(OrderTimeModel *)order {
     self.cancelOrderId = order.orderId;
     [self.view addSubview:self.moreOperationView];
     
@@ -318,7 +351,7 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
         [VC respondsToSelector:@selector(delayMethod)];
         if ([resultStr isEqualToString:@"1"]) {
             [VC showAlert:responseObject[@"msg"] time:1.2];
-            [VC requestData];
+            [VC requestData:orderState];
         }else {
             [VC showAlert:responseObject[@"msg"] time:1.2];
         }
@@ -338,13 +371,13 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
 }
 
 // 投诉
-- (void)complain:(ParsingOrderDataModel *)order {
+- (void)complain:(OrderTimeModel *)order {
     MyOrderComplainViewController *targetController = [[MyOrderComplainViewController alloc] initWithNibName:@"MyOrderComplainViewController" bundle:nil];
     targetController.orderid = order.orderId;
     [self.navigationController pushViewController:targetController animated:YES];
 }
 // 取消投诉
-- (void)cancelComplain:(ParsingOrderDataModel *)order {
+- (void)cancelComplain:(OrderTimeModel *)order {
     
     
 }
@@ -357,7 +390,7 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
     }
 }
 // 评价
-- (void)eveluate:(ParsingOrderDataModel *)order {
+- (void)eveluate:(OrderTimeModel *)order {
     __weak  MyOrderViewController *VC = self;
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"对订单进行评论" message:@"请填写" preferredStyle:UIAlertControllerStyleAlert];
@@ -380,7 +413,7 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
             NSString *resultStr = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
             if ([resultStr isEqualToString:@"1"]) {
                 [VC showAlert:responseObject[@"msg"] time:1.2];
-                [VC requestData];
+                [VC requestData:orderState];
             }else {
                 [VC showAlert:responseObject[@"msg"] time:1.2];
             }

@@ -437,21 +437,19 @@
         CoachTimeListModel *model = self.dateTimeSelectedList[i];
             if (i == 0) {
                 timeStr =  [NSString stringWithFormat:@"%ld%@", (long)[model.startTime timeIntervalSince1970], @"000"];
-                timeStr =  [NSString stringWithFormat:@"%@,%ld%@,", timeStr,(long)[model.endTime timeIntervalSince1970], @"000"];
+                timeStr =  [NSString stringWithFormat:@"%@,%ld%@", timeStr,(long)[model.endTime timeIntervalSince1970], @"000"];
             }else {
                 timeStr =  [NSString stringWithFormat:@"%@,%ld%@", timeStr,(long)[model.startTime timeIntervalSince1970], @"000"];
-                timeStr =  [NSString stringWithFormat:@"%@,%ld%@,", timeStr,(long)[model.endTime timeIntervalSince1970], @"000"];
+                timeStr =  [NSString stringWithFormat:@"%@,%ld%@", timeStr,(long)[model.endTime timeIntervalSince1970], @"000"];
             }
     }
-    NSLog(@"payDetailStatisticstimeStr%@", timeStr);
-    
+        NSLog(@"payDetailStatisticstimeStr%@", timeStr);
         NSString *URL_Str = [NSString stringWithFormat:@"%@/train/api/makeReservation", kURL_SHY];
         NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
         URL_Dic[@"coachId"]=[UserDataSingleton mainSingleton].coachId;
         URL_Dic[@"studentId"] = [UserDataSingleton mainSingleton].studentsId;
         URL_Dic[@"timeStr"] = timeStr;
          URL_Dic[@"couponMemberId"] = @"";
-         URL_Dic[@"payType"] = @"0";
         URL_Dic[@"price"] = [NSString stringWithFormat:@"%.0f", self.payMoney];
         NSLog(@"URL_Dic%@", URL_Dic);
         AFHTTPSessionManager *session = [AFHTTPSessionManager manager];

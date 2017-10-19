@@ -89,6 +89,10 @@
 -(void)notice:(id)sender{
     [self.navigationController popViewControllerAnimated:YES];
 }
+- (NSString *)extracted {
+    return kURL_SHY;
+}
+
 /**
  *请求数据
  */
@@ -115,7 +119,7 @@
     }
     //http://106.14.158.95:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT/order/api/saveEnrollOrder?studentId=e773b4cd7a884f2196543ac17f6456ce&storeId=1&goodsId=6d0e8b211fc943aa85b3704556dcc3b6&couponMemberId=3e11ee50f1644446bc6bb20a839b8608
     [self performSelector:@selector(indeterminateExample)];
-    NSString *URL_Str = [NSString stringWithFormat:@"%@/order/api/saveEnrollOrder", kURL_SHY];
+    NSString *URL_Str = [NSString stringWithFormat:@"%@/order/api/saveEnrollOrder", [self extracted]];
     NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
     URL_Dic[@"studentId"] = [UserDataSingleton mainSingleton].studentsId;
     URL_Dic[@"storeId"] = kStoreId;

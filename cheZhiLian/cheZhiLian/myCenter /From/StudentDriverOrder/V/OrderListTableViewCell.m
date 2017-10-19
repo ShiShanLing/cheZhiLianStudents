@@ -198,7 +198,7 @@
 
 }
 
-- (void)setModel:(ParsingOrderDataModel *)model {
+- (void)setModel:(OrderTimeModel *)model {
     _model = model;
 
     
@@ -218,24 +218,19 @@
     self.coachLabel.attributedText = coachAttText;
     // 地址
     self.addrLabel.text = [NSString stringWithFormat:@"地址: %@", @"杭州市上城区.婺江路"];
-    
     // 金额 科目类型
     NSString *costText = nil;
-    NSLog(@"model%@ ", model);
+   // NSLog(@"model%@ ", model);
     NSString *costStr = [NSString stringWithFormat:@"价格: %@", model.price];
     
     costText = costStr;
     NSMutableAttributedString *costAttText = [[NSMutableAttributedString alloc] initWithString:costText];
-    
     self.costLabel.attributedText = costAttText;
-    
-    
     
     switch (model.trainState) {
         case 0:
             [self complainBtnConfig:self.leftBtn];
             [self eveluateBtnConfig:self.rightBtn];
-            
             if (model.state == 3) {
                 self.statusLabel.text = @"订单申请取消中.等待教练确认!";
             }else {

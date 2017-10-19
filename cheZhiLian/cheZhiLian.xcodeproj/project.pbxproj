@@ -14,8 +14,6 @@
 		A100A4DC1F4423250094BCF0 /* MyOrderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A100A4DA1F4423250094BCF0 /* MyOrderViewController.xib */; };
 		A100A4E51F4423ED0094BCF0 /* OrderListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A100A4E31F4423ED0094BCF0 /* OrderListTableViewCell.m */; };
 		A100A4E61F4423ED0094BCF0 /* OrderListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A100A4E41F4423ED0094BCF0 /* OrderListTableViewCell.xib */; };
-		A100A4EB1F442E750094BCF0 /* ParsingOrderDataModel+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A100A4E81F442E750094BCF0 /* ParsingOrderDataModel+CoreDataClass.m */; };
-		A100A4EC1F442E750094BCF0 /* ParsingOrderDataModel+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A100A4EA1F442E750094BCF0 /* ParsingOrderDataModel+CoreDataProperties.m */; };
 		A109DC711F41364A008C1082 /* TestLibraryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A109DC6F1F41364A008C1082 /* TestLibraryVC.m */; };
 		A109DC741F419101008C1082 /* logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A109DC731F419101008C1082 /* logo.jpg */; };
 		A109DC791F41A1FE008C1082 /* CourseListModel+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A109DC761F41A1FE008C1082 /* CourseListModel+CoreDataClass.m */; };
@@ -185,6 +183,11 @@
 		A192D6401F3C676E00E6D2CA /* EnrollDetailsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A192D63E1F3C676E00E6D2CA /* EnrollDetailsVC.xib */; };
 		A192D66C1F3C707B00E6D2CA /* XBWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A192D66A1F3C707B00E6D2CA /* XBWebViewController.m */; };
 		A192D66D1F3C707B00E6D2CA /* XBWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A192D66B1F3C707B00E6D2CA /* XBWebViewController.xib */; };
+		A1A62FB91F9848F600786A4B /* OrderTimeModel+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A62FB61F9848F600786A4B /* OrderTimeModel+CoreDataClass.m */; };
+		A1A62FBA1F9848F600786A4B /* OrderTimeModel+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A62FB81F9848F600786A4B /* OrderTimeModel+CoreDataProperties.m */; };
+		A1A62FC01F984A2B00786A4B /* OrderTimeList.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A62FBF1F984A2A00786A4B /* OrderTimeList.m */; };
+		A1A62FCB1F984C8500786A4B /* StudentDriverOrderModel+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A62FC81F984C8500786A4B /* StudentDriverOrderModel+CoreDataClass.m */; };
+		A1A62FCC1F984C8500786A4B /* StudentDriverOrderModel+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A62FCA1F984C8500786A4B /* StudentDriverOrderModel+CoreDataProperties.m */; };
 		A1B2FB2F1F39A0A30049D2B8 /* HomePageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B2FB271F39A0A30049D2B8 /* HomePageVC.m */; };
 		A1B2FB301F39A0A30049D2B8 /* LearnCarShowTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B2FB2B1F39A0A30049D2B8 /* LearnCarShowTVCell.m */; };
 		A1B2FB311F39A0A30049D2B8 /* LearnCarShowTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1B2FB2C1F39A0A30049D2B8 /* LearnCarShowTVCell.xib */; };
@@ -285,10 +288,6 @@
 		A100A4E21F4423ED0094BCF0 /* OrderListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderListTableViewCell.h; sourceTree = "<group>"; };
 		A100A4E31F4423ED0094BCF0 /* OrderListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderListTableViewCell.m; sourceTree = "<group>"; };
 		A100A4E41F4423ED0094BCF0 /* OrderListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderListTableViewCell.xib; sourceTree = "<group>"; };
-		A100A4E71F442E750094BCF0 /* ParsingOrderDataModel+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ParsingOrderDataModel+CoreDataClass.h"; sourceTree = "<group>"; };
-		A100A4E81F442E750094BCF0 /* ParsingOrderDataModel+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ParsingOrderDataModel+CoreDataClass.m"; sourceTree = "<group>"; };
-		A100A4E91F442E750094BCF0 /* ParsingOrderDataModel+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ParsingOrderDataModel+CoreDataProperties.h"; sourceTree = "<group>"; };
-		A100A4EA1F442E750094BCF0 /* ParsingOrderDataModel+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ParsingOrderDataModel+CoreDataProperties.m"; sourceTree = "<group>"; };
 		A109DC6E1F41364A008C1082 /* TestLibraryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestLibraryVC.h; sourceTree = "<group>"; };
 		A109DC6F1F41364A008C1082 /* TestLibraryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestLibraryVC.m; sourceTree = "<group>"; };
 		A109DC731F419101008C1082 /* logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logo.jpg; sourceTree = "<group>"; };
@@ -559,6 +558,16 @@
 		A192D6691F3C707B00E6D2CA /* XBWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XBWebViewController.h; sourceTree = "<group>"; };
 		A192D66A1F3C707B00E6D2CA /* XBWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XBWebViewController.m; sourceTree = "<group>"; };
 		A192D66B1F3C707B00E6D2CA /* XBWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XBWebViewController.xib; sourceTree = "<group>"; };
+		A1A62FB51F9848F600786A4B /* OrderTimeModel+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OrderTimeModel+CoreDataClass.h"; sourceTree = "<group>"; };
+		A1A62FB61F9848F600786A4B /* OrderTimeModel+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "OrderTimeModel+CoreDataClass.m"; sourceTree = "<group>"; };
+		A1A62FB71F9848F600786A4B /* OrderTimeModel+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OrderTimeModel+CoreDataProperties.h"; sourceTree = "<group>"; };
+		A1A62FB81F9848F600786A4B /* OrderTimeModel+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "OrderTimeModel+CoreDataProperties.m"; sourceTree = "<group>"; };
+		A1A62FBE1F984A2A00786A4B /* OrderTimeList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderTimeList.h; sourceTree = "<group>"; };
+		A1A62FBF1F984A2A00786A4B /* OrderTimeList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderTimeList.m; sourceTree = "<group>"; };
+		A1A62FC71F984C8500786A4B /* StudentDriverOrderModel+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StudentDriverOrderModel+CoreDataClass.h"; sourceTree = "<group>"; };
+		A1A62FC81F984C8500786A4B /* StudentDriverOrderModel+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "StudentDriverOrderModel+CoreDataClass.m"; sourceTree = "<group>"; };
+		A1A62FC91F984C8500786A4B /* StudentDriverOrderModel+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StudentDriverOrderModel+CoreDataProperties.h"; sourceTree = "<group>"; };
+		A1A62FCA1F984C8500786A4B /* StudentDriverOrderModel+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "StudentDriverOrderModel+CoreDataProperties.m"; sourceTree = "<group>"; };
 		A1B2FB261F39A0A30049D2B8 /* HomePageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePageVC.h; sourceTree = "<group>"; };
 		A1B2FB271F39A0A30049D2B8 /* HomePageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePageVC.m; sourceTree = "<group>"; };
 		A1B2FB2A1F39A0A30049D2B8 /* LearnCarShowTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LearnCarShowTVCell.h; sourceTree = "<group>"; };
@@ -762,10 +771,14 @@
 		A100A4D61F4422EA0094BCF0 /* M */ = {
 			isa = PBXGroup;
 			children = (
-				A100A4E71F442E750094BCF0 /* ParsingOrderDataModel+CoreDataClass.h */,
-				A100A4E81F442E750094BCF0 /* ParsingOrderDataModel+CoreDataClass.m */,
-				A100A4E91F442E750094BCF0 /* ParsingOrderDataModel+CoreDataProperties.h */,
-				A100A4EA1F442E750094BCF0 /* ParsingOrderDataModel+CoreDataProperties.m */,
+				A1A62FC71F984C8500786A4B /* StudentDriverOrderModel+CoreDataClass.h */,
+				A1A62FC81F984C8500786A4B /* StudentDriverOrderModel+CoreDataClass.m */,
+				A1A62FC91F984C8500786A4B /* StudentDriverOrderModel+CoreDataProperties.h */,
+				A1A62FCA1F984C8500786A4B /* StudentDriverOrderModel+CoreDataProperties.m */,
+				A1A62FB51F9848F600786A4B /* OrderTimeModel+CoreDataClass.h */,
+				A1A62FB61F9848F600786A4B /* OrderTimeModel+CoreDataClass.m */,
+				A1A62FB71F9848F600786A4B /* OrderTimeModel+CoreDataProperties.h */,
+				A1A62FB81F9848F600786A4B /* OrderTimeModel+CoreDataProperties.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -1540,6 +1553,8 @@
 				A1F73FD81F35A38500F0B71C /* public */,
 				A1F73F9D1F355FDA00F0B71C /* ViewController.h */,
 				A1F73F9E1F355FDA00F0B71C /* ViewController.m */,
+				A1A62FBE1F984A2A00786A4B /* OrderTimeList.h */,
+				A1A62FBF1F984A2A00786A4B /* OrderTimeList.m */,
 				A1E9991B1F381CEC00EA7CD4 /* hashiqi.png */,
 				A109DC6D1F41360D008C1082 /* TestLibrary */,
 				A1F73FD91F35A3C900F0B71C /* homePage */,
@@ -2265,6 +2280,7 @@
 				A1F740061F35AF2800F0B71C /* UIViewController+Toast.m in Sources */,
 				A16F42821F45481D007BF51C /* MyOrderCViewCell.m in Sources */,
 				A141D7951F5AA0170099BA53 /* XBCity.m in Sources */,
+				A1A62FB91F9848F600786A4B /* OrderTimeModel+CoreDataClass.m in Sources */,
 				A141D79A1F5AA1A40099BA53 /* CPTextViewPlaceholder.m in Sources */,
 				A1B2FB2F1F39A0A30049D2B8 /* HomePageVC.m in Sources */,
 				A1F7400C1F35AF6C00F0B71C /* BaseViewController.m in Sources */,
@@ -2310,6 +2326,7 @@
 				A141D7591F5A98F50099BA53 /* CZPhotoPickerController.m in Sources */,
 				A141D6F11F5A94BF0099BA53 /* UserRuleTableViewCell.m in Sources */,
 				A1F73F9F1F355FDA00F0B71C /* ViewController.m in Sources */,
+				A1A62FC01F984A2B00786A4B /* OrderTimeList.m in Sources */,
 				A141D7191F5A96B20099BA53 /* SettingViewController.m in Sources */,
 				A141D6EC1F5A94AC0099BA53 /* CoinListTableViewCell.m in Sources */,
 				A100A4D21F42D1EA0094BCF0 /* CourseDetailModel+CoreDataClass.m in Sources */,
@@ -2340,7 +2357,6 @@
 				A141D7321F5A98470099BA53 /* CouponListViewController.m in Sources */,
 				A1B2FB301F39A0A30049D2B8 /* LearnCarShowTVCell.m in Sources */,
 				A167A4141F46CA1600A9D224 /* NoCoachView.m in Sources */,
-				A100A4EB1F442E750094BCF0 /* ParsingOrderDataModel+CoreDataClass.m in Sources */,
 				A141D7581F5A98F50099BA53 /* CZCropPreviewOverlayView.m in Sources */,
 				A141D7941F5AA0170099BA53 /* XBArea.m in Sources */,
 				A1F740751F37FD6F00F0B71C /* CommentListViewController.m in Sources */,
@@ -2349,6 +2365,7 @@
 				A141D7431F5A98C80099BA53 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				A167A43B1F46E5DA00A9D224 /* NSData+AES.m in Sources */,
 				A1640FEE1F3D51C1007DCF0E /* ServiceDisplayTVCell.m in Sources */,
+				A1A62FBA1F9848F600786A4B /* OrderTimeModel+CoreDataProperties.m in Sources */,
 				A141D71E1F5A97B50099BA53 /* UserInfoHomeViewController.m in Sources */,
 				A109DC711F41364A008C1082 /* TestLibraryVC.m in Sources */,
 				A141D7A21F5AA53E0099BA53 /* GuangdaOrder.m in Sources */,
@@ -2366,6 +2383,7 @@
 				A1F740421F35B15C00F0B71C /* SwipeView.m in Sources */,
 				A141D70A1F5A96640099BA53 /* ComplaintTableViewCell.m in Sources */,
 				A141D78A1F5A9C460099BA53 /* RegistVercodeViewController.m in Sources */,
+				A1A62FCC1F984C8500786A4B /* StudentDriverOrderModel+CoreDataProperties.m in Sources */,
 				A109DC791F41A1FE008C1082 /* CourseListModel+CoreDataClass.m in Sources */,
 				A1F740571F35B34A00F0B71C /* StarScoreView.m in Sources */,
 				A100A4D31F42D1EA0094BCF0 /* CourseDetailModel+CoreDataProperties.m in Sources */,
@@ -2375,6 +2393,7 @@
 				A141D7821F5A9C460099BA53 /* BindingViewController.m in Sources */,
 				A1F740671F35BF2F00F0B71C /* DejalActivityView.m in Sources */,
 				A1F73FA51F355FDA00F0B71C /* cheZhiLian.xcdatamodeld in Sources */,
+				A1A62FCB1F984C8500786A4B /* StudentDriverOrderModel+CoreDataClass.m in Sources */,
 				A1E999231F38458600EA7CD4 /* AppointCoachViewController.m in Sources */,
 				A192D6111F3C414C00E6D2CA /* ConfirmOrderVC.m in Sources */,
 				A1F740111F35AFC800F0B71C /* TabBarView.m in Sources */,
@@ -2383,7 +2402,6 @@
 				A141D6F91F5A96060099BA53 /* MessageDetailsViewController.m in Sources */,
 				A1F740861F37FFA000F0B71C /* DSPullToRefreshManager.m in Sources */,
 				A1E9992C1F38459000EA7CD4 /* timeStateCVCell.m in Sources */,
-				A100A4EC1F442E750094BCF0 /* ParsingOrderDataModel+CoreDataProperties.m in Sources */,
 				A159673B1F8CAB8E00FF0F77 /* MyOrderEvaluationViewController.m in Sources */,
 				A16410061F3DA4D6007DCF0E /* CoachTimeListModel+CoreDataProperties.m in Sources */,
 				A141D7051F5A96590099BA53 /* ComplaintViewController.m in Sources */,

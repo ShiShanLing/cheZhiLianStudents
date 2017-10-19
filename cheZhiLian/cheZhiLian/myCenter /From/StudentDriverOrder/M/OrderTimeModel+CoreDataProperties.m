@@ -1,38 +1,38 @@
 //
-//  ParsingOrderDataModel+CoreDataProperties.m
+//  OrderTimeModel+CoreDataProperties.m
 //  cheZhiLian
 //
-//  Created by 石山岭 on 2017/8/16.
+//  Created by 石山岭 on 2017/10/19.
 //  Copyright © 2017年 石山岭. All rights reserved.
 //
+//
 
-#import "ParsingOrderDataModel+CoreDataProperties.h"
+#import "OrderTimeModel+CoreDataProperties.h"
 
-@implementation ParsingOrderDataModel (CoreDataProperties)
+@implementation OrderTimeModel (CoreDataProperties)
 
-+ (NSFetchRequest<ParsingOrderDataModel *> *)fetchRequest {
-	return [[NSFetchRequest alloc] initWithEntityName:@"ParsingOrderDataModel"];
++ (NSFetchRequest<OrderTimeModel *> *)fetchRequest {
+	return [[NSFetchRequest alloc] initWithEntityName:@"OrderTimeModel"];
 }
 
 @dynamic coachId;
-@dynamic orderId;
-@dynamic endTime;
-@dynamic startTime;
-@dynamic price;
-@dynamic commentState;
-@dynamic studentId;
-@dynamic state;
-@dynamic payState;
-@dynamic trainState;
-@dynamic subType;
 @dynamic coachName;
-
+@dynamic commentState;
+@dynamic endTime;
+@dynamic orderId;
+@dynamic payState;
+@dynamic price;
+@dynamic startTime;
+@dynamic state;
+@dynamic studentId;
+@dynamic subType;
+@dynamic trainState;
 -(void)setValue:(id)value forKey:(NSString *)key {
     if ([key isEqualToString:@"id"]) {
         self.orderId = [NSString stringWithFormat:@"%@", value];
     }else if([key isEqualToString:@"price"] ){
         NSLog(@"setValue:(id)value forKey:%@",value);
-            self.price= [NSString stringWithFormat:@"%@",value];
+        self.price= [NSString stringWithFormat:@"%@",value];
     }else if([key isEqualToString:@"commentState"] ){
         self.commentState= [NSString stringWithFormat:@"%@",value];
     }else if([key isEqualToString:@"endTime"] ){
@@ -50,11 +50,11 @@
     }else{
         [super setValue:value forKey:key];
     }
-
+    
 }
 -(void)setValue:(id)value forUndefinedKey:(NSString *)key {
-
-
+    
+    
 }
 
 @end

@@ -19,7 +19,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   
-
+    NSString *str = nil;
+    NSLog(@"didFinishLaunchingWithOptions%@", str?@"YES":@"NO");
 
     // 侧拉VC
     SideBarViewController *leftViewController = [[SideBarViewController alloc] init];

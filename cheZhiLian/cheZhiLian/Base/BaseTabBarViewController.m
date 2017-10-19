@@ -41,7 +41,7 @@
     topLine.x = 0;
     topLine.y = 0;
     topLine.backgroundColor = MColor(214, 214, 214);
-    [tabBarView itemsTitleConfig:@[@"题库", @"学车", @"预约", @"服务"]];
+    [tabBarView itemsTitleConfig:@[@"知识", @"学车", @"预约", @"我的"]];
     
 }
 - (void)itemClick:(NSUInteger)itemIndex {
@@ -51,8 +51,8 @@
     
 }
 // 添加tabBar
-- (void)addTabBarView
-{
+- (void)addTabBarView{
+    
 }
 
 - (void)viewDidLoad {
@@ -60,7 +60,6 @@
     [self AnalysisUserData];
     
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"Helvetica" size:10], NSFontAttributeName, kOrange_Color,NSForegroundColorAttributeName, nil];
-    
     
     TestLibraryVC *TLVC = [[TestLibraryVC alloc] init];
     UINavigationController *NATLVC = [[UINavigationController alloc] initWithRootViewController:TLVC];

@@ -10,19 +10,19 @@
 
 @protocol OrderListTableViewCellDelegate <NSObject>
 // 取消订单
-- (void)cancelOrder:(ParsingOrderDataModel *)order;
+- (void)cancelOrder:(OrderTimeModel *)order;
 // 确认上车
-- (void)confirmOn:(ParsingOrderDataModel *)order;
+- (void)confirmOn:(OrderTimeModel *)order;
 // 确认下车
-- (void)confirmDown:(ParsingOrderDataModel *)order;
+- (void)confirmDown:(OrderTimeModel *)order;
 // 投诉
-- (void)complain:(ParsingOrderDataModel *)order;
+- (void)complain:(OrderTimeModel *)order;
 // 取消投诉
-- (void)cancelComplain:(ParsingOrderDataModel *)order;
+- (void)cancelComplain:(OrderTimeModel *)order;
 // 评价
-- (void)eveluate:(ParsingOrderDataModel *)order;
+- (void)eveluate:(OrderTimeModel *)order;
 // 继续预约
-- (void)bookMore:(ParsingOrderDataModel *)order;
+- (void)bookMore:(OrderTimeModel *)order;
 @end
 
 @interface OrderListTableViewCell : UITableViewCell
@@ -32,7 +32,7 @@
 /**
  *
  */
-@property (nonatomic, strong)ParsingOrderDataModel *model;
+@property (nonatomic, strong)OrderTimeModel *model;
 
 - (void)loadData;
 

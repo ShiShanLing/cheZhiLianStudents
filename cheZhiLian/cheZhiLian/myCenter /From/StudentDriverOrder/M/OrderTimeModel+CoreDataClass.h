@@ -1,9 +1,10 @@
 //
-//  ParsingOrderDataModel+CoreDataClass.h
+//  OrderTimeModel+CoreDataClass.h
 //  cheZhiLian
 //
-//  Created by 石山岭 on 2017/8/16.
+//  Created by 石山岭 on 2017/10/19.
 //  Copyright © 2017年 石山岭. All rights reserved.
+//
 //
 
 #import <Foundation/Foundation.h>
@@ -11,10 +12,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ParsingOrderDataModel : NSManagedObject
+@interface OrderTimeModel : NSManagedObject
 
 @end
 
 NS_ASSUME_NONNULL_END
 
-#import "ParsingOrderDataModel+CoreDataProperties.h"
+#import "OrderTimeModel+CoreDataProperties.h"

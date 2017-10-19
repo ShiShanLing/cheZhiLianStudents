@@ -40,7 +40,8 @@
 #import "CoachTimeListModel+CoreDataProperties.h"
 #import "CourseListModel+CoreDataProperties.h"
 #import "CourseDetailModel+CoreDataClass.h"
-#import "ParsingOrderDataModel+CoreDataClass.h"
+#import "StudentDriverOrderModel+CoreDataProperties.h"
+#import "OrderTimeModel+CoreDataProperties.h"
 #import "CoachDetailsModel+CoreDataProperties.h"
 #import "GoodsOrderDetailsModel+CoreDataProperties.h"
 #import "UserDataModel+CoreDataProperties.h"
@@ -57,21 +58,22 @@
 #define MFont(f) [UIFont systemFontOfSize:f]
 #define kIphone6Height 667.0
 #define kIphone6Width 375.0
+#define kFit(x)  (SScreen_Width*((x)/kIphone6Width))
 #define YouLikeLineCount 2
 #define YouLikeCellW ((SScreen_Width - YouLikeInset * (YouLikeLineCount - 1)) / YouLikeLineCount) * 1.0
 #define YouLikeInset kFit(6)
 #define YouLikeCellH kFit((kFit(259) - YouLikeInset))
 #define SScreen_Width [UIScreen mainScreen].bounds.size.width
 #define SScreen_Height [UIScreen mainScreen].bounds.size.height
-#define kFit(x)  (SScreen_Width*((x)/kIphone6Width))
+
 #define MColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0f]
 #define TextSize kFit(16)
 #define kTopSpacing  64
 //沈会阳 http://192.168.100.101:8080
 //线上   http://106.14.158.95:8080
-//张玉霄  http://192.168.0.215:8080
+//张玉霄  http://192.168.0.250:8080
 //吴佳境 http://192.168.100.33
-#define kURL_SHY  @"http://106.14.158.95:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT"
+#define kURL_SHY  @"http://192.168.100.101:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT"
 #define kStudentId  @"1000"
 #define kUserId   @"4c7101faa2f84f7586c6fe52373f3729"
 #define kStoreId @"1"
