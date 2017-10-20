@@ -13,20 +13,21 @@
 #import "LoginViewController.h"
 
 @interface MyOrderComplainViewController () <UITextViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *mainScrollView;
 @property (strong, nonatomic) IBOutlet UILabel *complainReasonLabel;
 @property (strong, nonatomic) IBOutlet UITextView *complainTextView;
 @property (strong, nonatomic) IBOutlet UILabel *complainPlaceholderLabel;
-
 // 投诉原因选择器
 @property (strong, nonatomic) IBOutlet UIView *selectView;
 @property (nonatomic, strong) IBOutlet UIPickerView *complainReasonPicker;
 @property (strong, nonatomic) IBOutlet UIButton *complainReasonConfirmBtn;
 @property (strong, nonatomic) NSArray *complainReasonArray;
-
 @property (strong, nonatomic) GuangdaOrder *order;          // 订单
 @property (strong, nonatomic) GuangdaCoach *coach;          // 订单信息
 @property (strong, nonatomic) NSDictionary *orderInfoDic;   // 订单信息
+@property (weak, nonatomic) IBOutlet UIView *orderInfoView;
+
 
 - (IBAction)clickForSelect:(id)sender;
 - (IBAction)clickForCancelSelect:(id)sender;
@@ -47,6 +48,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.orderInfoView.hidden = YES;
+    if ([self.type isEqualToString:@"0"]) {
+        self.titleLabel.text  = @"评论";
+    }
     [self settingView];
     [self postGetOrderDetail];
 }
@@ -66,9 +71,9 @@
 - (void)showData {
     // orderInfo
     self.orderCreateDateLabel.text = self.order.creatTime;
-    self.coachNameLabel.text = [NSString stringWithFormat:@"%@ 教练", self.coach.realName];
+    self.coachNameLabel.text = [NSString stringWithFormat:@"%@ 教练", self.orderModel];
     self.orderAddrLabel.text = self.order.detailAddr;
-    self.costLabel.text = [NSString stringWithFormat:@"%@元", self.order.cost];
+    self.costLabel.text = [NSString stringWithFormat:@"%.2f元", self.orderModel.orderAmount];
     
     NSArray *startTimeArray = [self.order.startTime componentsSeparatedByString:@" "];
     NSString *startDateStr = startTimeArray[0];
@@ -164,22 +169,28 @@
 
 // 提交投诉
 - (void)postComplaint {
-    //http://106.14.158.95:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT/student/api/appealOrder?orderId=001e6f2264c844f2b43c3bb61127539d&appealReason=123
-    NSString *URL_Str = [NSString stringWithFormat:@"%@/student/api/appealOrder",kURL_SHY];
-    NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
-    URL_Dic[@"orderId"] = self.orderid;
-    URL_Dic[@"appealReason"] = _complainContentStr;
-    NSLog(@"URL_Dic%@",URL_Dic);
-    __weak  MyOrderComplainViewController  * VC = self;
-    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
-    [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
-        NSLog(@"uploadProgress%@", uploadProgress);
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [VC showAlert:responseObject[@"msg"] time:1.2];
-        NSLog(@"responseObject%@", responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"error%@", error);
-    }];
+      __weak  MyOrderComplainViewController  * VC = self;
+    if ([self.type isEqualToString:@"0"]) {
+        [self showAlert:@"该功能未开通" time:1.2];
+    }else {
+        NSString *URL_Str = [NSString stringWithFormat:@"%@/student/api/appealOrder",kURL_SHY];
+        NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
+        URL_Dic[@"orderId"] = self.orderModel.orderId;
+        URL_Dic[@"appealReason"] = _complainContentStr;
+        NSLog(@"URL_Dic%@",URL_Dic);
+        
+        AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+        [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
+            NSLog(@"uploadProgress%@", uploadProgress);
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            [VC showAlert:responseObject[@"msg"] time:1.2];
+            NSLog(@"responseObject%@", responseObject);
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSLog(@"error%@", error);
+        }];
+        
+    }
+
 }
 
 #pragma mark - 数据处理

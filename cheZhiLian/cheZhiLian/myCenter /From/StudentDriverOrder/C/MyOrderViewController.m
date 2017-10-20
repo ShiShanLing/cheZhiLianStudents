@@ -14,6 +14,9 @@
 #import "AppointCoachViewController.h"
 #import "MyOrderComplainViewController.h"
 #import "MyOrderEvaluationViewController.h"
+
+#define CUSTOM_GREY RGB(60, 60, 60)
+#define BORDER_WIDTH 0.7
 typedef NS_OPTIONS(NSUInteger, OrderListType) {
     OrderListTypeUncomplete = 0,    // 未完成订单
     OrderListTypeWaitEvaluate,      // 待评价订单
@@ -72,7 +75,7 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
     [super viewWillAppear:YES];
       self.navigationController.navigationBarHidden = YES;
     [self getFreshData];
-    [self requestData:nil];
+    [self requestData:@"0"];
 }
 -(void)viewWillDisappear:(BOOL)animated  {
     [super viewWillDisappear:animated];
@@ -89,7 +92,8 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
     NSString *URL_Str = [NSString stringWithFormat:@"%@/train/api/listReservation", kURL_SHY];
     NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
     URL_Dic[@"studentId"] = [UserDataSingleton mainSingleton].studentsId;
-    URL_Dic[@"state"] = state?@"0":state;
+    
+    URL_Dic[@"state"] = state;
     NSLog(@"URL_Dic%@", URL_Dic);
     __weak MyOrderViewController *VC = self;
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -110,9 +114,9 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
 }
 - (void)ParsingOrderData:(NSArray *)dataArray {
     [self.orderArray removeAllObjects];
-    
     if (dataArray.count == 0) {
-        [self  showAlert:@"您还没有订单" time:1.2];
+        [self  showAlert:@"您还没有该类型订单" time:1.2];
+        [self.mainTableView reloadData];
         return;
     }
     for (NSDictionary *dataDic in dataArray) {
@@ -195,7 +199,7 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 235;
+    return 130;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -215,6 +219,182 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
    
+    
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    StudentDriverOrderModel *model = self.orderArray[section];
+    NSArray *timeArray =(NSArray *)model.orderTimes;
+    OrderTimeModel  *timeModel = timeArray[0];
+    UIView *hView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_widht, 40)];
+    hView.backgroundColor = MColor(238, 238, 238);
+    UIButton *imageBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
+    [imageBtn setImage:[UIImage imageNamed:@"icon_calendar_orderlist"] forState:(UIControlStateNormal)];
+    [hView addSubview:imageBtn];
+    imageBtn.sd_layout.leftSpaceToView(hView, 0).topSpaceToView(hView, 0).bottomSpaceToView(hView, 0).widthIs(40);
+    
+    UILabel *timeLabel = [[UILabel alloc] init];
+    timeLabel.font =MFont(14);
+    NSString *time = [CommonUtil getStringForDate:timeModel.startTime format:@"yyyy-MM-dd"];
+    timeLabel.text = time;
+    timeLabel.textColor = MColor(0, 213, 155);
+    [hView addSubview:timeLabel];
+    timeLabel.sd_layout.leftSpaceToView(imageBtn, 10).topSpaceToView(hView, 0).bottomSpaceToView(hView, 0).widthIs(100);
+    
+    UILabel *orderIdLabel = [[UILabel alloc] init];
+    orderIdLabel.text = [NSString stringWithFormat:@"订单号%@", model.orderId];
+    orderIdLabel.textAlignment = 2;
+    orderIdLabel.font = MFont(14);
+    orderIdLabel.textColor = MColor(0, 213, 155);
+    [hView addSubview:orderIdLabel];
+    orderIdLabel.sd_layout.rightSpaceToView(hView, 10).leftSpaceToView(timeLabel, 10).topSpaceToView(hView, 0).bottomSpaceToView(hView, 0);
+    return hView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    return 40;
+    
+}
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    StudentDriverOrderModel *model = self.orderArray[section];
+    UIView *  fView = [[UIView alloc] init];
+    
+    DSButton *rightBtn = [DSButton buttonWithType:(UIButtonTypeSystem)];
+    rightBtn.index = section;
+    [fView addSubview:rightBtn];
+    rightBtn.sd_layout.rightSpaceToView(fView , 14).topSpaceToView(fView, 15).bottomSpaceToView(fView, 15).widthIs(80);
+    DSButton *leftBtn = [DSButton buttonWithType:(UIButtonTypeSystem)];
+    leftBtn.index = section;
+    [fView addSubview:leftBtn];
+    leftBtn.sd_layout.rightSpaceToView(rightBtn , 14).topSpaceToView(fView, 15).bottomSpaceToView(fView, 15).widthIs(80);
+    
+    DSButton *CancelPromptBtn = [DSButton buttonWithType:(UIButtonTypeSystem)];
+    CancelPromptBtn.index = section;
+    [CancelPromptBtn setTitle:@"已提交取消订单申请，等待教练确认中." forState:(UIControlStateNormal)];
+    CancelPromptBtn.titleLabel.textColor = [UIColor whiteColor];
+    CancelPromptBtn.backgroundColor =MColor(255, 158, 134);
+    [fView addSubview:CancelPromptBtn];
+    CancelPromptBtn.sd_layout.leftSpaceToView(fView, 14).topSpaceToView(fView, 15).bottomSpaceToView(fView, 15).rightSpaceToView(fView, 15);
+    //订单状态(0:未完成,1:待评价,2:已评价,3:待处理)',
+    CancelPromptBtn.hidden = YES;
+    switch (model.state) {
+        case 0:
+            //投诉和评价(取消)
+            [self complainBtnConfig:leftBtn];
+            [self  cancelOrderBtnConfig:rightBtn];
+            break;
+        case 1:
+            //投诉和 评论
+            [self complainBtnConfig:leftBtn];
+            [self  eveluateBtnConfig:rightBtn];
+            break;
+        case 2:
+            //投诉
+            leftBtn.hidden = YES;
+            [self complainBtnConfig:rightBtn];
+            break;
+        case 3:
+            if (model.commentState == 0) {
+                //取消投诉和评论
+                [self cancelComplainBtnConfig:leftBtn];
+                [self eveluateBtnConfig:rightBtn];
+            }else {
+                //取消投诉和
+                [self cancelComplainBtnConfig:leftBtn];
+            }
+            
+            break;
+        default:
+            break;
+    }
+    return fView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 61;
+}
+#pragma mark - 按钮样式
+// 取消订单按钮
+- (void)cancelOrderBtnConfig:(DSButton *)btn {
+    
+    btn.layer.borderWidth = BORDER_WIDTH;
+    btn.layer.borderColor = MColor(60, 60, 60).CGColor;
+    btn.layer.cornerRadius = 4;
+    btn.backgroundColor = MColor(60, 60, 60);
+    btn.hidden = NO;
+    [btn setTitle:@"取消订单" forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn removeTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+    [btn addTarget:self action:@selector(cancelOrderClick:) forControlEvents:UIControlEventTouchUpInside];
+}
+// 投诉按钮
+- (void)complainBtnConfig:(DSButton *)btn {
+    btn.layer.borderWidth = BORDER_WIDTH;
+    btn.layer.borderColor = MColor(60, 60, 60).CGColor;
+    btn.layer.cornerRadius = 4;
+    btn.backgroundColor = [UIColor whiteColor];
+    btn.hidden = NO;
+    [btn setTitle:@"投诉" forState:UIControlStateNormal];
+    [btn setTitleColor:MColor(60, 60, 60) forState:UIControlStateNormal];
+    [btn removeTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+    [btn addTarget:self action:@selector(complainClick:) forControlEvents:UIControlEventTouchUpInside];
+
+}
+// 取消投诉按钮
+- (void)cancelComplainBtnConfig:(DSButton *)btn {
+    btn.layer.borderWidth = BORDER_WIDTH;
+    btn.layer.borderColor = MColor(60, 60, 60).CGColor;
+    btn.layer.cornerRadius = 4;
+    btn.backgroundColor = [UIColor whiteColor];
+    btn.hidden = NO;
+    [btn setTitle:@"取消投诉" forState:UIControlStateNormal];
+    [btn setTitleColor:MColor(60, 60, 60) forState:UIControlStateNormal];
+    [btn removeTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+    [btn addTarget:self action:@selector(cancelComplainClick:) forControlEvents:UIControlEventTouchUpInside];
+}
+// 评价按钮
+- (void)eveluateBtnConfig:(DSButton *)btn {
+    
+    btn.layer.borderWidth = 0;
+    btn.layer.borderColor = [[UIColor clearColor] CGColor];
+    btn.layer.cornerRadius = 4;
+    btn.backgroundColor = CUSTOM_GREEN;
+    btn.hidden = NO;
+    [btn setTitle:@"立即评价" forState:UIControlStateNormal];
+    [btn setTitleColor:MColor(60, 60, 60) forState:UIControlStateNormal];
+    [btn removeTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+    [btn addTarget:self action:@selector(eveluateClick:) forControlEvents:UIControlEventTouchUpInside];
+}
+// 取消订单
+- (void)cancelOrderClick:(DSButton *)btn {
+    StudentDriverOrderModel *model = self.orderArray[btn.index];
+    self.cancelOrderId = model.orderId;
+    [self.view addSubview:self.moreOperationView];
+}
+// 投诉
+- (void)complainClick:(DSButton *)btn {
+    StudentDriverOrderModel *model = self.orderArray[btn.index];
+    MyOrderComplainViewController *targetController = [[MyOrderComplainViewController alloc] initWithNibName:@"MyOrderComplainViewController" bundle:nil];
+    targetController.type = @"1";
+    targetController.orderModel = model;
+    [self.navigationController pushViewController:targetController animated:YES];
+    
+}
+// 取消投诉
+- (void)cancelComplainClick:(DSButton *)btn {
+    
+    
+
+}
+
+// 评价
+- (void)eveluateClick:(DSButton *)btn {
+    StudentDriverOrderModel *model = self.orderArray[btn.index];
+    MyOrderComplainViewController *targetController = [[MyOrderComplainViewController alloc] initWithNibName:@"MyOrderComplainViewController" bundle:nil];
+    targetController.type = @"0";
+    targetController.orderModel = model;
+    [self.navigationController pushViewController:targetController animated:YES];
     
 }
 
@@ -322,12 +502,7 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
 }
 // 设置按钮状态
 
-// 取消订单
-- (void)cancelOrder:(OrderTimeModel *)order {
-    self.cancelOrderId = order.orderId;
-    [self.view addSubview:self.moreOperationView];
-    
-}
+
 
 // 关闭更多操作页
 - (IBAction)clickForCloseMoreOperation:(UIButton *)sender {
@@ -370,12 +545,6 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
 
 }
 
-// 投诉
-- (void)complain:(OrderTimeModel *)order {
-    MyOrderComplainViewController *targetController = [[MyOrderComplainViewController alloc] initWithNibName:@"MyOrderComplainViewController" bundle:nil];
-    targetController.orderid = order.orderId;
-    [self.navigationController pushViewController:targetController animated:YES];
-}
 // 取消投诉
 - (void)cancelComplain:(OrderTimeModel *)order {
     

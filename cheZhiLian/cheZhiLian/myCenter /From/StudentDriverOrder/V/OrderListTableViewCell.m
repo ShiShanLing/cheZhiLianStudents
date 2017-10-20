@@ -17,13 +17,11 @@
 #define CUSTOM_GREEN MColor(80, 203, 140)
 @interface OrderListTableViewCell ()
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;        // 时间
-@property (weak, nonatomic) IBOutlet UILabel *dateLabel;        // 日期
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;      // 订单状态
 @property (weak, nonatomic) IBOutlet UILabel *coachLabel;       // 教练
 @property (weak, nonatomic) IBOutlet UILabel *addrLabel;        // 地址
 @property (weak, nonatomic) IBOutlet UILabel *costLabel;        // 金额
-@property (weak, nonatomic) IBOutlet UIButton *rightBtn;        // 右边按钮
-@property (weak, nonatomic) IBOutlet UIButton *leftBtn;         // 左边按钮
+
 
 @property (weak, nonatomic) IBOutlet UILabel *cancelOrderBannerLabel; // 等待教练取消订单
 
@@ -188,9 +186,7 @@
 
 // 评价
 - (void)eveluateClick {
-    if ([self.delegate respondsToSelector:@selector(eveluate:)]) {
-        [self.delegate eveluate:_model];
-    }
+  
 }
 
 // 继续预约
@@ -204,10 +200,7 @@
     
     NSString *startTime = [CommonUtil getStringForDate:model.startTime format:@"HH:mm"];
     NSString * endTime = [CommonUtil getStringForDate:model.endTime format:@"HH:mm"];
-    NSString *time = [CommonUtil getStringForDate:model.startTime format:@"yyyy-MM-dd"];
-    self.dateLabel.text = time;
     self.timeLabel.text = [NSString stringWithFormat:@"%@ - %@", startTime, endTime];
-    //self.statusLabel.text = [NSString stringWithFormat:@"离学车还有XX%@",[CommonUtil getTimeDiff:model.startTime]];
     // 教练
     NSString *coachText = nil;
     NSString *nameStr = [NSString stringWithFormat:@"教练: %@ %@", model.coachName ,model.subType==0?@"科目二":@"科目三"];
@@ -229,26 +222,19 @@
     
     switch (model.trainState) {
         case 0:
-            [self complainBtnConfig:self.leftBtn];
-            [self eveluateBtnConfig:self.rightBtn];
             if (model.state == 3) {
                 self.statusLabel.text = @"订单申请取消中.等待教练确认!";
             }else {
-                self.statusLabel.text = @"订单未开始";
+                self.statusLabel.text = [NSString stringWithFormat:@"未开始(距离开始还有XX小时)"];
             }
             break;
         case 1:
-            [self complainBtnConfig:self.leftBtn];
-            [self cancelOrderBtnConfig:self.rightBtn];
-            self.statusLabel.text = @"学员已上车!";
+            self.statusLabel.text = @"已上车!";
             break;
         case 2:
             if (model.commentState == 0) {
-                self.statusLabel.text = @"订单已经结束,等待您的评论!";
-                [self complainBtnConfig:self.leftBtn];
-                [self eveluateBtnConfig:self.rightBtn];
+                self.statusLabel.text = @"已经结束!";
             }else {
-                [self complainBtnConfig:self.leftBtn];
                 self.statusLabel.text = @"已评论!";
             }
             
@@ -260,8 +246,7 @@
     
     
     self.cancelOrderBannerLabel.hidden = YES;
-    self.leftBtn.hidden = NO;
-    self.rightBtn.hidden = NO;
+
 
 
 }

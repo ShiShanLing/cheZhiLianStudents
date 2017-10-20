@@ -22,8 +22,10 @@
                 <outlet property="orderAddrLabel" destination="KRf-yC-wrr" id="rCo-B9-lBo"/>
                 <outlet property="orderAddrLabelHeightCon" destination="qg9-yq-DYD" id="tPR-LF-dYa"/>
                 <outlet property="orderCreateDateLabel" destination="jXd-3z-l6i" id="LkD-mK-j7I"/>
+                <outlet property="orderInfoView" destination="5Hj-ML-h0O" id="baE-Dt-oRr"/>
                 <outlet property="orderTimeLabel" destination="S3h-3W-Li2" id="6Xs-Dr-u9l"/>
                 <outlet property="selectView" destination="cWQ-DX-3Yc" id="DCq-0m-hZg"/>
+                <outlet property="titleLabel" destination="YaD-XL-q1Q" id="gPS-Sw-72U"/>
                 <outlet property="view" destination="Zgo-JH-wW7" id="YCU-mz-2cB"/>
             </connections>
         </placeholder>

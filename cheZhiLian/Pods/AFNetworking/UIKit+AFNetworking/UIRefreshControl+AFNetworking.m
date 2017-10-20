@@ -69,7 +69,6 @@
     [notificationCenter removeObserver:self name:AFNetworkingTaskDidResumeNotification object:nil];
     [notificationCenter removeObserver:self name:AFNetworkingTaskDidSuspendNotification object:nil];
     [notificationCenter removeObserver:self name:AFNetworkingTaskDidCompleteNotification object:nil];
-
     if (task) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wreceiver-is-weak"

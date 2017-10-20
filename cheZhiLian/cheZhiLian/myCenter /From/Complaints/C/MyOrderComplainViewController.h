@@ -10,8 +10,10 @@
 
 @interface MyOrderComplainViewController : GreyTopViewController
 
+@property (nonatomic, copy)NSString *type;
+
 /* input:订单ID */
-@property (copy, nonatomic) NSString *orderid;
+@property ( nonatomic,strong) StudentDriverOrderModel *orderModel;
 
 // orderInfo
 @property (strong, nonatomic) IBOutlet UILabel *orderCreateDateLabel;
@@ -20,7 +22,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *orderAddrLabel;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *orderAddrLabelHeightCon;
 @property (strong, nonatomic) IBOutlet UILabel *costLabel;
-
 // 投诉
 @property (copy, nonatomic) NSString *complainReasonId;
 @property (copy, nonatomic) NSString *complainContentStr;

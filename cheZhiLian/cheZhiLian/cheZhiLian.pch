@@ -22,7 +22,7 @@
 #import "CommonUtil+Date.h"
 #import "MBProgressHUD.h"//第三方网络加载
 #import <MJRefresh.h>//第三方刷新类
-
+#import "DSButton.h"//自定义button
 //测拉菜单
 #import "UIViewController+XYSideCategory.h"
 #import "XYSideViewController.h"
@@ -70,7 +70,7 @@
 #define TextSize kFit(16)
 #define kTopSpacing  64
 //沈会阳 http://192.168.100.101:8080
-//线上   http://106.14.158.95:8080
+//线上   http://www.jxchezhilian.com
 //张玉霄  http://192.168.0.250:8080
 //吴佳境 http://192.168.100.33
 #define kURL_SHY  @"http://192.168.100.101:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT"

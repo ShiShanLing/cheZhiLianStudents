@@ -174,7 +174,7 @@
     NSString *orderId = orderDic[@"order_id"];
     
     MyOrderComplainViewController *targetController = [[MyOrderComplainViewController alloc] initWithNibName:@"MyOrderComplainViewController" bundle:nil];
-    targetController.orderid = orderId;
+    //targetController.orderModel = orderId;
     [self.navigationController pushViewController:targetController animated:YES];
 }
 

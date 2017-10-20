@@ -125,6 +125,7 @@
     URL_Dic[@"storeId"] = kStoreId;
     URL_Dic[@"goodsId"] = _goodsDetailsModel.goodsId;
     URL_Dic[@"couponMemberId"] = couponMemberId.length == 0?@"":couponMemberId;
+    URL_Dic[@"payType"] = @"1";
     NSLog(@"RequestInterface%@", URL_Dic);
     __weak ConfirmOrderVC *VC = self;
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];

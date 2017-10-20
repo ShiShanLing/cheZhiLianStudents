@@ -124,9 +124,9 @@
     [alertV addAction:cancle];
     [alertV addAction:confirm];
     // 4.控制器 展示弹框控件，完成时不做操作
-    [self presentViewController:alertV animated:YES completion:^{
-        nil;
-    }];
+//    [self presentViewController:alertV animated:YES completion:^{
+//        nil;
+//    }];
 
     
     [self.tableView.mj_header beginRefreshing];
