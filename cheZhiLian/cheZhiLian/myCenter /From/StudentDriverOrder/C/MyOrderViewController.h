@@ -48,5 +48,5 @@
  vacateState = 0;
  }
  */
-
+@property (nonatomic, assign)NSInteger index;
 @end

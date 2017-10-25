@@ -7,7 +7,7 @@
 //
 
 #import "TestLibraryVC.h"
-#define EXERCISE_URL @"http://xiaobaxueche.com:8080/dadmin2.0.0/examination/index.jsp" // 正式服
+#define EXERCISE_URL @"http://www.jxchezhilian.com/xb/examination/index.jsp" // 正式服
 @interface TestLibraryVC ()<UIWebViewDelegate>
 @property (strong, nonatomic) UIWebView *exerciseView;              // 题库
 @property (assign, nonatomic) BOOL webViewIsLoaded;                 // 题库是否已加载
@@ -18,9 +18,13 @@
 @implementation TestLibraryVC {
     NSURLRequest *_failRequest; // 加载失败request
 }
-
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self staticViewConfig];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     self.navigationController.navigationBar.translucent = YES;
     
@@ -39,14 +43,20 @@
     [releaseButton addTarget:self action:@selector(RegisteredAccount) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *releaseButtonItem = [[UIBarButtonItem alloc] initWithCustomView:releaseButton];
     self.navigationItem.leftBarButtonItem = releaseButtonItem;
+
+    
+
+}
+#pragma mark - ViewConfig
+- (void)staticViewConfig {
     
     // 题库
-    self.exerciseView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kScreen_widht, kScreen_heigth - 80 - 64)];
+    self.exerciseView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kScreen_widht, kScreen_heigth-64-80)];
     self.exerciseView.delegate = self;
-    self.webViewIsLoaded = NO;
     [self.view addSubview:self.exerciseView];
-    [self addExerciseLoadFailView];
-
+    NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:EXERCISE_URL]];
+    [self.exerciseView loadRequest:request];
+   
 }
 
 - (void)RegisteredAccount {
@@ -97,43 +107,23 @@
     // Dispose of any resources that can be recreated.
 }
 
-// 题库页面全屏显示
-- (void)exerciseViewStretch
-{
-   
-}
-
-// 题库页面非全屏显示
-- (void)exerciseViewCompress
-{
-    [UIView animateWithDuration:0.25 animations:^{
-        
-        self.exerciseView.height = kScreen_heigth - 64 -49;
-    }];
-    
-}
-
 #pragma mark - UIWebViewDelegate
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    
     NSString *url = request.URL.absoluteString;
     NSLog(@"request url === %@",url);
     if ([url isEqualToString:@"about:blank"]) {
         return NO;
     }
     self.tarRequest = request;
-    if (self.webViewIsLoaded) {
+    if (!self.webViewIsLoaded) {
         self.webViewIsLoaded = YES;
         [self.exerciseLoadFailView removeFromSuperview];
-    }
-    if (![url isEqualToString:EXERCISE_URL]) {
         
-        [self exerciseViewCompress];
-        
-    } else {
-        [self exerciseViewStretch];
+    }else {
+        //[self exerciseViewStretch];
     }
-    return YES;
+     return YES;
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
@@ -151,7 +141,7 @@
     [DejalBezelActivityView removeViewAnimated:YES];
     _failRequest = webView.request;
     if (!(self.exerciseView.height < kScreen_heigth)) {
-        [self exerciseViewCompress];
+    
     }
     self.webViewIsLoaded = NO;
     [self.exerciseView addSubview:self.exerciseLoadFailView];

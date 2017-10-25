@@ -32,6 +32,7 @@
     NSString *realName;
     NSString *phone;
     NSString *IdNum;
+    NSString *TermsPayment;//付款方式
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -41,6 +42,7 @@
     NSString *filename=[plistPath stringByAppendingPathComponent:@"UserLogInData.plist"];
     NSMutableDictionary *userDic= [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
     NSLog(@"userData%@", userDic);
+    
     NSArray *keyArray =[userDic allKeys];
     if (keyArray.count == 0) {
         return;
@@ -72,6 +74,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createReturnBtn];
+    TermsPayment = @"1";
     [self.view addSubview:self.tableView];
     NSNotificationCenter * center = [NSNotificationCenter defaultCenter];
     //添加当前类对象为一个观察者，name和object设置为nil，表示接收一切通知
@@ -139,7 +142,6 @@
         //[VC showAlert:responseObject[@"msg"] time:1.2];
         [self performSelector:@selector(delayMethod)];
         if ([resultStr isEqualToString:@"1"]) {
-            
             NSString *price;
             NSString *subject;
             NSString *outTradeNo;
@@ -272,7 +274,7 @@
         CouponChooseTVCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CouponChooseTVCell" forIndexPath:indexPath];
         if (indexPath.row == 1) {
             cell.titleNameLabel.text = @"付款方式";
-            cell.ContentNameLabel.text = @"全款";
+            cell.ContentNameLabel.text = [TermsPayment isEqualToString:@"1"]?@"全款":@"首款";
         }
         if (indexPath.row == 0) {
             cell.titleNameLabel.text = @"优惠券";

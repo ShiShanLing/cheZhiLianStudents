@@ -262,6 +262,7 @@
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [VC performSelector:@selector(delayMethod)];
+        [VC showAlert:@"请求超时请重试!" time:1.2];
         NSLog(@"error%@", error);
     }];
    

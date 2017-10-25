@@ -48,7 +48,7 @@
 #import "TradingRecordsModel+CoreDataClass.h"
 #import "CouponsModel+CoreDataClass.h"
 #import "LogInViewController.h"
-
+#import "FYLPageViewController.h"
 #define  kScreen_heigth [UIScreen mainScreen].bounds.size.height//屏幕高度
 #define  kScreen_widht  [UIScreen mainScreen].bounds.size.width//屏幕高度
 #define  kOrange_Color  MColor(255, 143, 0)// 通用的橙色
@@ -70,9 +70,10 @@
 #define TextSize kFit(16)
 #define kTopSpacing  64
 //沈会阳 http://192.168.100.101:8080
-//线上   http://www.jxchezhilian.com
-//张玉霄  http://192.168.0.250:8080
+//线上     http://www.jxchezhilian.com
+//张玉霄 http://192.168.0.250:8080
 //吴佳境 http://192.168.100.33
+//http://192.168.100.101:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT
 #define kURL_SHY  @"http://192.168.100.101:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT"
 #define kStudentId  @"1000"
 #define kUserId   @"4c7101faa2f84f7586c6fe52373f3729"

@@ -22,7 +22,7 @@
  *可变数组
  */
 @property (nonatomic, strong)NSMutableArray * userDataArray;;
-
+@property (nonatomic,strong)NSMutableArray *viewControllerArray;
 @end
 
 @implementation MyCenterVC
@@ -270,14 +270,32 @@
     }
 }
 
+- (NSMutableArray *)viewControllerArray {
+    if (!_viewControllerArray) {
+        _viewControllerArray = [NSMutableArray array];
+        
+        for (int i = 1; i <= 5; i++) {
+             MyOrderViewController *MyOrderVC = [[MyOrderViewController alloc] initWithNibName:@"MyOrderViewController" bundle:nil];
+            MyOrderVC.index = i;
+            [_viewControllerArray addObject:MyOrderVC];
+        }
+        
+    }
+    return _viewControllerArray;
+}
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
    
     if (indexPath.section == 1) {
-        MyOrderViewController *MyOrderVC = [[MyOrderViewController alloc] initWithNibName:@"MyOrderViewController" bundle:nil];
-        UINavigationController * NAMyOrderVC = [[UINavigationController alloc] initWithRootViewController:MyOrderVC];
-        NAMyOrderVC.navigationBarHidden = YES;
+        ///(0:未完成,1:已完结,2:取消中,3:已拒绝,4:已取消,5:申诉中,6:已关闭)
+        FYLPageViewController *FYLPageVC =[[FYLPageViewController alloc]initWithTitles:@[@"未完成",@"已完成",@"取消中",@"已取消",@"申诉中"] viewControllers:self.viewControllerArray];
+        
+
+        UINavigationController * NAVC = [[UINavigationController alloc] initWithRootViewController:FYLPageVC];
+        //NAVC.navigationBarHidden = YES;
         [self setHidesBottomBarWhenPushed:YES];
-        [self presentViewController:NAMyOrderVC animated:YES completion:nil];
+        [self presentViewController:NAVC animated:YES completion:nil];
     }
     if (indexPath.section == 2) {
         EnrollDetailsVC *VC = [[EnrollDetailsVC alloc] init];

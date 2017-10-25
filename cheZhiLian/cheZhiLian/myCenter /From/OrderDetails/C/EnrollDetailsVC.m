@@ -87,9 +87,7 @@
     self.payBtn.layer.masksToBounds = YES;
 }
 - (void)handleReturn {
-    
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-    
 }
 /**
  *请求数据
@@ -99,10 +97,7 @@
     NSString *URL_Str = [NSString stringWithFormat:@"%@/order/api/orderlist", kURL_SHY];
     NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
     URL_Dic[@"studentId"] = [UserDataSingleton mainSingleton].studentsId;
-    URL_Dic[@"status"] = @"10";
-    URL_Dic[@"pageNo"] = @"1";
-    URL_Dic[@"pageSize"] = @"10";
-    URL_Dic[@"orderType"] = @"1";
+ 
     NSLog(@"URL_Dic%@", URL_Dic);
     __weak EnrollDetailsVC *VC = self;
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];

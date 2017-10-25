@@ -138,6 +138,10 @@
 		A141D7A51F5AA55B0099BA53 /* GuangdaCoach.m in Sources */ = {isa = PBXBuildFile; fileRef = A141D7A41F5AA55B0099BA53 /* GuangdaCoach.m */; };
 		A141D7AA1F5D35100099BA53 /* UserDataModel+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A141D7A71F5D35100099BA53 /* UserDataModel+CoreDataClass.m */; };
 		A141D7AB1F5D35100099BA53 /* UserDataModel+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A141D7A91F5D35100099BA53 /* UserDataModel+CoreDataProperties.m */; };
+		A14264501FA074AC00E602E9 /* FYLPageViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = A142644C1FA06D6A00E602E9 /* FYLPageViewController.h */; };
+		A14264511FA074B300E602E9 /* FYLSegmentView.h in Sources */ = {isa = PBXBuildFile; fileRef = A142644E1FA06D6A00E602E9 /* FYLSegmentView.h */; };
+		A14264521FA074BB00E602E9 /* FYLPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A142644D1FA06D6A00E602E9 /* FYLPageViewController.m */; };
+		A14264531FA074C200E602E9 /* FYLSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = A142644F1FA06D6A00E602E9 /* FYLSegmentView.m */; };
 		A159673B1F8CAB8E00FF0F77 /* MyOrderEvaluationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A15967381F8CAB8D00FF0F77 /* MyOrderEvaluationViewController.m */; };
 		A1640FEA1F3D4F98007DCF0E /* MyCenterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A1640FE91F3D4F98007DCF0E /* MyCenterVC.m */; };
 		A1640FEE1F3D51C1007DCF0E /* ServiceDisplayTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A1640FEC1F3D51C1007DCF0E /* ServiceDisplayTVCell.m */; };
@@ -480,6 +484,10 @@
 		A141D7A71F5D35100099BA53 /* UserDataModel+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UserDataModel+CoreDataClass.m"; sourceTree = "<group>"; };
 		A141D7A81F5D35100099BA53 /* UserDataModel+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UserDataModel+CoreDataProperties.h"; sourceTree = "<group>"; };
 		A141D7A91F5D35100099BA53 /* UserDataModel+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UserDataModel+CoreDataProperties.m"; sourceTree = "<group>"; };
+		A142644C1FA06D6A00E602E9 /* FYLPageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FYLPageViewController.h; sourceTree = "<group>"; };
+		A142644D1FA06D6A00E602E9 /* FYLPageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FYLPageViewController.m; sourceTree = "<group>"; };
+		A142644E1FA06D6A00E602E9 /* FYLSegmentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FYLSegmentView.h; sourceTree = "<group>"; };
+		A142644F1FA06D6A00E602E9 /* FYLSegmentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FYLSegmentView.m; sourceTree = "<group>"; };
 		A15967381F8CAB8D00FF0F77 /* MyOrderEvaluationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyOrderEvaluationViewController.m; sourceTree = "<group>"; };
 		A15967391F8CAB8D00FF0F77 /* MyOrderEvaluationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyOrderEvaluationViewController.xib; sourceTree = "<group>"; };
 		A159673A1F8CAB8E00FF0F77 /* MyOrderEvaluationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyOrderEvaluationViewController.h; sourceTree = "<group>"; };
@@ -1214,6 +1222,17 @@
 			path = CPTextViewPlaceholder;
 			sourceTree = "<group>";
 		};
+		A142644B1FA06D6A00E602E9 /* FYLPageVC */ = {
+			isa = PBXGroup;
+			children = (
+				A142644C1FA06D6A00E602E9 /* FYLPageViewController.h */,
+				A142644D1FA06D6A00E602E9 /* FYLPageViewController.m */,
+				A142644E1FA06D6A00E602E9 /* FYLSegmentView.h */,
+				A142644F1FA06D6A00E602E9 /* FYLSegmentView.m */,
+			);
+			path = FYLPageVC;
+			sourceTree = "<group>";
+		};
 		A167A4191F46E26900A9D224 /* ForgotPassword */ = {
 			isa = PBXGroup;
 			children = (
@@ -1731,6 +1750,7 @@
 		A1F7400E1F35AFA200F0B71C /* Encapsulation */ = {
 			isa = PBXGroup;
 			children = (
+				A142644B1FA06D6A00E602E9 /* FYLPageVC */,
 				A106E33B1F99C7E7006FF1F7 /* DSButton.h */,
 				A106E33A1F99C7E6006FF1F7 /* DSButton.m */,
 				A128B5E41F7B8E8D00D11664 /* AlipaySDK */,
@@ -2278,6 +2298,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A14264531FA074C200E602E9 /* FYLSegmentView.m in Sources */,
+				A14264521FA074BB00E602E9 /* FYLPageViewController.m in Sources */,
+				A14264511FA074B300E602E9 /* FYLSegmentView.h in Sources */,
+				A14264501FA074AC00E602E9 /* FYLPageViewController.h in Sources */,
 				A141D6A31F5A8C6A0099BA53 /* XYSideViewController.m in Sources */,
 				A10EDD5E1F8F438B00434843 /* TradingRecordsModel+CoreDataProperties.m in Sources */,
 				A1F740951F3802FE00F0B71C /* CommonUtil+Date.m in Sources */,
