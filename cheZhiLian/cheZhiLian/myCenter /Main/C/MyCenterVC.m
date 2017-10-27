@@ -273,8 +273,7 @@
 - (NSMutableArray *)viewControllerArray {
     if (!_viewControllerArray) {
         _viewControllerArray = [NSMutableArray array];
-        
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 0; i <= 5; i++) {
              MyOrderViewController *MyOrderVC = [[MyOrderViewController alloc] initWithNibName:@"MyOrderViewController" bundle:nil];
             MyOrderVC.index = i;
             [_viewControllerArray addObject:MyOrderVC];
@@ -288,8 +287,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
    
     if (indexPath.section == 1) {
-        ///(0:未完成,1:已完结,2:取消中,3:已拒绝,4:已取消,5:申诉中,6:已关闭)
-        FYLPageViewController *FYLPageVC =[[FYLPageViewController alloc]initWithTitles:@[@"未完成",@"已完成",@"取消中",@"已取消",@"申诉中"] viewControllers:self.viewControllerArray];
+        //0:未完成,1:已完结,2:取消中,3:已取消,4:申诉中,5:已关闭)
+        FYLPageViewController *FYLPageVC =[[FYLPageViewController alloc]initWithTitles:@[@"未完成",@"已完成",@"取消中",@"已取消",@"申诉中",@"已关闭"] viewControllers:self.viewControllerArray];
         
 
         UINavigationController * NAVC = [[UINavigationController alloc] initWithRootViewController:FYLPageVC];
