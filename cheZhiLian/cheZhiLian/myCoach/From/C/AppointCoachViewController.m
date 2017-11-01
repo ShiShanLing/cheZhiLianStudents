@@ -170,9 +170,14 @@ static  BOOL EditTime;
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"responseObject%@",responseObject);
-        [VC parsingCoachTimeData:responseObject];
+        NSString *resultStr  = [NSString stringWithFormat:@"%@",responseObject[@"result"]];
+        if ([resultStr isEqualToString:@"1"]) {
+                [VC parsingCoachTimeData:responseObject];
+        }else {
+            [VC showAlert:responseObject[@"msg"] time:1.0];
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [VC showAlert:@"网络出错!!" time:1.2];
+        [VC showAlert:@"网络出错!!" time:1.0];
     }];
 }
 

@@ -53,7 +53,6 @@
         self.titleLabel.text  = @"评论";
     }
     [self settingView];
-    [self postGetOrderDetail];
 }
 
 #pragma mark - 页面设置
@@ -154,10 +153,6 @@
 // test
 - (void)printDic:(NSDictionary *)responseObject withTitle:(NSString *)title {}
 
-// 订单详细
-- (void)postGetOrderDetail {
-    [self  makeToast:@"该功能未开通"];
-}
 
 - (void) backLogin{
    
@@ -171,7 +166,30 @@
 - (void)postComplaint {
       __weak  MyOrderComplainViewController  * VC = self;
     if ([self.type isEqualToString:@"0"]) {
-        [self showAlert:@"该功能未开通" time:1.2];
+        //
+        NSString *URL_Str = [NSString stringWithFormat:@"%@/student/api/evaluationCoach",kURL_SHY];
+        NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
+        URL_Dic[@"orderId"] = self.orderModel.orderId;
+        URL_Dic[@"comment"] = _complainContentStr;
+        NSLog(@"URL_Dic%@", URL_Dic);
+        AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+        [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
+            NSLog(@"uploadProgress%@", uploadProgress);
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSLog(@"responseObject%@", responseObject);
+            NSString *resultStr = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
+            if ([resultStr isEqualToString:@"1"]) {
+                [VC showAlert:responseObject[@"msg"] time:1.2];
+                [VC.navigationController popViewControllerAnimated:YES];
+            }else {
+                [VC showAlert:responseObject[@"msg"] time:1.2];
+            }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            [VC showAlert:@"网络出错,请稍后重试!" time:1.2];
+            NSLog(@"error%@", error);
+        }];
+
+        
     }else {
         NSString *URL_Str = [NSString stringWithFormat:@"%@/student/api/appealOrder",kURL_SHY];
         NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
@@ -183,9 +201,16 @@
         [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
             NSLog(@"uploadProgress%@", uploadProgress);
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSString *resultStr = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
+            if ([resultStr isEqualToString:@"1"]) {
             [VC showAlert:responseObject[@"msg"] time:1.2];
+                [VC.navigationController popViewControllerAnimated:YES];
+            }else {
+                [VC showAlert:responseObject[@"msg"] time:1.2];
+            }
             NSLog(@"responseObject%@", responseObject);
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+           [VC showAlert:@"网络出错,请稍后重试!" time:1.2];
             NSLog(@"error%@", error);
         }];
         

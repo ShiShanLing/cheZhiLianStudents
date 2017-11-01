@@ -34,6 +34,6 @@
  */
 @property (nonatomic, strong)OrderTimeModel *model;
 
-- (void)loadData;
+
 
 @end

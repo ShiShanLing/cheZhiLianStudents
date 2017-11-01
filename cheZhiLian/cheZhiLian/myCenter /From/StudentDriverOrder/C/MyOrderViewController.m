@@ -116,7 +116,7 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
 - (void)ParsingOrderData:(NSArray *)dataArray {
     [self.orderArray removeAllObjects];
     if (dataArray.count == 0) {
-        [self  showAlert:@"您还没有该类型订单" time:1.2];
+        [self  showAlert:@"您还没有该类型订单" time:0.4];
         [self.mainTableView reloadData];
         return;
     }
@@ -278,6 +278,7 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
     CancelPromptBtn.backgroundColor =MColor(255, 158, 134);
     [fView addSubview:CancelPromptBtn];
     CancelPromptBtn.sd_layout.leftSpaceToView(fView, 14).topSpaceToView(fView, 15).bottomSpaceToView(fView, 15).rightSpaceToView(fView, 15);
+    ////0:未完成,1:已完结,2:取消中,3:已取消,4:申诉中,5:已关闭)
     //订单状态state 订单状态(0:未完成,1:已完结,2:取消中,3:已拒绝,4:已取消,5:申诉中,6:已关闭)
     CancelPromptBtn.hidden = YES;
     switch (model.state) {
@@ -303,20 +304,19 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
             rightBtn.hidden = YES;
             break;
         case 3:
-                //取消投诉和
-                [self complainBtnConfig:rightBtn];
-                [self cancelComplainBtnConfig:leftBtn];
-            
+            //投诉
+            leftBtn.hidden = YES;
+            [self  complainBtnConfig:rightBtn];
             break;
         case 4:
             //取消投诉和
             leftBtn.hidden = YES;
-            [self  eveluateBtnConfig:rightBtn];
+            [self  cancelComplainBtnConfig:rightBtn];
             break;
         case 5:
-            //取消投诉和
+            //关闭的订单
             leftBtn.hidden = YES;
-            [self  cancelComplainBtnConfig:rightBtn];
+            [self  eveluateBtnConfig:rightBtn];
             break;
         default:
             break;
@@ -400,7 +400,6 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
     
 
 }
-
 // 评价
 - (void)eveluateClick:(DSButton *)btn {
     StudentDriverOrderModel *model = self.orderArray[btn.index];

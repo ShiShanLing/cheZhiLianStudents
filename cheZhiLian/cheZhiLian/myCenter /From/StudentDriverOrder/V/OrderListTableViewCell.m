@@ -243,12 +243,9 @@
             break;
     }
     //按钮配置
-    
-    
     self.cancelOrderBannerLabel.hidden = YES;
-
-
-
 }
+
+
 
 @end
