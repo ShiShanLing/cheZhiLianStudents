@@ -2620,7 +2620,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/cheZhiLian/Encapsulation/SwipeView",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.cheZhiLian.www-iOSApp";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.chezhilian.www-iOS-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2650,8 +2650,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/cheZhiLian/Encapsulation/SwipeView",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.cheZhiLian.www-iOSApp";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.chezhilian.www-iOS-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;

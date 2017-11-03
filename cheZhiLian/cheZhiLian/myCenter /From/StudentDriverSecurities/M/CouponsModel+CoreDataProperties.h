@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int16_t couponPrice;
 @property (nonatomic) int16_t couponusage;
 @property (nonatomic) int16_t couponAllowState;
+@property (nonatomic) int16_t couponDuration;
 @property (nullable, nonatomic, copy) NSString *endTimeStr;
 @property (nullable, nonatomic, copy) NSString *couponGoodsClassId;
 @property (nullable, nonatomic, copy) NSString *timeLimit;

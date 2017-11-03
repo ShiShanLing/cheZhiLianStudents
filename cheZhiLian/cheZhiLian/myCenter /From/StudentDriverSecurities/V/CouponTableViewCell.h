@@ -19,5 +19,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *couponStateLabel;
 
 @property (strong, nonatomic) IBOutlet UILabel *labeltitle2;
+@property (weak, nonatomic) IBOutlet UIView *backgroundVIew;
+@property (weak, nonatomic) IBOutlet UIView *backgroundVIewTwo;
 
 @end

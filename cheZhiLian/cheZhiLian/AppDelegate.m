@@ -10,6 +10,17 @@
 #import "BaseTabBarViewController.h"
 #import "SideBarViewController.h"
 #import <AlipaySDK/AlipaySDK.h>
+
+
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKConnector/ShareSDKConnector.h>
+//腾讯开放平台（对应QQ和QQ空间）SDK头文件
+#import <TencentOpenAPI/TencentOAuth.h>
+#import <TencentOpenAPI/QQApiInterface.h>
+//微信SDK头文件
+#import "WXApi.h"
+
+
 @interface AppDelegate ()
 
 @end
@@ -18,10 +29,47 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  
+  /*
+    @param activePlatforms
+    使用的分享平台集合
+    @param importHandler (onImport)
+    导入回调处理，当某个平台的功能需要依赖原平台提供的SDK支持时，需要在此方法中对原平台SDK进行导入操作
+    @param configurationHandler (onConfiguration)
+    配置回调处理，在此方法中根据设置的platformType来填充应用配置信息
+    */
+    
+    [ShareSDK registerApp:@"21ed803626c70" activePlatforms:@[@(SSDKPlatformTypeWechat),
+                                                             @(SSDKPlatformTypeQQ),] onImport:^(SSDKPlatformType platformType) {
+                                                                 switch (platformType){
+                                                                     case SSDKPlatformTypeWechat:
+                                                                         [ShareSDKConnector connectWeChat:[WXApi class]];
+                                                                         break;
+                                                                     case SSDKPlatformTypeQQ:
+                                                                         [ShareSDKConnector connectQQ:[QQApiInterface class] tencentOAuthClass:[TencentOAuth class]];
+                                                                         break;
+                                                                     default:
+                                                                         break;
+                                                                 }
+                                                             } onConfiguration:^(SSDKPlatformType platformType, NSMutableDictionary *appInfo) {
+                                                                 switch (platformType){
+                                                                     case SSDKPlatformTypeWechat:
+                                                                         [appInfo SSDKSetupWeChatByAppId:@"wx3fbcf0d51a2e675e"
+                                                                                               appSecret:@"2231aa718a55856af0397d3c64282da9"];
+                                                                         break;
+                                                                     case SSDKPlatformTypeQQ:
+                                                                         [appInfo SSDKSetupQQByAppId:@"100371282"
+                                                                                              appKey:@"aed9b0303e3ed1e27bae87c33761161d"
+                                                                                            authType:SSDKAuthTypeBoth];
+                                                                         break;
+                                                                     default:
+                                                                         break;
+                                                                 }
+                                                             }];
+    
+    
+    
     NSString *str = nil;
     NSLog(@"didFinishLaunchingWithOptions%@", str?@"YES":@"NO");
-
     // 侧拉VC
     SideBarViewController *leftViewController = [[SideBarViewController alloc] init];
     
@@ -36,8 +84,7 @@
     return YES;
 }
 
-- (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
-{
+- (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
     return UIInterfaceOrientationMaskPortrait;
 }
 
@@ -45,7 +92,6 @@
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
 }
-
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.

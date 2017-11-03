@@ -41,6 +41,7 @@
 @dynamic couponPrintStyle;
 @dynamic endTime;
 @dynamic couponTitle;
+@dynamic couponDuration;
 
 - (void)setValue:(id)value forKey:(NSString *)key {
     if ([key isEqualToString:@"startTime"]) {

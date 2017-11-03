@@ -46,7 +46,7 @@
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreen_widht, kScreen_heigth-80) style:(UITableViewStyleGrouped)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreen_widht, kScreen_heigth-80-64) style:(UITableViewStyleGrouped)];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.showsHorizontalScrollIndicator = NO;
@@ -119,7 +119,7 @@
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 4;
+    return 5;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -261,8 +261,8 @@
             default:
                 break;
         }
-        NSArray *array1 = @[@"学车订单", @"报名订单", subState];
-        NSArray *array2 = @[@"学车时间的预约订单", @"报名课程的订单", subState];
+        NSArray *array1 = @[@"学车订单", @"报名订单", subState,@"测试分享注册"];
+        NSArray *array2 = @[@"学车时间的预约订单", @"报名课程的订单", subState,@"点击分享"];
         cell.titleLabel.text = array1[indexPath.section-1];
         cell.introduceLabel.text = array2[indexPath.section - 1];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -289,8 +289,6 @@
     if (indexPath.section == 1) {
         //0:未完成,1:已完结,2:取消中,3:已取消,4:申诉中,5:已关闭)
         FYLPageViewController *FYLPageVC =[[FYLPageViewController alloc]initWithTitles:@[@"未完成",@"已完成",@"取消中",@"已取消",@"申诉中",@"已关闭"] viewControllers:self.viewControllerArray];
-        
-
         UINavigationController * NAVC = [[UINavigationController alloc] initWithRootViewController:FYLPageVC];
         //NAVC.navigationBarHidden = YES;
         [self setHidesBottomBarWhenPushed:YES];
@@ -338,7 +336,44 @@
         [self presentViewController:alertV animated:YES completion:^{
             nil;
         }];
-     }
+     
+    }
+    if (indexPath.section == 4) {
+        NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+         NSArray* imageArray = @[[UIImage imageNamed:@"icon_user_logo"]];
+        [shareParams SSDKSetupShareParamsByText:@"分享内容"
+                                         images:imageArray
+                                            url:[NSURL URLWithString:@"http://mob.com"]
+                                          title:@"分享标题"
+                                           type:SSDKContentTypeAuto];
+        //2、分享（可以弹出我们的分享菜单和编辑界面）
+        [ShareSDK showShareActionSheet:nil items:nil shareParams:shareParams onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
+            switch (state) {
+                case SSDKResponseStateSuccess:
+                {
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                        message:nil
+                                                                       delegate:nil
+                                                              cancelButtonTitle:@"确定"
+                                                              otherButtonTitles:nil];
+                    [alertView show];
+                    break;
+                }
+                case SSDKResponseStateFail:
+                {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                    message:[NSString stringWithFormat:@"%@",error]
+                                                                   delegate:nil
+                                                          cancelButtonTitle:@"OK"
+                                                          otherButtonTitles:nil, nil];
+                    [alert show];
+                    break;
+                }
+                default:
+                    break;
+            }
+        }];
+    }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {

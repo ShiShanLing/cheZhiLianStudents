@@ -22,6 +22,7 @@
 @dynamic orderState;
 @dynamic orderAmount;
 @dynamic storeName;
+@dynamic paymentState;
 
 -(void)setValue:(id)value forKey:(NSString *)key {
     

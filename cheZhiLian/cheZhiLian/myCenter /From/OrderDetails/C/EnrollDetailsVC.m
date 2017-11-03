@@ -56,6 +56,8 @@
  */
 @property (weak, nonatomic) IBOutlet UILabel *UnpaidAmountLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *paymentStateLabel;
+
 
 @end
 
@@ -63,9 +65,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.mainScrollView.hidden = YES;
-    self.cancelBtn.hidden = YES;
-    self.payBtn.hidden = YES;
+   
     [self RequestInterface];
     
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
@@ -136,11 +136,21 @@
         self.goodsNameLabel.text = model.storeName;
         self.orderStateLabel.text = [NSString stringWithFormat:@"订单编号:%@", model.orderSn];
         self.goodsPriceLabel.text = [NSString stringWithFormat:@"¥:%.2f", model.goodsAmount];
-        self.orderTotalPriceLabel.text = [NSString stringWithFormat:@"¥:%.2f", model.orderAmount];
-        self.PreferentialPriceLabel.text = @"- 0";
+        self.orderTotalPriceLabel.text = [NSString stringWithFormat:@"¥:%.2f", model.goodsAmount];
+        self.PreferentialPriceLabel.text =[NSString stringWithFormat:@"%.2f",model.goodsAmount - model.orderAmount];
         self.NeedPayPriceLabel.text = [NSString stringWithFormat:@"¥:%.2f", model.orderAmount];
         self.AmountPaidLabel.text = [NSString stringWithFormat:@"¥:%.2f", model.orderAmount];
         self.UnpaidAmountLabel.text = @"0";
+        if (model.paymentState == 0) {
+            self.paymentStateLabel.text =  @"非全款";
+            
+            self.cancelBtn.hidden = NO;
+            self.payBtn.hidden = NO;
+        }else {
+            self.paymentStateLabel.text =  @"全款";
+            self.cancelBtn.hidden = YES;
+            self.payBtn.hidden = YES;
+        }
     }
 
 

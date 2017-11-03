@@ -33,6 +33,7 @@
     NSString *phone;
     NSString *IdNum;
     NSString *TermsPayment;//付款方式
+    NSString *firstMoney;
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -120,6 +121,15 @@
         }];
         return;
     }
+    
+    if ([TermsPayment isEqualToString:@"0"]) {
+        if (firstMoney.length == 0) {
+            [self showAlert:@"首款信息获取失败,请使用全款或者稍后重试" time:1.0];
+            return;
+        }
+    }
+    
+    
     //http://106.14.158.95:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT/order/api/saveEnrollOrder?studentId=e773b4cd7a884f2196543ac17f6456ce&storeId=1&goodsId=6d0e8b211fc943aa85b3704556dcc3b6&couponMemberId=3e11ee50f1644446bc6bb20a839b8608
     [self performSelector:@selector(indeterminateExample)];
     NSString *URL_Str = [NSString stringWithFormat:@"%@/order/api/saveEnrollOrder", [self extracted]];
@@ -128,7 +138,7 @@
     URL_Dic[@"storeId"] = kStoreId;
     URL_Dic[@"goodsId"] = _goodsDetailsModel.goodsId;
     URL_Dic[@"couponMemberId"] = couponMemberId.length == 0?@"":couponMemberId;
-    URL_Dic[@"payType"] = @"1";
+    URL_Dic[@"payType"] = TermsPayment;
     NSLog(@"RequestInterface%@", URL_Dic);
     __weak ConfirmOrderVC *VC = self;
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
@@ -230,7 +240,6 @@
     }];
 }
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
@@ -251,12 +260,30 @@
     
     if (indexPath.section == 0) {
         confirmGoodsTVCell *cell = [tableView dequeueReusableCellWithIdentifier:@"confirmGoodsTVCell" forIndexPath:indexPath];
-        if (_goodsDetailsModel.goodsStorePrice<couponsAmounte) {
-            _totalPriceView.priceLabel.text = [NSString stringWithFormat:@"需付款:¥ %.2f", _goodsDetailsModel.goodsStorePrice];
-        }else {
+
+        if ([TermsPayment isEqualToString:@"0"]) {//如果是首款
+            if (firstMoney.length != 0) {//如果首款获取成功
+                if (firstMoney.floatValue<couponsAmounte) {//如果要付的金额没有优惠券金额大
+                    couponMemberId = @"";
+                    //那就直接不使用优惠券 付原款
+                    _totalPriceView.priceLabel.text = [NSString stringWithFormat:@"需付款:¥ %@",firstMoney];
+                }else {
+                    //否者吧要付的金额减去优惠券金额
+                    _totalPriceView.priceLabel.text = [NSString stringWithFormat:@"需付款:¥ %.f",firstMoney.floatValue-couponsAmounte];
+                    
+                }
+            }else {//否者首款获取失败
+                _totalPriceView.priceLabel.text = [NSString stringWithFormat:@"首款信息获取失败.请使用全款支付,获取稍后再试"];
+            }
+        }else {//否者是全款
+            if (_goodsDetailsModel.goodsStorePrice<couponsAmounte) {//如果付的金额没有优惠券金额大
+                //那就付原款
+                couponMemberId = @"";
+                _totalPriceView.priceLabel.text = [NSString stringWithFormat:@"需付款:¥ %.2f", _goodsDetailsModel.goodsStorePrice];
+            }else {//否者吧要付的金额减去优惠券金额
             _totalPriceView.priceLabel.text = [NSString stringWithFormat:@"需付款:¥ %.2f", _goodsDetailsModel.goodsStorePrice-couponsAmounte];
+            }
         }
-        
         cell.model = self.goodsDetailsModel;
         return cell;
     }else if(indexPath.section == 1){
@@ -289,23 +316,75 @@
     }
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    __weak  ConfirmOrderVC *self_VC = self;
     if (indexPath.section == 1) {
         UserBaseInfoViewController *VC = [[UserBaseInfoViewController alloc] initWithNibName:@"UserBaseInfoViewController" bundle:nil];
         [self.navigationController pushViewController:VC animated:YES];
     }
     if (indexPath.section == 2) {
-        CouponListViewController *VC = [[CouponListViewController alloc] initWithNibName:@"CouponListViewController" bundle:nil];
-        VC.type = @"1";
-        __weak ConfirmOrderVC *CVC = self;
-        VC.obtainCoupons = ^(NSString *couponsID, NSInteger amount,NSString *type) {
-            NSLog(@"couponsID%@ amount%d type%@", couponsID, amount, type);
-            couponMemberId = couponsID;
-            couponsAmounte = amount;
-            couponsType = type;
-            [CVC.tableView reloadData];
-        };
-        [self.navigationController pushViewController:VC animated:YES];
+        if (indexPath.row == 0) {
+            CouponListViewController *VC = [[CouponListViewController alloc] initWithNibName:@"CouponListViewController" bundle:nil];
+            VC.type = @"1";
+            NSLog(@"firstMoney%@", firstMoney);
+            VC.payAmount = _goodsDetailsModel.goodsStorePrice;
+             VC.obtainCoupons = ^(NSString *couponsID, NSInteger amount,NSString *type) {
+                NSLog(@"couponsID%@ amount%d type%@", couponsID, amount, type);
+                couponMemberId = couponsID;
+                couponsAmounte = amount;
+                couponsType = type;
+                [self_VC.tableView reloadData];
+            };
+            [self.navigationController pushViewController:VC animated:YES];
+        }else {
+            UIAlertController *alertV = [UIAlertController alertControllerWithTitle:@"" message:@"请选择付款方式" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"全款" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                couponsAmounte = 0;
+                couponMemberId = @"";
+                couponsType = @"";
+                TermsPayment = @"1";
+                firstMoney= @"";
+                [self_VC.tableView reloadData];
+            }];
+            UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"首款" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                [self_VC respondsToSelector:@selector(indeterminateExample)];
+                couponsAmounte = 0;
+                couponMemberId = @"";
+                couponsType = @"";
+                TermsPayment = @"0";
+                NSString *URL_Str = [NSString stringWithFormat:@"%@/store/api/getFirstAmount",kURL_SHY];
+                NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
+                URL_Dic[@"schoolId"] = kStoreId;
+                AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+                [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
+                    NSLog(@"uploadProgress%@", uploadProgress);
+                } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                    NSLog(@"responseObject%@", responseObject);
+                    [self_VC respondsToSelector:@selector(delayMethod)];
+                    NSString *resultStr = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
+                    if ([resultStr isEqualToString:@"1"]) {
+                        
+                        NSArray *dataArray =responseObject[@"data"];
+                        if (dataArray.count !=0) {
+                            firstMoney=[NSString stringWithFormat:@"%@",  dataArray[0]];
+                            [self_VC.tableView reloadData];
+                        }
+                    }else {
+                        [self_VC showAlert:responseObject[@"msg"] time:1.2];
+                    }
+                } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                    [self_VC respondsToSelector:@selector(delayMethod)];
+                    [self_VC showAlert:@"网络超时,请重试!" time:1.0];
+                }];
+                
+            }];
+            // 3.将“取消”和“确定”按钮加入到弹框控制器中
+            [alertV addAction:cancle];
+            [alertV addAction:confirm];
+            // 4.控制器 展示弹框控件，完成时不做操作
+            [self presentViewController:alertV animated:YES completion:^{
+                nil;
+            }];
+        }
     }
 }
 

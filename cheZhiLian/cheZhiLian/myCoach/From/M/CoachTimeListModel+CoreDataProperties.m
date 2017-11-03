@@ -25,6 +25,7 @@
 @dynamic unitPrice;
 @dynamic periodStr;
 @dynamic openCourse;
+@dynamic subType;
 -(void)setValue:(id)value forKey:(NSString *)key {
     
     if ([key isEqualToString:@"startTime"]) {
@@ -38,7 +39,11 @@
         NSTimeInterval time=[str doubleValue]/1000;//因为时差问题要加8小时 == 28800 sec
         NSDate *detaildate=[NSDate dateWithTimeIntervalSince1970:time];
         self.endTime = detaildate;
-    }else {
+    }else if([key isEqualToString:@"price"]){
+        
+        self.unitPrice = [NSString stringWithFormat:@"%@", value].floatValue;
+        
+    }else{
        [super setValue:value forKey:key];
     }
 }

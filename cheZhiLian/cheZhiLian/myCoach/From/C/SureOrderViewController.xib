@@ -405,7 +405,7 @@
                                         <constraint firstAttribute="height" constant="1" id="GUq-UQ-hbD"/>
                                     </constraints>
                                 </view>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DrR-fC-Q54" userLabel="select">
+                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DrR-fC-Q54" userLabel="select">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="qoZ-CT-69C"/>
@@ -467,7 +467,7 @@
                                     <color key="textColor" red="0.99215686274509807" green="0.23921568627450979" blue="0.027450980392156862" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9TG-nm-Ee2" userLabel="select">
+                                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9TG-nm-Ee2" userLabel="select">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="7Cs-Zm-6i3"/>
@@ -528,7 +528,7 @@
                                     <color key="textColor" red="0.99215686274509807" green="0.23921568627450979" blue="0.027450980392156862" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6mc-us-psK" userLabel="select">
+                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6mc-us-psK" userLabel="select">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="mbz-R0-hta"/>

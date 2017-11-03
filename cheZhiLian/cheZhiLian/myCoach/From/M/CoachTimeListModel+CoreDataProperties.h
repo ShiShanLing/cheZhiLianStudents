@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *timeStr;
 @property (nullable, nonatomic, copy) NSString *periodStr;
 @property (nonatomic) int16_t openCourse;
+@property (nonatomic) int16_t subType;
 -(void)setValue:(id)value forKey:(NSString *)key;
 
 @end

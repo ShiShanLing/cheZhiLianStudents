@@ -153,7 +153,7 @@ static  BOOL EditTime;
     NSString *SJCStr = [NSString stringWithFormat:@"%.0f000", [[CommonUtil getDateForString:newTime format:nil] timeIntervalSince1970]];
     //NSLog(@"最终转为字符串时间1 = %@  SJCStr%@", newTime, SJCStr);
     
-    NSString *URL_Str = [NSString stringWithFormat:@"%@/train/api/studentReserveTime", kURL_SHY];
+    NSString *URL_Str = [NSString stringWithFormat:@"%@/train/api/coachReserveTime", kURL_SHY];
     NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
     
     if ([UserDataSingleton mainSingleton].coachId.length == 0) {
@@ -271,6 +271,7 @@ static  BOOL EditTime;
 }
 // 重新计算总价
 - (void)resetPriceNumStatus {
+    
     CGFloat unitPrice = 0.0;
     NSMutableArray *selectedTimeArray = [NSMutableArray array];
     for (NSArray *modelArray in self.dateArray) {
@@ -369,7 +370,6 @@ static  BOOL EditTime;
 - (void)handleSwipeFrom:(UISwipeGestureRecognizer *)swipeGR {
     //一是改变日期选择  而是改变教练的时间状态
     [self swipeView:self.swipeView didSelectItemAtIndex:_curPageNum];
-    
 }
 
 #pragma mark - UISwipeViewDelegate
@@ -467,11 +467,11 @@ static  BOOL EditTime;
         }
     }
     
-    
     SureOrderViewController *VC= [[SureOrderViewController alloc] init];
     
     VC.dateTimeSelectedList = selectedTimeArray;
     VC.priceSum = [NSString stringWithFormat:@"%.2f", selectedTimeArray.count * unitPrice];
+    VC.payMoney =  selectedTimeArray.count * unitPrice;
     [self.navigationController pushViewController:VC animated:YES];
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

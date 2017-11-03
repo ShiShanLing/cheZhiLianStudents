@@ -96,7 +96,7 @@
 }
 #pragma mark - 网络请求
 - (void) requestData:(NSString *)type{
-  //  http://106.14.158.95:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT/coupon/api/couponMemberList?memberId=083ed50cb97d418db29110ff12ab93ed&couponIsUsed=0
+  // http://www.jxchezhilian.com/coupon/api/couponMemberList?memberId=f2356634919948448bd70064c15847e7&couponIsUsed=0
     NSString *URL_Str = [NSString stringWithFormat:@"%@/coupon/api/couponMemberList",kURL_SHY];
     NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
     URL_Dic[@"memberId"] = [UserDataSingleton mainSingleton].studentsId;
@@ -153,37 +153,39 @@
 
     cell.couponTipView.layer.cornerRadius = 3;
     cell.couponTipView.layer.masksToBounds = YES;
-    int coupontype = arc4random()%2 +1;
-//    if(coupontype == 1){
-//        cell.couponTitleLabel.text = @"学车券－学时券";
-//        cell.labeltitle2.text = [NSString stringWithFormat:@"本券可以抵用%d学时学费",2];
-//    }else{
-//        cell.couponTitleLabel.text = @"学车券－抵价券";
-//        cell.labeltitle2.text = [NSString stringWithFormat:@"本券可以抵用学费%d元",1000];
-//    }
-    cell.couponTitleLabel.text = model.couponDesc;
+    int coupontype = model.couponClassId.intValue;
+    if(coupontype ==0){
+        cell.couponTitleLabel.text = @"满减券";
+        cell.labeltitle2.text = [NSString stringWithFormat:@"满%d元抵用%d元",model.couponLimit, model.couponPrice];
+      
+    }else{
+        cell.couponTitleLabel.text = @"学时券";
+        cell.labeltitle2.text = [NSString stringWithFormat:@"本券可以抵用%d学时学费",model.couponDuration];
+    }
     cell.couponPublishLabel.text = model.couponDesc;
-    cell.labeltitle2.text = [NSString stringWithFormat:@"本券%@",model.couponDesc];
     cell.couponEndTime.text = [NSString stringWithFormat:@"到期时间:%@",[CommonUtil getStringForDate:model.endTime]];
     cell.couponTipView.hidden = YES;
-    cell.couponStateLabel.text = @"未使用";
-//    int a = model.couponIsused;
-//    if(a == 1){
-//        cell.couponTipView.hidden = YES;
-//    }else{
-//        cell.couponTipView.hidden = NO;
-//        cell.couponStateLabel.text = @"已使用";
-//    }
-    
+    if (model.couponIsUsed == 0) {
+        cell.couponStateLabel.text = @"未使用";
+    }else {
+        cell.couponStateLabel.text = @"已使用";
+    }
+    //如果type是1 那么代表上个界面还需要看满减券 那么就把学时券黑掉
     if ([self.type isEqualToString:@"1"]) {
-        if ([model.couponClassId isEqualToString:@"3"]) {
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.backgroundColor = MColor(238, 238, 238);
+        if ([model.couponClassId isEqualToString:@"1"]) {
+            cell.backgroundVIew.backgroundColor = MColor(200, 200, 200);
+        }
+    }else {
+        NSLog(@"self.payAmount%f", self.payAmount);
+        if (model.couponPrice > self.payAmount || model.couponLimit > self.payAmount || self.courseNum < model.couponDuration) {
+            cell.backgroundVIew.backgroundColor = MColor(200, 200, 200);
+        }else {
+            
+            
         }
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     tableView.separatorStyle = UITableViewCellSelectionStyleNone;
-    
     return cell;
 }
 
@@ -192,18 +194,41 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    
     CouponsModel *model = self.couponsListAray[indexPath.row];
-    
     if ([self.type isEqualToString:@"1"]) {
-        if ([model.couponClassId isEqualToString:@"3"]) {
+        
+        if ([model.couponClassId isEqualToString:@"1"]) {
             
         }else {
-            self.obtainCoupons(model.couponMemberId, model.couponPrice, model.couponClassId);
-            [self.navigationController popViewControllerAnimated:YES];
+            NSLog(@"model.couponPrice%d model.couponLimit%d self.payAmount%f self.courseNum%d model.couponDuration%d",model.couponPrice ,model.couponLimit,self.payAmount,self.courseNum,model.couponDuration);
+            if (model.couponPrice > self.payAmount || model.couponLimit > self.payAmount || self.courseNum > model.couponDuration) {
+                
+            }else {
+                self.obtainCoupons(model.couponMemberId, model.couponPrice, model.couponClassId);
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        }
+    }else {
+        
+        //如果是满减券
+        if ([model.couponClassId isEqualToString:@"0"]) {
+            
+            if (model.couponPrice > self.payAmount || model.couponLimit > self.payAmount ) {
+                
+            }else {
+                NSLog(@"model.couponClassId%@", model.couponClassId);
+                self.obtainCoupons(model.couponMemberId, model.couponPrice, model.couponClassId);
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        }else {//否者就是学时券
+            if (self.courseNum < model.couponDuration) {
+                
+            }else {
+                self.obtainCoupons(model.couponMemberId, model.couponDuration, model.couponClassId);
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         }
     }
-    
 }
 
 - (void)GetCoupon:(NSString *)couponId amount:(NSInteger)amount type:(NSString *)type{
@@ -232,7 +257,7 @@
     }];
 }
 
-// 可用小巴券
+// 可用学车券
 - (IBAction)clickForTitleLeft:(id)sender {
     if(selectIndex == 1)
         return;
@@ -243,7 +268,7 @@
     [self requestData:@"0"];
 }
 
-// 历史小巴券
+// 历史学车券
 - (IBAction)clickForTitleRight:(id)sender {
     if(selectIndex == 2)
         return;

@@ -137,6 +137,8 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="backgroundVIew" destination="ci5-NY-wPC" id="R8J-Ej-Bq6"/>
+                <outlet property="backgroundVIewTwo" destination="4Cv-QJ-ksE" id="Fl7-x2-pgz"/>
                 <outlet property="couponEndTime" destination="M9E-Lm-RBv" id="vm1-Oe-7pZ"/>
                 <outlet property="couponImage" destination="aEl-8g-NSb" id="vou-Yr-hfF"/>
                 <outlet property="couponPublishLabel" destination="To6-I9-HAH" id="Od4-s5-V8L"/>

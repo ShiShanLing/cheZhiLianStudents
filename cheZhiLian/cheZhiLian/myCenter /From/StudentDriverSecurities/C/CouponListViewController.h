@@ -13,7 +13,8 @@
 @interface CouponListViewController : GreyTopViewController
 //
 @property (nonatomic, strong)NSString *type;
-
+@property (nonatomic, assign)CGFloat payAmount;
+@property (nonatomic,assign)NSInteger courseNum;
 @property (nonatomic,copy) void(^obtainCoupons)(NSString *couponsID,NSInteger amount ,NSString *couponsType);
 
 @end

@@ -9,7 +9,7 @@
 #import "SureOrderViewController.h"
 #import "SureOrderTableViewCell.h"
 #import <CoreText/CoreText.h>
-
+#import "CouponListViewController.h"
 
 #define FOOTVIEW_HEIGHT 48
 #define SELVIEW_HEIGHT 250
@@ -77,7 +77,14 @@
 
 @end
 
-@implementation SureOrderViewController
+@implementation SureOrderViewController {
+    
+    NSString * couponMemberId;
+    NSInteger  couponsAmounte;
+    NSString *  couponsType;
+    
+    
+}
 - (IBAction)returnView:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -89,7 +96,7 @@
     } else {
        
     }
-    self.priceSumLabel.text = [NSString stringWithFormat:@"应付金额%@元", self.priceSum];
+    self.priceSumLabel.text = [NSString stringWithFormat:@"应付金额%.2f元", self.payMoney];
     
     self.orderArray = [NSMutableArray array];
     _couponArray = [NSMutableArray array];
@@ -269,8 +276,22 @@
     payTypeLabel.font = [UIFont systemFontOfSize:14];
     payTypeLabel.textColor = [UIColor blackColor];
     payTypeLabel.textAlignment = NSTextAlignmentRight;
-        payTypeLabel.text = @"账户余额";
-        payTypeLabel.text = [NSString stringWithFormat:@"余额支付%@元", self.priceSum];
+    
+    if (couponsType.intValue == 0) {//满减券
+        payTypeLabel.text = [NSString stringWithFormat:@"%ld元抵用券", couponsAmounte];
+    }
+    if (couponsType.intValue == 1) {//学时券
+        payTypeLabel.text = [NSString stringWithFormat:@"%ld学时抵用券", couponsAmounte];
+    }
+    if (couponsType.length == 0) {
+        if (self.priceSum.floatValue > [UserDataSingleton mainSingleton].balance.floatValue) {
+            payTypeLabel.text = [NSString stringWithFormat:@"账户余额不足!"];
+        }else {
+            payTypeLabel.text = [NSString stringWithFormat:@"余额支付%@元", self.priceSum];
+        }
+    }
+    
+   
     // 选择支付方式
     UIButton *selectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [view addSubview:selectBtn];
@@ -323,7 +344,6 @@
 // 充值
 - (void)rechargeClick:(id)sender {
     [self.appointResultView removeFromSuperview];
-    
 }
 
 - (IBAction)removeResultClick:(id)sender {
@@ -333,10 +353,13 @@
 
 // 选择支付方式
 - (IBAction)choosePayType:(UIButton *)sender {
-
     
-    
-    
+    if (sender.tag == 1) {
+        [self selectButton:self.couponSelectBtn];
+    }
+    if (sender.tag == 3) {
+        [self selectButton:self.moneySelectBtn];
+    }
     
 
 }
@@ -375,7 +398,7 @@
 }
 // 显示可用的剩余财富
 - (void)remainWealthShow {
-    self.remainCouponLabel.text = [NSString stringWithFormat:@"%d张可用", _remainderCouponNum];
+    self.remainCouponLabel.text = @"";
     
     //取消混合支付
     //    if (bookOrder.payType == payTypeCoin) {
@@ -407,7 +430,7 @@
 
 // 确认并隐藏选择支付方式view
 - (IBAction)clickForHideSelectionView:(UIButton *)sender {
-    
+    __weak SureOrderViewController *self_VC = self;
     if (sender.tag == 1002) {
         [UIView animateWithDuration:0.35 animations:^{
             self.coverBgBtn.alpha = 0;
@@ -416,8 +439,30 @@
             [self.coverBgBtn removeFromSuperview];
             [self.payTypeSelectView removeFromSuperview];
         }];
-        [self.tableView reloadData];
-        [self payDetailStatistics];
+        if (self.couponSelectBtn.selected) {
+            CouponListViewController *VC = [[CouponListViewController alloc] initWithNibName:@"CouponListViewController" bundle:nil];
+            VC.type = @"2";//
+            VC.courseNum = self.dateTimeSelectedList.count;
+            VC.payAmount =self.priceSum.floatValue;
+            VC.obtainCoupons = ^(NSString *couponsID, NSInteger amount,NSString *type) {
+                NSLog(@"couponsID%@ amount%d type%@", couponsID,amount,type);
+                couponMemberId = couponsID;
+                couponsAmounte = amount;
+                couponsType = type;
+                if (type.intValue == 0) {
+                    self_VC.payMoney = self.priceSum.floatValue - amount;
+                    self.priceSumLabel.text = [NSString stringWithFormat:@"应付金额%.2f元", self.payMoney];
+                }else {
+                    [self_VC RecalculatePrice:amount];
+                }
+                [self_VC.tableView reloadData];
+            };
+            [self.navigationController pushViewController:VC animated:YES];
+        }
+        if (self.moneySelectBtn.selected) {
+            [self.tableView reloadData];
+            [self payDetailStatistics];
+        }
     }else {
         [UIView animateWithDuration:0.35 animations:^{
             self.coverBgBtn.alpha = 0;
@@ -427,6 +472,18 @@
             [self.payTypeSelectView removeFromSuperview];
         }];
     }
+}
+
+- (void)RecalculatePrice:(NSInteger)num {
+    
+    for (int i = 0; i <self.dateTimeSelectedList.count ; i ++) {
+        CoachTimeListModel  *model  = self.dateTimeSelectedList[i];
+        if (i <num) {
+            self.payMoney = self.priceSum.floatValue - model.unitPrice;
+            NSLog(@"self.payMoney%.2f------model.unitPrice%.2f", self.payMoney,model.unitPrice);
+        }
+    }
+    self.priceSumLabel.text = [NSString stringWithFormat:@"应付金额%.2f元", self.payMoney];
 }
 
 - (void)payDetailStatistics {
@@ -449,7 +506,7 @@
         URL_Dic[@"coachId"]=[UserDataSingleton mainSingleton].coachId;
         URL_Dic[@"studentId"] = [UserDataSingleton mainSingleton].studentsId;
         URL_Dic[@"timeStr"] = timeStr;
-         URL_Dic[@"couponMemberId"] = @"";
+    URL_Dic[@"couponMemberId"] = couponMemberId.length == 0?@"":couponMemberId;
         URL_Dic[@"price"] = [NSString stringWithFormat:@"%.0f", self.payMoney];
         NSLog(@"URL_Dic%@", URL_Dic);
         AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
@@ -470,8 +527,6 @@
             NSLog(@"error%@", error);
         }];
     
- 
-
 }
 - (void)AnalysisUserData{
     
@@ -496,7 +551,6 @@
             [_tableView.mj_header endRefreshing];
             [VC showAlert:@"请求失败请重试" time:1.0];
         }];
-    
 }
 //解析的用户详情的数据
 - (void)AnalyticalData:(NSDictionary *)dic {
@@ -505,7 +559,6 @@
         NSDictionary *urseDataDic = dic[@"data"][0];
         NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"UserLogInData" ofType:@"plist"];
         NSMutableDictionary *userData = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
-        
         NSEntityDescription *des = [NSEntityDescription entityForName:@"UserDataModel" inManagedObjectContext:self.managedContext];
         //根据描述 创建实体对象
         UserDataModel *model = [[UserDataModel alloc] initWithEntity:des insertIntoManagedObjectContext:self.managedContext];

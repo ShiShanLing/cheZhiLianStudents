@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) float goodsAmount;
 @property (nullable, nonatomic, copy) NSString *buyerId;
 @property (nonatomic) int16_t orderState;
+@property (nonatomic) int16_t paymentState;
 @property (nonatomic) float orderAmount;
 @property (nullable, nonatomic, copy) NSString *storeName;
 
