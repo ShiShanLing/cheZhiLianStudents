@@ -23,7 +23,11 @@
 @dynamic orderAmount;
 @dynamic storeName;
 @dynamic paymentState;
-
+@dynamic orderType;
+@dynamic discount;
+@dynamic goodsId;
+@dynamic couponId;
+@dynamic goodsName;
 -(void)setValue:(id)value forKey:(NSString *)key {
     
     if ([key isEqualToString:@"addTime"]) {

@@ -1,6 +1,7 @@
 target 'cheZhiLian' do
 platform :ios, '8.0'
 pod 'SDWebImage'
+pod 'DZNEmptyDataSet'
 pod 'MJExtension'
 pod 'AFNetworking'
 pod 'MJRefresh'

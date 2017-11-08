@@ -51,7 +51,6 @@
 }
 
 - (IBAction)handleReturn:(id)sender {
-    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -64,31 +63,8 @@
     getDateSuccess = NO;
     getHisDateSuccess = YES;
     self.noDataView.hidden = YES;
-    
 }
 
-- (void)accessCouponsType{
-    
-    NSString *URL_Str = [NSString stringWithFormat:@"%@/coupon/api/getCouponClass", kURL_SHY];
-    NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
-    __weak  CouponListViewController *VC = self;
-    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
-    [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
-        NSLog(@"uploadProgress%@", uploadProgress);
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"responseObject%@", responseObject);
-        NSString *resultStr = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
-        if ([resultStr isEqualToString:@"1"]) {
-            
-        }else {
-            [VC showAlert:responseObject[@"msg"] time:1.2];
-        }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"error%@", error);
-    }];
-
-    
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -157,14 +133,13 @@
     if(coupontype ==0){
         cell.couponTitleLabel.text = @"满减券";
         cell.labeltitle2.text = [NSString stringWithFormat:@"满%d元抵用%d元",model.couponLimit, model.couponPrice];
-      
     }else{
         cell.couponTitleLabel.text = @"学时券";
         cell.labeltitle2.text = [NSString stringWithFormat:@"本券可以抵用%d学时学费",model.couponDuration];
     }
     cell.couponPublishLabel.text = model.couponDesc;
     cell.couponEndTime.text = [NSString stringWithFormat:@"到期时间:%@",[CommonUtil getStringForDate:model.endTime]];
-    cell.couponTipView.hidden = YES;
+    cell.couponTipView.hidden = NO;
     if (model.couponIsUsed == 0) {
         cell.couponStateLabel.text = @"未使用";
     }else {
@@ -175,7 +150,7 @@
         if ([model.couponClassId isEqualToString:@"1"]) {
             cell.backgroundVIew.backgroundColor = MColor(200, 200, 200);
         }
-    }else {
+    }else if ([self.type isEqualToString:@"2"]){
         NSLog(@"self.payAmount%f", self.payAmount);
         if (model.couponPrice > self.payAmount || model.couponLimit > self.payAmount || self.courseNum < model.couponDuration) {
             cell.backgroundVIew.backgroundColor = MColor(200, 200, 200);
@@ -209,7 +184,6 @@
             }
         }
     }else {
-        
         //如果是满减券
         if ([model.couponClassId isEqualToString:@"0"]) {
             

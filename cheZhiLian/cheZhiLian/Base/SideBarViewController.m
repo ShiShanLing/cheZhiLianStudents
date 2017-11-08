@@ -15,18 +15,30 @@
 #import "UserInfoHomeViewController.h"
 #import "LoginViewController.h"
 #import "UIImageView+WebCache.h"
-
+#import "MyOrderViewController.h"
 @interface SideBarViewController ()
 
 @property (strong, nonatomic) IBOutlet UIView *systemMessageView;
 @property (strong, nonatomic) IBOutlet UIImageView *messageIcon;
 @property (strong, nonatomic) IBOutlet UIImageView *messageRed;
 @property (weak, nonatomic) IBOutlet UILabel *addrLabel;
+@property (nonatomic, strong)NSMutableArray *viewControllerArray;
 
 @end
 
 @implementation SideBarViewController
-
+- (NSMutableArray *)viewControllerArray {
+    if (!_viewControllerArray) {
+        _viewControllerArray = [NSMutableArray array];
+        for (int i = 0; i <= 5; i++) {
+            MyOrderViewController *MyOrderVC = [[MyOrderViewController alloc] initWithNibName:@"MyOrderViewController" bundle:nil];
+            MyOrderVC.index = i;
+            [_viewControllerArray addObject:MyOrderVC];
+        }
+        
+    }
+    return _viewControllerArray;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -93,9 +105,12 @@
         UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:VC];
         [self presentViewController:NAVC animated:YES completion:nil];
     }else {
-    MyOrderViewController *viewController = [[MyOrderViewController alloc] initWithNibName:@"MyOrderViewController" bundle:nil];
-    UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:viewController];
-    [self presentViewController:NAVC animated:YES completion:nil];
+        //0:未完成,1:已完结,2:取消中,3:已取消,4:申诉中,5:已关闭)
+        FYLPageViewController *FYLPageVC =[[FYLPageViewController alloc]initWithTitles:@[@"未完成",@"已完成",@"取消中",@"已取消",@"申诉中",@"已关闭"] viewControllers:self.viewControllerArray];
+        UINavigationController * NAVC = [[UINavigationController alloc] initWithRootViewController:FYLPageVC];
+        //NAVC.navigationBarHidden = YES;
+        [self setHidesBottomBarWhenPushed:YES];
+        [self presentViewController:NAVC animated:YES completion:nil];
     }
 }
 // 账户

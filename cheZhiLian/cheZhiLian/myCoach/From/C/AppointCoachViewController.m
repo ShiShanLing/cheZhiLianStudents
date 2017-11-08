@@ -277,7 +277,7 @@ static  BOOL EditTime;
     for (NSArray *modelArray in self.dateArray) {
         for (CoachTimeListModel *model in modelArray) {
             if (model.state == 4) {
-                unitPrice = model.unitPrice;
+                unitPrice += model.unitPrice;
                 [selectedTimeArray addObject:model];
             }
         }
@@ -461,7 +461,7 @@ static  BOOL EditTime;
     for (NSArray *modelArray in self.dateArray) {
         for (CoachTimeListModel *model in modelArray) {
             if (model.state == 4) {
-                unitPrice = model.unitPrice;
+                unitPrice += model.unitPrice;
                 [selectedTimeArray addObject:model];
             }
         }
@@ -470,8 +470,8 @@ static  BOOL EditTime;
     SureOrderViewController *VC= [[SureOrderViewController alloc] init];
     
     VC.dateTimeSelectedList = selectedTimeArray;
-    VC.priceSum = [NSString stringWithFormat:@"%.2f", selectedTimeArray.count * unitPrice];
-    VC.payMoney =  selectedTimeArray.count * unitPrice;
+    VC.priceSum = [NSString stringWithFormat:@"%.2f", unitPrice];
+    VC.payMoney =  unitPrice;
     [self.navigationController pushViewController:VC animated:YES];
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

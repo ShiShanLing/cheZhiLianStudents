@@ -261,7 +261,7 @@
             default:
                 break;
         }
-        NSArray *array1 = @[@"学车订单", @"报名订单", subState,@"测试分享注册"];
+        NSArray *array1 = @[@"学车订单", @"报名订单", subState,@"分享注册"];
         NSArray *array2 = @[@"学车时间的预约订单", @"报名课程的订单", subState,@"点击分享"];
         cell.titleLabel.text = array1[indexPath.section-1];
         cell.introduceLabel.text = array2[indexPath.section - 1];
@@ -278,11 +278,9 @@
             MyOrderVC.index = i;
             [_viewControllerArray addObject:MyOrderVC];
         }
-        
     }
     return _viewControllerArray;
 }
-
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
    
@@ -340,11 +338,11 @@
     }
     if (indexPath.section == 4) {
         NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-         NSArray* imageArray = @[[UIImage imageNamed:@"icon_user_logo"]];
+         NSArray* imageArray = @[[UIImage imageNamed:@"AppIcon"]];
         [shareParams SSDKSetupShareParamsByText:@"分享内容"
                                          images:imageArray
-                                            url:[NSURL URLWithString:@"http://mob.com"]
-                                          title:@"分享标题"
+                                            url:[NSURL URLWithString:[NSString stringWithFormat:@"%@/share/to_jump?share_type_id=2&school_id=1&stu_id=%@",kURL_SHY,[UserDataSingleton mainSingleton].studentsId]]
+                                          title:@"分享注册"
                                            type:SSDKContentTypeAuto];
         //2、分享（可以弹出我们的分享菜单和编辑界面）
         [ShareSDK showShareActionSheet:nil items:nil shareParams:shareParams onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {

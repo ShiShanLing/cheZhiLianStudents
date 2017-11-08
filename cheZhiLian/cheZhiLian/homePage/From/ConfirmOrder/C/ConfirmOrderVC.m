@@ -130,9 +130,9 @@
     }
     
     
-    //http://106.14.158.95:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT/order/api/saveEnrollOrder?studentId=e773b4cd7a884f2196543ac17f6456ce&storeId=1&goodsId=6d0e8b211fc943aa85b3704556dcc3b6&couponMemberId=3e11ee50f1644446bc6bb20a839b8608
+    
     [self performSelector:@selector(indeterminateExample)];
-    NSString *URL_Str = [NSString stringWithFormat:@"%@/order/api/saveEnrollOrder", [self extracted]];
+    NSString *URL_Str = [NSString stringWithFormat:@"%@/order/api/saveEnrollOrder", kURL_SHY];
     NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
     URL_Dic[@"studentId"] = [UserDataSingleton mainSingleton].studentsId;
     URL_Dic[@"storeId"] = kStoreId;
@@ -147,10 +147,9 @@
         NSLog(@"uploadProgress%@", uploadProgress);
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"报名数据responseObject%@", responseObject);
-        
         NSString *resultStr= [NSString stringWithFormat:@"%@", responseObject[@"result"]];
         //[VC showAlert:responseObject[@"msg"] time:1.2];
-        [self performSelector:@selector(delayMethod)];
+        
         if ([resultStr isEqualToString:@"1"]) {
             NSString *price;
             NSString *subject;
@@ -163,8 +162,8 @@
             subject =dataDic[@"subject"];
             body = dataDic[@"body"];
             [self requestAliPaymentSignature:price subject:subject outTradeNo:outTradeNo body:body];
-     
         }else {
+            [self performSelector:@selector(delayMethod)];
             [VC showAlert:responseObject[@"msg"] time:1.2];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -198,7 +197,7 @@
                 
                 NSString *resultStatus = [NSString stringWithFormat:@"%@", resultDic[@"resultStatus"]];
                 NSInteger state = resultStatus.integerValue;
-      
+                [VC performSelector:@selector(delayMethod)];
                 switch (state) {
                     case 9000:
                         [VC showAlert:@"订单支付成功"];

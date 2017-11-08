@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13240" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13533" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="CoachDetailsModel" representedClassName="CoachDetailsModel" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
@@ -132,11 +132,16 @@
     <entity name="GoodsOrderDetailsModel" representedClassName="GoodsOrderDetailsModel" syncable="YES">
         <attribute name="addTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="buyerId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="couponId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="discount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="goodsAmount" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="goodsId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="goodsName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="orderAmount" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="orderId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="orderSn" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="orderState" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="orderType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="paymentState" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="storeName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -210,7 +215,7 @@
         <element name="CouponsModel" positionX="-9" positionY="153" width="128" height="450"/>
         <element name="CourseDetailModel" positionX="-54" positionY="144" width="128" height="750"/>
         <element name="CourseListModel" positionX="-63" positionY="54" width="128" height="450"/>
-        <element name="GoodsOrderDetailsModel" positionX="-54" positionY="135" width="128" height="180"/>
+        <element name="GoodsOrderDetailsModel" positionX="-54" positionY="135" width="128" height="255"/>
         <element name="OrderTimeModel" positionX="-54" positionY="135" width="128" height="225"/>
         <element name="StudentDriverOrderModel" positionX="-27" positionY="135" width="128" height="225"/>
         <element name="TradingRecordsModel" positionX="-18" positionY="144" width="128" height="135"/>

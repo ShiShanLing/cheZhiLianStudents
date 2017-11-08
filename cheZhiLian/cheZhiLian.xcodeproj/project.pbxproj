@@ -14,6 +14,8 @@
 		A100A4DC1F4423250094BCF0 /* MyOrderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A100A4DA1F4423250094BCF0 /* MyOrderViewController.xib */; };
 		A100A4E51F4423ED0094BCF0 /* OrderListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A100A4E31F4423ED0094BCF0 /* OrderListTableViewCell.m */; };
 		A100A4E61F4423ED0094BCF0 /* OrderListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A100A4E41F4423ED0094BCF0 /* OrderListTableViewCell.xib */; };
+		A104FC9A1FB2AD1A00650802 /* UIScrollView+DPEmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = A104FC971FB2AD1900650802 /* UIScrollView+DPEmptyDataSet.m */; };
+		A104FC9B1FB2AD1A00650802 /* UIScrollView+DPRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = A104FC991FB2AD1900650802 /* UIScrollView+DPRefresh.m */; };
 		A106E33C1F99C7E7006FF1F7 /* DSButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A106E33A1F99C7E6006FF1F7 /* DSButton.m */; };
 		A109DC711F41364A008C1082 /* TestLibraryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A109DC6F1F41364A008C1082 /* TestLibraryVC.m */; };
 		A109DC741F419101008C1082 /* logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A109DC731F419101008C1082 /* logo.jpg */; };
@@ -47,6 +49,10 @@
 		A1395CB61F4D1DE8002A432D /* 7.png in Resources */ = {isa = PBXBuildFile; fileRef = A1395CAA1F4D1DE8002A432D /* 7.png */; };
 		A1395CB71F4D1DE8002A432D /* 8.png in Resources */ = {isa = PBXBuildFile; fileRef = A1395CAB1F4D1DE8002A432D /* 8.png */; };
 		A1395CB81F4D1DE8002A432D /* 9.png in Resources */ = {isa = PBXBuildFile; fileRef = A1395CAC1F4D1DE8002A432D /* 9.png */; };
+		A13CCEE71FB1447000B616DE /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A13CCEE51FB1446F00B616DE /* MyViewController.m */; };
+		A13CCEE81FB1447000B616DE /* MyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A13CCEE61FB1446F00B616DE /* MyViewController.xib */; };
+		A13CCEEC1FB1883000B616DE /* StudentsCenterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A13CCEEA1FB1883000B616DE /* StudentsCenterVC.m */; };
+		A13CCEED1FB1883000B616DE /* StudentsCenterVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A13CCEEB1FB1883000B616DE /* StudentsCenterVC.xib */; };
 		A141D6A21F5A8C6A0099BA53 /* UIViewController+XYSideCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A141D69F1F5A8C6A0099BA53 /* UIViewController+XYSideCategory.m */; };
 		A141D6A31F5A8C6A0099BA53 /* XYSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A141D6A11F5A8C6A0099BA53 /* XYSideViewController.m */; };
 		A141D6A71F5A8D1A0099BA53 /* SideBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A141D6A51F5A8D1A0099BA53 /* SideBarViewController.m */; };
@@ -293,6 +299,10 @@
 		A100A4E21F4423ED0094BCF0 /* OrderListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderListTableViewCell.h; sourceTree = "<group>"; };
 		A100A4E31F4423ED0094BCF0 /* OrderListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderListTableViewCell.m; sourceTree = "<group>"; };
 		A100A4E41F4423ED0094BCF0 /* OrderListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderListTableViewCell.xib; sourceTree = "<group>"; };
+		A104FC961FB2AD1900650802 /* UIScrollView+DPEmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+DPEmptyDataSet.h"; sourceTree = "<group>"; };
+		A104FC971FB2AD1900650802 /* UIScrollView+DPEmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+DPEmptyDataSet.m"; sourceTree = "<group>"; };
+		A104FC981FB2AD1900650802 /* UIScrollView+DPRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+DPRefresh.h"; sourceTree = "<group>"; };
+		A104FC991FB2AD1900650802 /* UIScrollView+DPRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+DPRefresh.m"; sourceTree = "<group>"; };
 		A106E33A1F99C7E6006FF1F7 /* DSButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DSButton.m; sourceTree = "<group>"; };
 		A106E33B1F99C7E7006FF1F7 /* DSButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DSButton.h; sourceTree = "<group>"; };
 		A109DC6E1F41364A008C1082 /* TestLibraryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestLibraryVC.h; sourceTree = "<group>"; };
@@ -335,6 +345,12 @@
 		A1395CAA1F4D1DE8002A432D /* 7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 7.png; sourceTree = "<group>"; };
 		A1395CAB1F4D1DE8002A432D /* 8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 8.png; sourceTree = "<group>"; };
 		A1395CAC1F4D1DE8002A432D /* 9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 9.png; sourceTree = "<group>"; };
+		A13CCEE41FB1446E00B616DE /* MyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
+		A13CCEE51FB1446F00B616DE /* MyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
+		A13CCEE61FB1446F00B616DE /* MyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyViewController.xib; sourceTree = "<group>"; };
+		A13CCEE91FB1883000B616DE /* StudentsCenterVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudentsCenterVC.h; sourceTree = "<group>"; };
+		A13CCEEA1FB1883000B616DE /* StudentsCenterVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudentsCenterVC.m; sourceTree = "<group>"; };
+		A13CCEEB1FB1883000B616DE /* StudentsCenterVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StudentsCenterVC.xib; sourceTree = "<group>"; };
 		A141D69E1F5A8C6A0099BA53 /* UIViewController+XYSideCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+XYSideCategory.h"; sourceTree = "<group>"; };
 		A141D69F1F5A8C6A0099BA53 /* UIViewController+XYSideCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+XYSideCategory.m"; sourceTree = "<group>"; };
 		A141D6A01F5A8C6A0099BA53 /* XYSideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYSideViewController.h; sourceTree = "<group>"; };
@@ -802,6 +818,17 @@
 				A100A4E41F4423ED0094BCF0 /* OrderListTableViewCell.xib */,
 			);
 			path = V;
+			sourceTree = "<group>";
+		};
+		A104FC951FB2AD1900650802 /* DPEmptyDataRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				A104FC961FB2AD1900650802 /* UIScrollView+DPEmptyDataSet.h */,
+				A104FC971FB2AD1900650802 /* UIScrollView+DPEmptyDataSet.m */,
+				A104FC981FB2AD1900650802 /* UIScrollView+DPRefresh.h */,
+				A104FC991FB2AD1900650802 /* UIScrollView+DPRefresh.m */,
+			);
+			path = DPEmptyDataRefresh;
 			sourceTree = "<group>";
 		};
 		A109DC6D1F41360D008C1082 /* TestLibrary */ = {
@@ -1327,6 +1354,12 @@
 				A192D66B1F3C707B00E6D2CA /* XBWebViewController.xib */,
 				A1640FE81F3D4F98007DCF0E /* MyCenterVC.h */,
 				A1640FE91F3D4F98007DCF0E /* MyCenterVC.m */,
+				A13CCEE41FB1446E00B616DE /* MyViewController.h */,
+				A13CCEE51FB1446F00B616DE /* MyViewController.m */,
+				A13CCEE61FB1446F00B616DE /* MyViewController.xib */,
+				A13CCEE91FB1883000B616DE /* StudentsCenterVC.h */,
+				A13CCEEA1FB1883000B616DE /* StudentsCenterVC.m */,
+				A13CCEEB1FB1883000B616DE /* StudentsCenterVC.xib */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -1750,6 +1783,7 @@
 		A1F7400E1F35AFA200F0B71C /* Encapsulation */ = {
 			isa = PBXGroup;
 			children = (
+				A104FC951FB2AD1900650802 /* DPEmptyDataRefresh */,
 				A142644B1FA06D6A00E602E9 /* FYLPageVC */,
 				A106E33B1F99C7E7006FF1F7 /* DSButton.h */,
 				A106E33A1F99C7E6006FF1F7 /* DSButton.m */,
@@ -2129,6 +2163,7 @@
 				A1B2FB401F39A4850049D2B8 /* GoodsPromisedTVCell.xib in Resources */,
 				A1E999241F38458600EA7CD4 /* AppointCoachViewController.xib in Resources */,
 				A192D6401F3C676E00E6D2CA /* EnrollDetailsVC.xib in Resources */,
+				A13CCEE81FB1447000B616DE /* MyViewController.xib in Resources */,
 				A1F740561F35B34A00F0B71C /* foregroundStar@2x.png in Resources */,
 				A192D6201F3C452400E6D2CA /* CouponChooseTVCell.xib in Resources */,
 				A141D72E1F5A97ED0099BA53 /* ImproveInfoViewController.xib in Resources */,
@@ -2203,6 +2238,7 @@
 				A141D75D1F5A98F50099BA53 /* Localizable.strings in Resources */,
 				A1395CB71F4D1DE8002A432D /* 8.png in Resources */,
 				A141D6CD1F5A947E0099BA53 /* AccountManagerViewController.xib in Resources */,
+				A13CCEED1FB1883000B616DE /* StudentsCenterVC.xib in Resources */,
 				A192D62A1F3C617A00E6D2CA /* TotalPriceView.xib in Resources */,
 				A1395CAE1F4D1DE8002A432D /* 10.png in Resources */,
 				A1395CAF1F4D1DE8002A432D /* 11.png in Resources */,
@@ -2358,9 +2394,11 @@
 				A1A62FC01F984A2B00786A4B /* OrderTimeList.m in Sources */,
 				A141D7191F5A96B20099BA53 /* SettingViewController.m in Sources */,
 				A141D6EC1F5A94AC0099BA53 /* CoinListTableViewCell.m in Sources */,
+				A104FC9A1FB2AD1A00650802 /* UIScrollView+DPEmptyDataSet.m in Sources */,
 				A100A4D21F42D1EA0094BCF0 /* CourseDetailModel+CoreDataClass.m in Sources */,
 				A1F740831F37FFA000F0B71C /* DSBottomPullToMoreManager.m in Sources */,
 				A141D7691F5A9A690099BA53 /* SettingBindingViewController.m in Sources */,
+				A13CCEEC1FB1883000B616DE /* StudentsCenterVC.m in Sources */,
 				A141D7601F5A994C0099BA53 /* MyDate.m in Sources */,
 				A1B2FB3A1F39A1BD0049D2B8 /* GoodsIntroductionTVCell.m in Sources */,
 				A16DD7AB1F44677E000FA8BE /* GoodsOrderDetailsModel+CoreDataProperties.m in Sources */,
@@ -2386,6 +2424,7 @@
 				A141D7321F5A98470099BA53 /* CouponListViewController.m in Sources */,
 				A1B2FB301F39A0A30049D2B8 /* LearnCarShowTVCell.m in Sources */,
 				A167A4141F46CA1600A9D224 /* NoCoachView.m in Sources */,
+				A104FC9B1FB2AD1A00650802 /* UIScrollView+DPRefresh.m in Sources */,
 				A141D7581F5A98F50099BA53 /* CZCropPreviewOverlayView.m in Sources */,
 				A141D7941F5AA0170099BA53 /* XBArea.m in Sources */,
 				A1F740751F37FD6F00F0B71C /* CommentListViewController.m in Sources */,
@@ -2418,6 +2457,7 @@
 				A100A4D31F42D1EA0094BCF0 /* CourseDetailModel+CoreDataProperties.m in Sources */,
 				A141D6DE1F5A94970099BA53 /* PayViewController.m in Sources */,
 				A141D7AA1F5D35100099BA53 /* UserDataModel+CoreDataClass.m in Sources */,
+				A13CCEE71FB1447000B616DE /* MyViewController.m in Sources */,
 				A141D7001F5A96140099BA53 /* MessageTableViewCell.m in Sources */,
 				A141D7821F5A9C460099BA53 /* BindingViewController.m in Sources */,
 				A1F740671F35BF2F00F0B71C /* DejalActivityView.m in Sources */,
@@ -2614,7 +2654,7 @@
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/cheZhiLian/cheZhiLian.pch";
 				INFOPLIST_FILE = cheZhiLian/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2644,7 +2684,7 @@
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/cheZhiLian/cheZhiLian.pch";
 				INFOPLIST_FILE = cheZhiLian/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

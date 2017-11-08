@@ -7,12 +7,13 @@
 //
 
 #import "EnrollDetailsVC.h"
-
+#import <AlipaySDK/AlipaySDK.h>
 @interface EnrollDetailsVC ()
 
 @property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
 @property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
 @property (weak, nonatomic) IBOutlet UIButton *payBtn;
+@property (weak, nonatomic) IBOutlet UIView *noDataView;
 
 /**
  订单编号
@@ -58,16 +59,21 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *paymentStateLabel;
 
+@property(nonatomic, strong)NSMutableArray *orderModelArray;
 
 @end
 
-@implementation EnrollDetailsVC
+@implementation EnrollDetailsVC {
+    
+    NSString *orderId;
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    self.noDataView.hidden = YES;
     [self RequestInterface];
-    
+    self.orderModelArray = [NSMutableArray array];
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     self.navigationController.navigationBar.translucent = NO;
     
@@ -89,6 +95,10 @@
 - (void)handleReturn {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
+
+-(void)notice:(id)sender{
+    [self RequestInterface];
+}
 /**
  *请求数据
  */
@@ -105,57 +115,174 @@
         NSLog(@"uploadProgress%@", uploadProgress);
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"responseObject%@", responseObject);
-        [VC parsingOrderDetaillsData:responseObject[@"data"]];
+        NSString *resultStr = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
+        if ([resultStr isEqualToString:@"1"]) {
+            [VC parsingOrderDetaillsData:responseObject[@"data"]];
+        }else {
+            [VC showAlert:responseObject[@"msg"]];
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        self.noDataView.hidden = NO;
         NSLog(@"error%@", error);
     }];
 }
 
 - (void)parsingOrderDetaillsData:(NSArray *)dataArray {
     if (dataArray.count == 0) {
-        UIAlertController *alertV = [UIAlertController alertControllerWithTitle:@"提醒!" message:@"你好没有订单,请先下单" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"我知道了" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }];
-        [alertV addAction:cancle];
-        // 4.控制器 展示弹框控件，完成时不做操作
-        [self presentViewController:alertV animated:YES completion:^{
-            nil;
-        }];
+        self.noDataView.hidden = NO;
     }else {
+        self.noDataView.hidden = YES;
         self.mainScrollView.hidden = NO;
         NSDictionary *dataDic = dataArray[0];
-        
         NSEntityDescription *des = [NSEntityDescription entityForName:@"GoodsOrderDetailsModel" inManagedObjectContext:self.managedContext];
         //根据描述 创建实体对象
         GoodsOrderDetailsModel *model = [[GoodsOrderDetailsModel alloc] initWithEntity:des insertIntoManagedObjectContext:self.managedContext];
+        model.discount = 0;
         
+            NSArray *goodListArray = dataDic[@"orderGoodsList"];
+            if (goodListArray.count !=0) {
+                NSDictionary *goodDic = goodListArray[0];
+                model.goodsId = goodDic[@"goodsId"];
+                model.goodsName = goodDic[@"goodsName"];
+            }
         for (NSString *key in dataDic) {
+     
             [model setValue:dataDic[key] forKey:key];
         }
+        [self.orderModelArray addObject:model];
+        orderId = model.orderId;
         self.goodsNameLabel.text = model.storeName;
         self.orderStateLabel.text = [NSString stringWithFormat:@"订单编号:%@", model.orderSn];
-        self.goodsPriceLabel.text = [NSString stringWithFormat:@"¥:%.2f", model.goodsAmount];
-        self.orderTotalPriceLabel.text = [NSString stringWithFormat:@"¥:%.2f", model.goodsAmount];
-        self.PreferentialPriceLabel.text =[NSString stringWithFormat:@"%.2f",model.goodsAmount - model.orderAmount];
-        self.NeedPayPriceLabel.text = [NSString stringWithFormat:@"¥:%.2f", model.orderAmount];
-        self.AmountPaidLabel.text = [NSString stringWithFormat:@"¥:%.2f", model.orderAmount];
-        self.UnpaidAmountLabel.text = @"0";
-        if (model.paymentState == 0) {
-            self.paymentStateLabel.text =  @"非全款";
-            
-            self.cancelBtn.hidden = NO;
-            self.payBtn.hidden = NO;
-        }else {
+        self.goodsPriceLabel.text = [NSString stringWithFormat:@"¥:%.2f", model.goodsAmount];//商品价格
+        self.orderTotalPriceLabel.text = [NSString stringWithFormat:@"¥:%.2f", model.goodsAmount];//商品总价
+        self.PreferentialPriceLabel.text =[NSString stringWithFormat:@"%d",model.discount];//优惠多少钱
+        self.NeedPayPriceLabel.text = [NSString stringWithFormat:@"¥:%.2f", model.orderAmount];//应该付多少钱
+        
+        
+        
+        if (model.orderType == 0) {
             self.paymentStateLabel.text =  @"全款";
-            self.cancelBtn.hidden = YES;
-            self.payBtn.hidden = YES;
+            if (model.orderState == 10) {
+                self.AmountPaidLabel.text = [NSString stringWithFormat:@"¥:%.2f", 0.0];//实付金额
+                self.UnpaidAmountLabel.text = [NSString stringWithFormat:@"%.2f", model.orderAmount];
+                self.cancelBtn.hidden = NO;
+                self.payBtn.hidden = NO;
+            }else {
+                self.cancelBtn.hidden = YES;
+                self.payBtn.hidden = YES;
+                self.AmountPaidLabel.text = [NSString stringWithFormat:@"¥:%.2f", model.orderAmount];//实付金额
+                self.UnpaidAmountLabel.text = [NSString stringWithFormat:@"%.2f", 0.0];
+            }
+        }else {
+            self.paymentStateLabel.text =  @"非全款";
+            if (model.orderState == 10) {
+                self.AmountPaidLabel.text = [NSString stringWithFormat:@"¥:%.2f", 0.0];//实付金额
+                self.UnpaidAmountLabel.text = [NSString stringWithFormat:@"%.2f", model.orderAmount];
+                self.cancelBtn.hidden = NO;
+                self.payBtn.hidden = NO;
+            }else {
+                self.cancelBtn.hidden = YES;
+                self.payBtn.hidden = YES;
+                self.AmountPaidLabel.text = [NSString stringWithFormat:@"¥:%.2f", model.orderAmount];//实付金额
+                self.UnpaidAmountLabel.text = [NSString stringWithFormat:@"%.2f", 0.0];
+            }
         }
+        
+
+
+        
+        
+        
     }
-
-
 }
 
+- (IBAction)handlePay:(UIButton *)sender {
+    
+    if (self.orderModelArray.count == 0) {
+        return;
+    }
+    GoodsOrderDetailsModel *model = self.orderModelArray[0];
+    [self performSelector:@selector(indeterminateExample)];
+    NSString *URL_Str = [NSString stringWithFormat:@"%@/alipay/api/generateSignature",kURL_SHY];
+    NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
+    URL_Dic[@"body"] = model.storeName;
+    URL_Dic[@"subject"]=model.goodsName;
+    URL_Dic[@"outTradeNo"]=model.orderSn;
+    URL_Dic[@"totalAmount"] = @"0.01";
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    __block EnrollDetailsVC *VC = self;
+    [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
+        NSLog(@"%@", uploadProgress);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"requestPaymentSignature%@", responseObject);
+        NSString *str = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
+        [VC performSelector:@selector(delayMethod)];
+        if ([str isEqualToString:@"1"]) {
+            NSString *signature = responseObject[@"data"];
+            //应用注册scheme,在AliSDKDemo-Info.plist定义URL types
+            NSString *appScheme = @"chezhilianScheme";
+            // NOTE: 调用支付结果开始支付
+            [[AlipaySDK defaultService] payOrder:signature fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+                
+                NSString *resultStatus = [NSString stringWithFormat:@"%@", resultDic[@"resultStatus"]];
+                NSInteger state = resultStatus.integerValue;
+                [VC performSelector:@selector(delayMethod)];
+                switch (state) {
+                    case 9000:
+                        [VC showAlert:@"订单支付成功"];
+                        [VC.navigationController popViewControllerAnimated:YES];
+                        break;
+                    case 8000:
+                        [VC showAlert:@"正在处理中，支付结果未知（有可能已经支付成功），请查询订单列表中订单的支付状态"];
+                        [VC.navigationController popViewControllerAnimated:YES];
+                        break;
+                    case 4000:
+                        [VC showAlert:@"订单支付失败"];
+                        [VC.navigationController popViewControllerAnimated:YES];
+                        break;
+                    case 6001:
+                        [VC showAlert:@"用户中途取消"];
+                        [VC.navigationController popViewControllerAnimated:YES];
+                        break;
+                    case 6002:
+                        [VC showAlert:@"网络连接出错"];
+                        [VC.navigationController popViewControllerAnimated:YES];
+                        break;
+                    default:
+                        break;
+                }
+                
+                NSLog(@"DetermineBtnClick = %@",resultDic);
+                
+            }];
+        }else {
+            [VC showAlert:@"订单提交失败请重试!"];
+            NSNotification * notice = [NSNotification notificationWithName:@"return" object:nil userInfo:@{@"1":@"123"}];
+            //发送消息
+            [[NSNotificationCenter defaultCenter]postNotification:notice];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [VC performSelector:@selector(delayMethod)];
+        [VC showAlert:@"网络出现问题.请稍后再试!" time:1.0];
+        NSLog(@"%@", error);
+    }];
+}
+
+- (IBAction)handleCancelOrder:(UIButton *)sender {
+    
+    
+    
+}
+
+- (IBAction)handleContinuePay:(UIButton *)sender {
+    
+    
+    
+}
+//支付宝支付
+- (void)requestAliPaymentSignature:(NSString *)price subject:(NSString *)subject outTradeNo:(NSString *)outTradeNo body:(NSString *)body {
+  
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }

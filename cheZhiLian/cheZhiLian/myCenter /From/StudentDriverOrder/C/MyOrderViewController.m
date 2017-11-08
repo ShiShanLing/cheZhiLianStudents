@@ -75,6 +75,13 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
     [super viewWillAppear:YES];
       self.navigationController.navigationBarHidden = YES;
     [self getFreshData];
+    
+    if ([UserDataSingleton mainSingleton].studentsId.length == 0) {
+        [self.mainTableView setupEmptyDataText:@"未登录" verticalOffset:0 emptyImage:[UIImage imageNamed:@"sdf"] buttonText:@"点击登录" tapBlock:^{
+            
+        }];
+    }
+    
     [self requestData];
 }
 -(void)viewWillDisappear:(BOOL)animated  {
@@ -110,13 +117,18 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
             [VC  showAlert:responseObject[@"msg"] time:1.2];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [VC.mainTableView setupEmptyDataText:@"网络出错" verticalOffset:0 emptyImage:[UIImage imageNamed:@"sdf"] buttonText:@"点击刷新" tapBlock:^{
+            
+        }];
         [VC showAlert:@"网络出错!!" time:1.2];
     }];
 }
 - (void)ParsingOrderData:(NSArray *)dataArray {
     [self.orderArray removeAllObjects];
     if (dataArray.count == 0) {
-        [self  showAlert:@"您还没有该类型订单" time:0.4];
+        [self.mainTableView setupEmptyDataText:@"您还没有该类型订单" verticalOffset:0 emptyImage:[UIImage imageNamed:@"sdf"] buttonText:@"" tapBlock:^{
+        }];
+        //[self  showAlert:@"您还没有该类型订单" time:0.4];
         [self.mainTableView reloadData];
         return;
     }

@@ -64,12 +64,12 @@
         AccountViewController *viewController = [[AccountViewController alloc] initWithNibName:@"AccountViewController" bundle:nil];
         [self.navigationController pushViewController:viewController animated:YES];
 }
-//小巴券
+//优惠券
 - (IBAction)clickForCoupon:(id)sender {
         CouponListViewController *viewController = [[CouponListViewController alloc] initWithNibName:@"CouponListViewController" bundle:nil];
         [self.navigationController pushViewController:viewController animated:YES];
 }
-//小巴币
+//学车币
 - (IBAction)clickForCoin:(id)sender {
     
         CoinListViewController *viewController = [[CoinListViewController alloc] initWithNibName:@"CoinListViewController" bundle:nil];

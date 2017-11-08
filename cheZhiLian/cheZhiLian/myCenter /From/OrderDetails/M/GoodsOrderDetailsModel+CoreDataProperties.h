@@ -8,7 +8,6 @@
 
 #import "GoodsOrderDetailsModel+CoreDataClass.h"
 
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GoodsOrderDetailsModel (CoreDataProperties)
@@ -24,7 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int16_t paymentState;
 @property (nonatomic) float orderAmount;
 @property (nullable, nonatomic, copy) NSString *storeName;
-
+@property (nullable, nonatomic, copy) NSString *goodsId;
+@property (nullable, nonatomic, copy) NSString *couponId;
+@property (nullable, nonatomic, copy) NSString *goodsName;
+@property (nonatomic) int16_t orderType;
+@property (nonatomic) int32_t discount;
 -(void)setValue:(id)value forKey:(NSString *)key;
 
 @end

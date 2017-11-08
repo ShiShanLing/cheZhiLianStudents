@@ -41,7 +41,10 @@
     self.title = @"学车订单";
     
     UIButton *releaseButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    releaseButton.frame = CGRectMake(-10, 0, 50, 50);
+    releaseButton.frame = CGRectMake(0, 0, 70, 50);
+    UIEdgeInsets EdgeInset = releaseButton.imageEdgeInsets;
+    EdgeInset.left = -40;
+    releaseButton.imageEdgeInsets  = EdgeInset;
     [releaseButton setImage:[UIImage imageNamed:@"arrow_back_userinfohome"] forState:(UIControlStateNormal)];
     [releaseButton setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     [releaseButton setTitleColor:[UIColor whiteColor] forState:(UIControlStateSelected)];
@@ -70,9 +73,7 @@
     // 'forward'.0 is right-to-left,
     [self.pageVC setViewControllers:@[self.viewControllers[index]] direction:index<_currentPage animated:YES completion:^(BOOL finished) {
         _currentPage = index;
-        
          [weakSelf.viewSegment setOffsetOfIndexView:0 withCurrentIndex:index];
-
     }];
     
 }

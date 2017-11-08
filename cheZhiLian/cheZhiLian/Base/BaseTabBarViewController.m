@@ -11,6 +11,7 @@
 #import "CoachDetailViewController.h"
 #import "MyCenterVC.h"
 #import "TestLibraryVC.h"
+#import "StudentsCenterVC.h"
 @interface BaseTabBarViewController ()<TabBarViewDelegate>
 
 @end
@@ -63,7 +64,7 @@
     
     TestLibraryVC *TLVC = [[TestLibraryVC alloc] init];
     UINavigationController *NATLVC = [[UINavigationController alloc] initWithRootViewController:TLVC];
-    TLVC.tabBarItem.title =@"主页";
+    TLVC.tabBarItem.title =@"ti";
     TLVC.tabBarItem.image= [UIImage imageNamed:@"shouye"];
     TLVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"shouye-1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
@@ -85,9 +86,9 @@
     NADailyStudyVC.tabBarItem.image = [UIImage imageNamed:@"jinrixuexi"];
     NADailyStudyVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"jinrixuexi-1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    MyCenterVC *CenterVC = [[MyCenterVC alloc] init];
+    StudentsCenterVC *CenterVC = [[StudentsCenterVC alloc] init];
     UINavigationController *NACenterVC = [[UINavigationController alloc] initWithRootViewController:CenterVC];
-    NACenterVC.tabBarItem.title = @"购物车";
+    NACenterVC.tabBarItem.title = @"我的界面";
     [NACenterVC.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:kOrange_Color} forState:UIControlStateSelected];
     [NACenterVC.tabBarItem setTitleTextAttributes:attributes forState:UIControlStateSelected];
     NACenterVC.tabBarItem.image = [UIImage imageNamed:@"gwc-1"];
