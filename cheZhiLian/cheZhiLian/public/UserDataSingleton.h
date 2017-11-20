@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "UserDataModel+CoreDataProperties.h"
 @interface UserDataSingleton : NSObject
 + (UserDataSingleton *)mainSingleton;
 
@@ -20,4 +20,7 @@
  *账户余额
  */
 @property (nonatomic, copy)NSString *balance;
+
+@property (nonatomic,strong)UserDataModel *userModel;
+
 @end

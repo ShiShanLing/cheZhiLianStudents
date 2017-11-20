@@ -290,7 +290,7 @@
             URLDIC[@"password"] =PasswordStr;
             URLDIC[@"mobileCode"] = verificationStr;
             URLDIC[@"referrer"] = referrerStr;
-            URLDIC[@"schoolId"] = @"1";
+            URLDIC[@"schoolId"] = kStoreId;
             AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
             [session POST:URL parameters:URLDIC progress:^(NSProgress * _Nonnull uploadProgress) {
                 NSLog(@"uploadProgress%@", uploadProgress);

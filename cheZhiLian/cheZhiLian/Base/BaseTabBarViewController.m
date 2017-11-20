@@ -12,12 +12,27 @@
 #import "MyCenterVC.h"
 #import "TestLibraryVC.h"
 #import "StudentsCenterVC.h"
+#import "AppDelegate.h"
 @interface BaseTabBarViewController ()<TabBarViewDelegate>
-
+@property (strong, nonatomic)AppDelegate *AppDelegate;
+@property (nonatomic, strong)NSManagedObjectContext *managedContext;
 @end
 
 @implementation BaseTabBarViewController
-
+- (NSManagedObjectContext *)managedContext {
+    if (!_managedContext) {
+        //获取Appdelegate对象
+        AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        self.managedContext = delegate.managedObjectContext;
+    }
+    return _managedContext;
+}
+- (AppDelegate *)AppDelegate {
+    if (!_AppDelegate) {
+        self.AppDelegate = [[AppDelegate alloc] init];
+    }
+    return _AppDelegate;
+}
 - (void)viewWillLayoutSubviews {
     
     CGRect tabFrame = self.tabBar.frame; //self.TabBar is IBOutlet of your TabBar
@@ -144,8 +159,13 @@
         NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"UserLogInData" ofType:@"plist"];
         NSMutableDictionary *userData = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
         [userData removeAllObjects];
+        
+        NSEntityDescription *des = [NSEntityDescription entityForName:@"UserDataModel" inManagedObjectContext:self.managedContext];
+        //根据描述 创建实体对象
+        UserDataModel *model = [[UserDataModel alloc] initWithEntity:des insertIntoManagedObjectContext:self.managedContext];
+        
         for (NSString *key in userDataDic) {
-            
+            [model setValue:userDataDic[key] forKey:key];
             if ([key isEqualToString:@"subState"]) {
                 [UserDataSingleton mainSingleton].subState =[NSString stringWithFormat:@"%@", userDataDic[key]];
             }
@@ -163,6 +183,7 @@
             }
             [userData setObject:userDataDic[key] forKey:key];
         }
+        [UserDataSingleton mainSingleton].userModel = model;
         NSLog(@"[UserDataSingleton mainSingleton].studentsId%@", [UserDataSingleton mainSingleton].studentsId);
         //获取应用程序沙盒的Documents目录
         NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);

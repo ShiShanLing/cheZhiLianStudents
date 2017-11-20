@@ -109,7 +109,7 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
     [manager POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"responseObject%@",responseObject);
+    //    NSLog(@"responseObject%@",responseObject);
         NSString *resultStr =[NSString stringWithFormat:@"%@", responseObject[@"result"]];
         if ([resultStr isEqualToString:@"1"]) {
         [VC ParsingOrderData:responseObject[@"data"]];
@@ -158,7 +158,7 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
         }
         [self.orderArray addObject:orderListModel];
     }
-    NSLog(@"ParsingOrderData%@", self.orderArray);
+//    NSLog(@"ParsingOrderData%@", self.orderArray);
     [self.mainTableView reloadData];
 }
 - (void)settingView {
@@ -238,7 +238,7 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     StudentDriverOrderModel *model = self.orderArray[section];
     NSArray *timeArray =(NSArray *)model.orderTimes;
-    NSLog(@"viewForHeaderInSection%@  self.orderArray%@", timeArray,self.orderArray);
+ //   NSLog(@"viewForHeaderInSection%@  self.orderArray%@", timeArray,self.orderArray);
     OrderTimeModel  *timeModel = timeArray[0];
     UIView *hView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_widht, 40)];
     hView.backgroundColor = MColor(238, 238, 238);
@@ -282,14 +282,14 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
     leftBtn.index = section;
     [fView addSubview:leftBtn];
     leftBtn.sd_layout.rightSpaceToView(rightBtn , 14).topSpaceToView(fView, 15).bottomSpaceToView(fView, 15).widthIs(80);
-    
     DSButton *CancelPromptBtn = [DSButton buttonWithType:(UIButtonTypeSystem)];
     CancelPromptBtn.index = section;
-    [CancelPromptBtn setTitle:@"已提交取消订单申请，等待教练确认中." forState:(UIControlStateNormal)];
+    CancelPromptBtn.font = [UIFont systemFontOfSize:13];
+    [CancelPromptBtn setTitle:@"已提交取消申请,等待教练确认中." forState:(UIControlStateNormal)];
     CancelPromptBtn.titleLabel.textColor = [UIColor whiteColor];
     CancelPromptBtn.backgroundColor =MColor(255, 158, 134);
     [fView addSubview:CancelPromptBtn];
-    CancelPromptBtn.sd_layout.leftSpaceToView(fView, 14).topSpaceToView(fView, 15).bottomSpaceToView(fView, 15).rightSpaceToView(fView, 15);
+    CancelPromptBtn.sd_layout.leftSpaceToView(fView, 14).topSpaceToView(fView, 15).bottomSpaceToView(fView, 15).rightSpaceToView(rightBtn, 15);
     ////0:未完成,1:已完结,2:取消中,3:已取消,4:申诉中,5:已关闭)
     //订单状态state 订单状态(0:未完成,1:已完结,2:取消中,3:已拒绝,4:已取消,5:申诉中,6:已关闭)
     CancelPromptBtn.hidden = YES;
@@ -301,19 +301,19 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
             break;
         case 1:
             if (model.commentState == 0) {
-                //投诉和 评论
-                [self complainBtnConfig:leftBtn];
+                leftBtn.hidden = YES;
                 [self  eveluateBtnConfig:rightBtn];
                 //投诉
             }else {
-                //投诉
-                [self complainBtnConfig:rightBtn];
+                leftBtn.hidden = YES;
+                rightBtn.hidden = YES;
             }
             break;
         case 2:
+            //取消中
             CancelPromptBtn.hidden = NO;
             leftBtn.hidden = YES;
-            rightBtn.hidden = YES;
+            [self complainBtnConfig:rightBtn];
             break;
         case 3:
             //投诉
@@ -337,7 +337,36 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 61;
+    StudentDriverOrderModel *model = self.orderArray[section];
+    CGFloat height = 0;
+    switch (model.state) {
+        case 0:
+            height= 61;
+            break;
+        case 1:
+            if (model.commentState == 0) {
+                height= 61;
+                //投诉
+            }else {
+                height= 0.01;
+            }
+            break;
+        case 2:
+            height= 61;
+            break;
+        case 3:
+            height= 61;
+            break;
+        case 4:
+            height= 61;
+            break;
+        case 5:
+            height= 61;
+            break;
+        default:
+            break;
+    }
+    return height;
 }
 #pragma mark - 按钮样式
 // 取消订单按钮
@@ -545,7 +574,7 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
     [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
         NSLog(@"uploadProgress%@", uploadProgress);
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-     //   NSLog(@"responseObject%@", responseObject);
+        NSLog(@"responseObject%@", responseObject);
         NSString *resultStr = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
         [VC respondsToSelector:@selector(delayMethod)];
         if ([resultStr isEqualToString:@"1"]) {
@@ -602,7 +631,7 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
         [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
             NSLog(@"uploadProgress%@", uploadProgress);
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            NSLog(@"responseObject%@", responseObject);
+         //   NSLog(@"responseObject%@", responseObject);
             NSString *resultStr = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
             if ([resultStr isEqualToString:@"1"]) {
                 [VC showAlert:responseObject[@"msg"] time:1.2];
@@ -615,7 +644,6 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
             [VC performSelector:@selector(delayMethod)];
             NSLog(@"error%@", error);
         }];
-
     }];
     UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         

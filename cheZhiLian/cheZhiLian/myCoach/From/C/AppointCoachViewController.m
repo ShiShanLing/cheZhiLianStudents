@@ -25,6 +25,8 @@ static  BOOL EditTime;
     NSUInteger _curPageNum; // 当前页
     NSDate   *currentTime;//如果是空的或者 是当天就不让操作
 }
+@property (weak, nonatomic) IBOutlet UIView *remindView;
+
 
 @property (weak, nonatomic) IBOutlet UIView *TimeChooseView;
 @property (strong, nonatomic) IBOutlet UIScrollView *coachTimeScrollView;
@@ -105,11 +107,15 @@ static  BOOL EditTime;
         self.nowSelectedDate = [CommonUtil getStringForDate:[NSDate date] format:@"yyyy-MM-dd"];
     }
     [self noCarNeedClick:self.noNeedBtn];
+    self.timePriceView.hidden = YES;
+    self.noTimeSelectedLabel.hidden = NO;
+    self.sureAppointBtn.enabled = NO;
+    self.priceSumLabel.hidden = YES;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.remindView.hidden = YES;
     self.selectDateList = [NSMutableArray array];
     self.dateLabelList = [NSMutableArray array];
     self.sureAppointBtn.enabled = NO;
@@ -229,7 +235,7 @@ static  BOOL EditTime;
         }
     }
     [self.tableView reloadData];
-  //  NSLog(@"TimeDivision%@", self.dateArray);
+    NSLog(@"TimeDivision%@", self.dateArray);
 }
 //创建tableView
 - (void)createTableView {
@@ -272,6 +278,8 @@ static  BOOL EditTime;
 // 重新计算总价
 - (void)resetPriceNumStatus {
     
+    NSLog(@" self.dateArray%@",  self.dateArray);
+    
     CGFloat unitPrice = 0.0;
     NSMutableArray *selectedTimeArray = [NSMutableArray array];
     for (NSArray *modelArray in self.dateArray) {
@@ -292,6 +300,8 @@ static  BOOL EditTime;
         self.priceSumLabel.hidden = NO;
         
     }else{
+        self.timeNumLabel.text = [NSString stringWithFormat:@"已选择0个小时"];
+        self.priceSumLabel.text = [NSString stringWithFormat:@"合计0.00元"];
         self.timePriceView.hidden = YES;
         self.noTimeSelectedLabel.hidden = NO;
         self.sureAppointBtn.enabled = NO;

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -24,6 +24,7 @@
                 <outlet property="noTimeSelectedLabel" destination="YgB-aw-Ad2" id="baE-Aj-yI9"/>
                 <outlet property="phoneBtn" destination="xoM-2t-spy" id="nle-ST-f1C"/>
                 <outlet property="priceSumLabel" destination="lbv-rc-BrZ" id="M7Q-g6-ESW"/>
+                <outlet property="remindView" destination="JE7-TL-5n9" id="Sd8-tX-AyM"/>
                 <outlet property="sureAppointBtn" destination="BmG-ej-Q2i" id="ija-TP-ea8"/>
                 <outlet property="swipeView" destination="Kux-aZ-k7r" id="Ql9-Uc-7Ji"/>
                 <outlet property="timeNumLabel" destination="QHM-qf-zGq" id="WTz-x5-S2f"/>

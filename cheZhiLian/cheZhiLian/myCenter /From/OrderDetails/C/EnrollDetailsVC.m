@@ -76,7 +76,9 @@
     self.orderModelArray = [NSMutableArray array];
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     self.navigationController.navigationBar.translucent = NO;
-    
+    NSNotificationCenter * center = [NSNotificationCenter defaultCenter];
+    //添加当前类对象为一个观察者，name和object设置为nil，表示接收一切通知
+    [center addObserver:self selector:@selector(notice:) name:@"return" object:nil];
     UIButton *releaseButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
     releaseButton.frame = CGRectMake(0, 0, 35, 35);
     [releaseButton setBackgroundImage:[UIImage imageNamed:@"ico_back"] forState:(UIControlStateNormal)];
@@ -95,8 +97,8 @@
 - (void)handleReturn {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
-
 -(void)notice:(id)sender{
+    
     [self RequestInterface];
 }
 /**
@@ -157,9 +159,6 @@
         self.orderTotalPriceLabel.text = [NSString stringWithFormat:@"¥:%.2f", model.goodsAmount];//商品总价
         self.PreferentialPriceLabel.text =[NSString stringWithFormat:@"%d",model.discount];//优惠多少钱
         self.NeedPayPriceLabel.text = [NSString stringWithFormat:@"¥:%.2f", model.orderAmount];//应该付多少钱
-        
-        
-        
         if (model.orderType == 0) {
             self.paymentStateLabel.text =  @"全款";
             if (model.orderState == 10) {
@@ -187,12 +186,6 @@
                 self.UnpaidAmountLabel.text = [NSString stringWithFormat:@"%.2f", 0.0];
             }
         }
-        
-
-
-        
-        
-        
     }
 }
 
@@ -208,7 +201,7 @@
     URL_Dic[@"body"] = model.storeName;
     URL_Dic[@"subject"]=model.goodsName;
     URL_Dic[@"outTradeNo"]=model.orderSn;
-    URL_Dic[@"totalAmount"] = @"0.01";
+    URL_Dic[@"totalAmount"] = [NSString stringWithFormat:@"%.2f",model.orderAmount];
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     __block EnrollDetailsVC *VC = self;
     [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -230,30 +223,32 @@
                 switch (state) {
                     case 9000:
                         [VC showAlert:@"订单支付成功"];
-                        [VC.navigationController popViewControllerAnimated:YES];
+                        
                         break;
                     case 8000:
                         [VC showAlert:@"正在处理中，支付结果未知（有可能已经支付成功），请查询订单列表中订单的支付状态"];
-                        [VC.navigationController popViewControllerAnimated:YES];
+                        
                         break;
                     case 4000:
                         [VC showAlert:@"订单支付失败"];
-                        [VC.navigationController popViewControllerAnimated:YES];
+                        
                         break;
                     case 6001:
                         [VC showAlert:@"用户中途取消"];
-                        [VC.navigationController popViewControllerAnimated:YES];
+                        
                         break;
                     case 6002:
                         [VC showAlert:@"网络连接出错"];
-                        [VC.navigationController popViewControllerAnimated:YES];
+                        
                         break;
                     default:
                         break;
                 }
                 
                 NSLog(@"DetermineBtnClick = %@",resultDic);
-                
+                NSNotification * notice = [NSNotification notificationWithName:@"return" object:nil userInfo:@{@"1":@"123"}];
+                //发送消息
+                [[NSNotificationCenter defaultCenter]postNotification:notice];
             }];
         }else {
             [VC showAlert:@"订单提交失败请重试!"];

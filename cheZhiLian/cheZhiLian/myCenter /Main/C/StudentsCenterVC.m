@@ -57,6 +57,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self setHidesBottomBarWhenPushed:NO];
+    
     self.navigationController.navigationBar.hidden = YES;
     self.userNameLabel.text = @"未登录";
     self.userPhoneLabel.text = @"";
@@ -140,7 +141,7 @@
     NSArray* imageArray = @[[UIImage imageNamed:@"AppIcon"]];
     [shareParams SSDKSetupShareParamsByText:@"分享内容"
                                      images:imageArray
-                                        url:[NSURL URLWithString:[NSString stringWithFormat:@"%@/share/to_jump?share_type_id=2&school_id=1&stu_id=%@",kURL_SHY,[UserDataSingleton mainSingleton].studentsId]]
+                                        url:[NSURL URLWithString:[NSString stringWithFormat:@"%@/share/to_jump?share_type_id=2&school_id=%@&stu_id=%@",kURL_SHY,kStoreId,[UserDataSingleton mainSingleton].studentsId]]
                                       title:@"分享注册"
                                        type:SSDKContentTypeAuto];
     //2、分享（可以弹出我们的分享菜单和编辑界面）
@@ -194,7 +195,8 @@
 //查看余额
 - (IBAction)handleCheckBalance:(UIButton *)sender {
     AccountViewController *viewController = [[AccountViewController alloc] initWithNibName:@"AccountViewController" bundle:nil];
-    [self.navigationController pushViewController:viewController animated:YES];
+    UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:viewController];
+    [self presentViewController:NAVC animated:YES completion:nil];
 }
 //查看积分
 - (IBAction)handleCheckIntegral:(UIButton *)sender {
@@ -203,8 +205,9 @@
 //查看优惠券
 - (IBAction)handleCheckCoupons:(UIButton *)sender {
     CouponListViewController *viewController = [[CouponListViewController alloc] initWithNibName:@"CouponListViewController" bundle:nil];
+    UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:viewController];
+    [self presentViewController:NAVC animated:YES completion:nil];
     
-    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 

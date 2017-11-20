@@ -179,7 +179,7 @@
     URL_Dic[@"body"] = body;
     URL_Dic[@"subject"]=subject;
     URL_Dic[@"outTradeNo"]=outTradeNo;
-    URL_Dic[@"totalAmount"] = @"0.01";
+    URL_Dic[@"totalAmount"] = price;
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     __block ConfirmOrderVC *VC = self;
     [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -298,11 +298,11 @@
         return cell;
     }else  {
         CouponChooseTVCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CouponChooseTVCell" forIndexPath:indexPath];
-        if (indexPath.row == 1) {
+        if (indexPath.row == 0) {
             cell.titleNameLabel.text = @"付款方式";
             cell.ContentNameLabel.text = [TermsPayment isEqualToString:@"1"]?@"全款":@"首款";
         }
-        if (indexPath.row == 0) {
+        if (indexPath.row == 1) {
             cell.titleNameLabel.text = @"优惠券";
             if (_goodsDetailsModel.goodsStorePrice<couponsAmounte) {
                 cell.ContentNameLabel.text = @"优惠券金额大于实付金额";
@@ -321,7 +321,7 @@
         [self.navigationController pushViewController:VC animated:YES];
     }
     if (indexPath.section == 2) {
-        if (indexPath.row == 0) {
+        if (indexPath.row == 1) {
             CouponListViewController *VC = [[CouponListViewController alloc] initWithNibName:@"CouponListViewController" bundle:nil];
             VC.type = @"1";
             NSLog(@"firstMoney%@", firstMoney);

@@ -176,12 +176,15 @@
     <entity name="TradingRecordsModel" representedClassName="TradingRecordsModel" syncable="YES">
         <attribute name="accountType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="balanceChange" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="couponMemberId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="createTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="descriptionStr" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="logId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <entity name="UserDataModel" representedClassName="UserDataModel" syncable="YES">
+        <attribute name="alipay" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="balance" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="birthday" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -218,7 +221,7 @@
         <element name="GoodsOrderDetailsModel" positionX="-54" positionY="135" width="128" height="255"/>
         <element name="OrderTimeModel" positionX="-54" positionY="135" width="128" height="225"/>
         <element name="StudentDriverOrderModel" positionX="-27" positionY="135" width="128" height="225"/>
-        <element name="TradingRecordsModel" positionX="-18" positionY="144" width="128" height="135"/>
-        <element name="UserDataModel" positionX="-27" positionY="135" width="128" height="435"/>
+        <element name="TradingRecordsModel" positionX="-18" positionY="144" width="128" height="165"/>
+        <element name="UserDataModel" positionX="-27" positionY="135" width="128" height="450"/>
     </elements>
 </model>

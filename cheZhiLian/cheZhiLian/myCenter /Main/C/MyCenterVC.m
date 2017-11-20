@@ -341,7 +341,7 @@
          NSArray* imageArray = @[[UIImage imageNamed:@"AppIcon"]];
         [shareParams SSDKSetupShareParamsByText:@"分享内容"
                                          images:imageArray
-                                            url:[NSURL URLWithString:[NSString stringWithFormat:@"%@/share/to_jump?share_type_id=2&school_id=1&stu_id=%@",kURL_SHY,[UserDataSingleton mainSingleton].studentsId]]
+                                            url:[NSURL URLWithString:[NSString stringWithFormat:@"%@/share/to_jump?share_type_id=2&school_id=%@&stu_id=%@",kURL_SHY,kStoreId,[UserDataSingleton mainSingleton].studentsId]]
                                           title:@"分享注册"
                                            type:SSDKContentTypeAuto];
         //2、分享（可以弹出我们的分享菜单和编辑界面）
@@ -419,13 +419,11 @@
     NSString *filename=[plistPath stringByAppendingPathComponent:@"UserLogInData.plist"];
     NSMutableDictionary *userData = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
     NSArray *keyArray =[userData allKeys];
-    
     if (keyArray.count == 0) {
         
         [_tableView.mj_header endRefreshing];
         
     }else {
-
     NSString *URL_Str = [NSString stringWithFormat:@"%@/student/api/detail", kURL_SHY];
     NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
     URL_Dic[@"studentId"] =userData[@"stuId"];
@@ -483,6 +481,7 @@
             [userData setObject:urseDataDic[key] forKey:key];
             [model setValue:urseDataDic[key] forKey:key];
         }
+        [UserDataSingleton mainSingleton].userModel = model;
         [self.userDataArray addObject:model];
         //获取应用程序沙盒的Documents目录
         NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);

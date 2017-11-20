@@ -62,6 +62,7 @@
 //账户余额
 - (IBAction)clickForAccount:(id)sender {
         AccountViewController *viewController = [[AccountViewController alloc] initWithNibName:@"AccountViewController" bundle:nil];
+    viewController.type = @"1";
         [self.navigationController pushViewController:viewController animated:YES];
 }
 //优惠券

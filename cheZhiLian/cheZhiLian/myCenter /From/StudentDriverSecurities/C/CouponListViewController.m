@@ -51,7 +51,15 @@
 }
 
 - (IBAction)handleReturn:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    
+    NSLog(@"self.typ%@", self.type);
+    if ([self.type isEqualToString:@"2"] || [self.type isEqualToString:@"1"]) {
+        
+         [self.navigationController popViewControllerAnimated:YES];
+    }else {
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    }
+   
 }
 
 - (void)viewDidLoad {
@@ -74,6 +82,7 @@
 - (void) requestData:(NSString *)type{
   // http://www.jxchezhilian.com/coupon/api/couponMemberList?memberId=f2356634919948448bd70064c15847e7&couponIsUsed=0
     NSString *URL_Str = [NSString stringWithFormat:@"%@/coupon/api/couponMemberList",kURL_SHY];
+   
     NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
     URL_Dic[@"memberId"] = [UserDataSingleton mainSingleton].studentsId;
     URL_Dic[@"couponIsUsed"] = type;

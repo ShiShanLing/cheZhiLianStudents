@@ -74,7 +74,7 @@ typedef NS_ENUM(NSUInteger, PayType) {
     URL_Dic[@"body"] = body;
     URL_Dic[@"subject"]=subject;
     URL_Dic[@"outTradeNo"]=outTradeNo;
-    URL_Dic[@"totalAmount"] = @"0.01";
+    URL_Dic[@"totalAmount"] = price;
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     __block PayViewController *VC = self;
     [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {

@@ -10,12 +10,11 @@
 #import "SwipeView.h"
 
 @interface AppointCoachViewController : GreyTopViewController
-
 /* input */
 @property (copy, nonatomic) NSString *carModelID; // 17:c1 18:c2 19:陪驾
+
 @property (strong, nonatomic) NSDictionary *coachInfoDic;
+
 @property (strong, nonatomic) NSString *coachId;
-
-
 
 @end

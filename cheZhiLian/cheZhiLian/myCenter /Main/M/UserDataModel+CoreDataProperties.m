@@ -40,6 +40,7 @@
 @dynamic phone;
 @dynamic stuCardTime;
 @dynamic idCardBack;
+@dynamic alipay;
 -(void)setValue:(id)value forKey:(NSString *)key {
     if ([key isEqualToString:@"birthday"]   ) {
         //int 转 nsstring 再转 nsdate
@@ -59,6 +60,8 @@
         NSTimeInterval time=[str doubleValue]/1000;//因为时差问题要加8小时 == 28800 sec
         NSDate *detaildate=[NSDate dateWithTimeIntervalSince1970:time];
         self.createTime = detaildate;
+    }else if([key isEqualToString:@"alipay"]){
+        self.alipay = [NSString stringWithFormat:@"%@", value];
     }else{
         [super setValue:value forKey:key];
     }

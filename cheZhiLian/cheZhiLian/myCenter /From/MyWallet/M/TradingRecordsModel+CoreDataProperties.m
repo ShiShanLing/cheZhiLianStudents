@@ -21,6 +21,8 @@
 @dynamic logId;
 @dynamic userType;
 @dynamic userId;
+@dynamic descriptionStr;
+@dynamic couponMemberId;
 - (void)setValue:(id)value forKey:(NSString *)key {
     if ([key isEqualToString:@"createTime"]) {
         //int 转 nsstring 再转 nsdate
@@ -28,7 +30,9 @@
         NSTimeInterval time=[str doubleValue]/1000;//因为时差问题要加8小时 == 28800 sec
         NSDate *detaildate=[NSDate dateWithTimeIntervalSince1970:time];
         self.createTime = detaildate;
-    }else {
+    }else  if([key isEqualToString:@"description"]){
+        self.descriptionStr = [NSString stringWithFormat:@"%@", value];
+    }else{
         [super setValue:value forKey:key];
     }
 }

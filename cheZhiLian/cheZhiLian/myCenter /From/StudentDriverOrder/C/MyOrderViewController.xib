@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -27,9 +27,9 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_myorder_nodata" translatesAutoresizingMaskIntoConstraints="NO" id="mTV-DM-69h">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                 </imageView>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rz1-Jg-xgm">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="rz1-Jg-xgm">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                    <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="wFS-kN-9TI"/>
                         <outlet property="delegate" destination="-1" id="zTf-0L-2e8"/>
@@ -76,19 +76,19 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QQT-Gi-JpP" userLabel="SureCancelOrder">
-                    <rect key="frame" x="160" y="235" width="280" height="130"/>
+                    <rect key="frame" x="160" y="216" width="280" height="149"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="教练确认后才能成功取消" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zTG-KX-OAr" userLabel="tip1">
-                            <rect key="frame" x="30" y="30" width="230" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="距离练车开始时间四小时内取消订单需要教练审核同意,超过四个小时直接取消成功" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zTG-KX-OAr" userLabel="tip1">
+                            <rect key="frame" x="43" y="8" width="195" height="81"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="21" id="ZYs-w6-8vm"/>
+                                <constraint firstAttribute="height" constant="81" id="ZYs-w6-8vm"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <color key="textColor" red="0.054901960780000002" green="0.054901960780000002" blue="0.058823529409999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cjI-o5-LgD">
-                            <rect key="frame" x="49.5" y="75" width="180" height="39"/>
+                            <rect key="frame" x="49.5" y="97" width="180" height="39"/>
                             <color key="backgroundColor" red="0.31372549020000001" green="0.79607843140000001" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="180" id="gIa-rZ-Fok"/>
@@ -121,14 +121,14 @@
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="S23-ho-m7C" firstAttribute="top" secondItem="QQT-Gi-JpP" secondAttribute="top" id="3oy-Sd-2sS"/>
-                        <constraint firstAttribute="bottom" secondItem="cjI-o5-LgD" secondAttribute="bottom" constant="16" id="6YF-5c-flO"/>
-                        <constraint firstAttribute="trailing" secondItem="zTG-KX-OAr" secondAttribute="trailing" constant="20" id="AKm-7D-iBG"/>
-                        <constraint firstAttribute="height" constant="130" id="AaY-Lj-Y0y"/>
-                        <constraint firstItem="zTG-KX-OAr" firstAttribute="top" secondItem="QQT-Gi-JpP" secondAttribute="top" constant="30" id="FTS-Dv-rJa"/>
+                        <constraint firstAttribute="bottom" secondItem="cjI-o5-LgD" secondAttribute="bottom" constant="13" id="6YF-5c-flO"/>
+                        <constraint firstAttribute="trailing" secondItem="zTG-KX-OAr" secondAttribute="trailing" constant="42" id="AKm-7D-iBG"/>
+                        <constraint firstAttribute="height" constant="149" id="AaY-Lj-Y0y"/>
+                        <constraint firstItem="zTG-KX-OAr" firstAttribute="top" secondItem="QQT-Gi-JpP" secondAttribute="top" constant="8" id="FTS-Dv-rJa"/>
                         <constraint firstAttribute="centerX" secondItem="cjI-o5-LgD" secondAttribute="centerX" id="KIA-Fg-gvi"/>
                         <constraint firstAttribute="trailing" secondItem="S23-ho-m7C" secondAttribute="trailing" id="pJV-up-tWM"/>
                         <constraint firstAttribute="width" constant="280" id="yNy-Y6-Gju"/>
-                        <constraint firstItem="zTG-KX-OAr" firstAttribute="leading" secondItem="QQT-Gi-JpP" secondAttribute="leading" constant="30" id="yv7-ly-pJr"/>
+                        <constraint firstItem="zTG-KX-OAr" firstAttribute="leading" secondItem="QQT-Gi-JpP" secondAttribute="leading" constant="43" id="yv7-ly-pJr"/>
                     </constraints>
                 </view>
             </subviews>
@@ -136,7 +136,7 @@
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="vhc-La-QWR" secondAttribute="bottom" id="Jb1-iq-egq"/>
                 <constraint firstAttribute="trailing" secondItem="vhc-La-QWR" secondAttribute="trailing" id="YR6-j9-xvz"/>
-                <constraint firstAttribute="centerY" secondItem="QQT-Gi-JpP" secondAttribute="centerY" id="aKi-ZB-uhU"/>
+                <constraint firstAttribute="centerY" secondItem="QQT-Gi-JpP" secondAttribute="centerY" constant="9.5" id="aKi-ZB-uhU"/>
                 <constraint firstItem="vhc-La-QWR" firstAttribute="leading" secondItem="N8f-hw-RZu" secondAttribute="leading" id="eoH-Lh-1h1"/>
                 <constraint firstAttribute="centerX" secondItem="QQT-Gi-JpP" secondAttribute="centerX" id="eqt-af-AJr"/>
                 <constraint firstItem="vhc-La-QWR" firstAttribute="top" secondItem="N8f-hw-RZu" secondAttribute="top" id="qVK-3L-5p3"/>

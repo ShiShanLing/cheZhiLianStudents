@@ -225,7 +225,7 @@
             if (model.state == 3) {
                 self.statusLabel.text = @"订单申请取消中.等待教练确认!";
             }else {
-                self.statusLabel.text = [NSString stringWithFormat:@"未开始(距离开始还有XX小时)"];
+                self.statusLabel.text = @"";
             }
             break;
         case 1:

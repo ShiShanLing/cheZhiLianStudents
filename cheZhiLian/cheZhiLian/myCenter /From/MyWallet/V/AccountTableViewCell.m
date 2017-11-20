@@ -20,8 +20,9 @@
 }
 
 - (void)loadData:(TradingRecordsModel *)data {
+    
     int amount =data.balanceChange;
-    NSString *title = @"测试";
+    NSString *title = [NSString stringWithFormat:@"%@%@",data.descriptionStr,data.couponMemberId.length == 0?@"":@"(优惠券购买)"];
     UIColor *textColor = nil;
     NSString *symbol = nil;
     if (data.accountType == 0) {
@@ -38,11 +39,6 @@
     self.dateTimeLabel.text = [CommonUtil getStringForDate:data.createTime];
 }
 
-//- (void)configTitle:(NSString *)title color:(UIColor *)color symbol:(NSString *)symbol amount:(NSString *)amount
-//{
-//    self.inOrOut.text = title;
-//    self.moneyNum.textColor = color;
-//    self.moneyNum.text = [NSString stringWithFormat:@"%@%@", symbol, amount];
-//}
+
 
 @end

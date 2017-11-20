@@ -41,6 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *phone;
 @property (nullable, nonatomic, copy) NSDate *stuCardTime;
 @property (nullable, nonatomic, copy) NSString *idCardBack;
+@property (nullable, nonatomic, copy) NSString *alipay;
 
 - (void)setValue:(id)value forKey:(NSString *)key;
 

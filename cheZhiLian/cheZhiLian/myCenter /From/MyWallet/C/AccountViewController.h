@@ -10,4 +10,6 @@
 
 @interface AccountViewController : GreyTopViewController
 
+@property (nonatomic, strong)NSString *type;
+
 @end

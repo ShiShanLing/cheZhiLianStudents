@@ -53,8 +53,11 @@
 }
 
 - (IBAction)handleReturn:(id)sender {
-    
-    [self.navigationController popViewControllerAnimated:YES];
+    if ([self.type isEqualToString:@"1"]) {
+              [self.navigationController popViewControllerAnimated:YES];
+    }else {
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -69,10 +72,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
     self.rechargeBtn.layer.cornerRadius = 5;
     self.getCashBtn.layer.cornerRadius = 5;
-    
     self.moneyView.layer.cornerRadius = 5;
     self.moneyView.layer.borderColor = [MColor(199, 199, 199) CGColor];
     self.moneyView.layer.borderWidth = .5;

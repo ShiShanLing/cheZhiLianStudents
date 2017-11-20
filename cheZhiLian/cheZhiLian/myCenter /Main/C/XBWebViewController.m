@@ -90,7 +90,6 @@
     _loadSuccess = NO;
     [self.mainWeb addSubview:self.loadFailView];
 }
-
 #pragma mark - Action
 - (IBAction)backClick:(id)sender {
     if (![self.mainWeb canGoBack]) {

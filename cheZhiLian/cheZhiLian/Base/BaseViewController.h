@@ -18,6 +18,7 @@
 @interface BaseViewController : UIViewController
 @property (strong, nonatomic)AppDelegate *AppDelegate;
 @property (nonatomic, strong)NSManagedObjectContext *managedContext;
+@property (nonatomic,weak)UserDataModel *userModel;
 - (IBAction)backClick:(id)sender;
 
 - (void)indeterminateExample;
