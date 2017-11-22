@@ -47,9 +47,9 @@
 //余额
 @property (strong, nonatomic) IBOutlet UIButton *moneyBtn;//余额
 @property (strong, nonatomic) IBOutlet UILabel *cashLabel;          // 保证金及冻结金额
-@property (strong, nonatomic) IBOutlet UILabel *xiaobaTicketLabel;//小巴券
+@property (strong, nonatomic) IBOutlet UILabel *xiaobaTicketLabel;//学车券
 @property (strong, nonatomic) IBOutlet UIButton *convertButton;
-@property (strong, nonatomic) IBOutlet UILabel *xiaobaCoinLabel;//小巴币
+@property (strong, nonatomic) IBOutlet UILabel *xiaobaCoinLabel;//学车币
 @property (strong, nonatomic) IBOutlet UIButton *coinConvertButton;
 @property (strong, nonatomic) IBOutlet UIView *alertPhotoView;//弹框
 @property (strong, nonatomic) IBOutlet UIView *alertDetailView;

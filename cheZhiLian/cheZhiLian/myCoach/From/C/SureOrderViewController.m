@@ -16,7 +16,7 @@
 
 @interface SureOrderViewController ()<UITableViewDataSource, UITableViewDelegate> {
     int _validCouponNum; // 可用学时券总数
-    int _validCoinNum; // 可用小巴币总数
+    int _validCoinNum; // 可用学车币总数
     float _validMoney; // 余额总数
     int _remainderCouponNum; // 剩余学时券数
     int _remainderCoinNum; // 剩余学时币数
@@ -46,8 +46,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *tipTravel;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *tipTravelTopMargin;
 @property (strong, nonatomic) NSMutableArray *orderArray;//订单数组
-@property (strong, nonatomic) NSMutableArray *couponArray;//小巴券列表
-@property (assign, nonatomic) int delMoney;//小巴券抵掉的钱
+@property (strong, nonatomic) NSMutableArray *couponArray;//学车券列表
+@property (assign, nonatomic) int delMoney;//学车券抵掉的钱
 
 @property (strong, nonatomic) IBOutlet UILabel *couponCountLabel;
 
@@ -134,7 +134,7 @@
 //刷新余额
 - (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    // 获取可以使用的小巴券、小巴币数目、账户余额并配置界面
+    // 获取可以使用的学车券、学车币数目、账户余额并配置界面
 }
 
 // 选择单个支付按钮状态
@@ -387,7 +387,7 @@
 // 配置所有选择按钮的状态
 - (void)allSelectBtnConfig{
     
-    if (_remainderCoinNum ==0 && self.coinSelectBtn.selected == NO) { // 已无小巴币
+    if (_remainderCoinNum ==0 && self.coinSelectBtn.selected == NO) { // 已无学车币
         [self invalidSelectBtn:self.coinSelectBtn];
     } else {
         [self validSelectBtn:self.coinSelectBtn];

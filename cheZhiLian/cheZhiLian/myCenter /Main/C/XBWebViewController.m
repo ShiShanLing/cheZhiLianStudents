@@ -93,7 +93,7 @@
 #pragma mark - Action
 - (IBAction)backClick:(id)sender {
     if (![self.mainWeb canGoBack]) {
-        if ([self.titleStr isEqualToString:@"小巴商城"]) {
+        if ([self.titleStr isEqualToString:@"车智联商城"]) {
             [self.navigationController popViewControllerAnimated:YES];
         }else{
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -103,7 +103,7 @@
 }
 
 - (IBAction)closeClick:(id)sender {
-    if ([self.titleStr isEqualToString:@"小巴商城"]) {
+    if ([self.titleStr isEqualToString:@"车智联商城"]) {
         [self.navigationController popViewControllerAnimated:YES];
     }else{
         [self dismissViewControllerAnimated:YES completion:nil];

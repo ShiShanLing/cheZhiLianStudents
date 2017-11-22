@@ -21,16 +21,16 @@
 @property (strong, nonatomic) IBOutlet UITableView *mainTableview;
 @property (strong, nonatomic) IBOutlet UIView *headView;
 @property (strong, nonatomic) IBOutlet UILabel *totalCoinLabel;
-@property (weak, nonatomic) IBOutlet UILabel *fCoinSumLabel; // 冻结小巴币
+@property (weak, nonatomic) IBOutlet UILabel *fCoinSumLabel; // 冻结学车币
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentViewTopSpace;
 
 
-// 小巴币可用对象列表
+// 学车币可用对象列表
 @property (weak, nonatomic) IBOutlet UIView *ownerListView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *ownerListViewHeightCon;
 
 // 页面数据
-@property (strong, nonatomic) NSArray *ownerArray; // 小巴币限用对象列表
+@property (strong, nonatomic) NSArray *ownerArray; // 学车币限用对象列表
 @property (strong, nonatomic) NSMutableArray *coinsArray;
 
 @end
@@ -101,7 +101,7 @@
     itemView.frame = CGRectMake(itemViewX, itemViewY, itemViewW, itemViewH);
     itemView.backgroundColor = [UIColor clearColor];
     
-    // 小巴币个数
+    // 学车币个数
     UILabel *numLabel = [[UILabel alloc] init];
     [itemView addSubview:numLabel];
     CGFloat numLabelW = 59;
@@ -172,14 +172,14 @@
 }
 
 #pragma mark - 网络请求
-// 获取小巴币可用对象列表
+// 获取学车币可用对象列表
 - (void)postGetOwnerList {
    
 
 }
 
 
-// 获取小巴币明细列表
+// 获取学车币明细列表
 - (void)postGetCoinList {
    
 }

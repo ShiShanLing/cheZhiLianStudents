@@ -11,7 +11,7 @@
 @implementation UserRuleTableViewCell
 
 - (void)awakeFromNib {
-    NSString *desStr = @"小巴币是小巴学车发放给小巴学车学员的，在使用小巴学车预约教练时，用于抵扣订单金额的虚拟货币。";
+    NSString *desStr = @"学车币是车智联学车发放给学车学员的，在使用车智联学车预约教练时，用于抵扣订单金额的虚拟货币。";
     CGFloat textHeight = [CommonUtil sizeWithString:desStr fontSize:13 sizewidth:(kScreen_widht - 44) sizeheight:0].height;
     self.describeLabelHeightCon.constant = textHeight;
 }

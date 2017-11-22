@@ -31,7 +31,7 @@ typedef NS_ENUM(NSUInteger, OrderType) {
 @property (copy, nonatomic) NSString *endTime;      // 任务结束时间
 @property (copy, nonatomic) NSString *detailAddr;   // 订单上车地址
 @property (copy, nonatomic) NSString *cost;         // 订单总价
-@property (copy, nonatomic) NSString *delMoney;     // 小巴币抵价
+@property (copy, nonatomic) NSString *delMoney;     // 学车币抵价
 @property (copy, nonatomic) NSString *carLicense;   // 牌照
 @property (copy, nonatomic) NSString *modelid;      // 准教车型
 @property (copy, nonatomic) NSString *subjectID;    // 科目ID

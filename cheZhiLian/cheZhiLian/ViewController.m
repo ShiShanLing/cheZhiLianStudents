@@ -37,7 +37,7 @@
 
 @implementation ViewController{
     int _actFlag; // 活动类型 0:不显示 1:跳转到url 2:内部功能
-    NSUInteger _itemIndex; // 0：小巴题库 1：小巴学车 2：小巴陪驾 3：小巴服务 初始值为1
+    NSUInteger _itemIndex; // 0：车智联题库 1：车智联学车 2：车智联陪驾 3：车智联服务 初始值为1
     NSUInteger _lastItemIndex;
     NSURLRequest *_failRequest; // 加载失败request
 }

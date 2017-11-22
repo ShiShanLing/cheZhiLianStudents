@@ -12,6 +12,6 @@
 
 /* input */
 @property (copy, nonatomic) NSString *coinSum;
-@property (copy, nonatomic) NSString *fCoinSum; // 冻结小巴币数
+@property (copy, nonatomic) NSString *fCoinSum; // 冻结学车币数
 
 @end
