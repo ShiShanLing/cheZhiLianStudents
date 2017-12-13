@@ -107,14 +107,12 @@
     [self setHidesBottomBarWhenPushed:NO];
     [self requestGetAD];
     
-    if ([UserDataSingleton mainSingleton].subState.length == 0||[[UserDataSingleton mainSingleton].subState isEqualToString:@"0"] || [[UserDataSingleton mainSingleton].subState isEqualToString:@"3"]||[[UserDataSingleton mainSingleton].subState isEqualToString:@"4"] ||[UserDataSingleton mainSingleton].coachId.length == 0) {
-        if ([[UserDataSingleton mainSingleton].subState isEqualToString:@"4"]||[[UserDataSingleton mainSingleton].subState isEqualToString:@"3"]) {
-            self.noCoachView.titleLabel.text =  @"您的科二科三已通过,不用再进行学车预约!";
-        }
-        self.noCoachView.hidden = NO;
+    if ([UserDataSingleton mainSingleton].coachId.length == 0) {
+        self.noCoachView.titleLabel.text =  @"您还没有分配教练!";
+        self.noCoachView.hidden = YES;
     }else {
         
-      self.noCoachView.hidden = YES;
+      self.noCoachView.hidden = NO;
     }
     self.navigationController.navigationBarHidden =YES;
     

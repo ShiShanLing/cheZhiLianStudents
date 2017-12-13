@@ -163,15 +163,15 @@
 		A167A4161F46CA2F00A9D224 /* NoCoachView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A167A4151F46CA2F00A9D224 /* NoCoachView.xib */; };
 		A167A4181F46CBC000A9D224 /* NOKH.png in Resources */ = {isa = PBXBuildFile; fileRef = A167A4171F46CBC000A9D224 /* NOKH.png */; };
 		A167A4251F46E26900A9D224 /* ForgotPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A167A41B1F46E26900A9D224 /* ForgotPasswordVC.m */; };
-		A167A4261F46E26900A9D224 /* InputBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = A167A41E1F46E26900A9D224 /* InputBoxView.m */; };
-		A167A4271F46E26900A9D224 /* LogInbj.png in Resources */ = {isa = PBXBuildFile; fileRef = A167A41F1F46E26900A9D224 /* LogInbj.png */; };
-		A167A4281F46E26900A9D224 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A167A4211F46E26900A9D224 /* LogInViewController.m */; };
 		A167A4291F46E26900A9D224 /* RegisteredViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A167A4241F46E26900A9D224 /* RegisteredViewController.m */; };
-		A167A42C1F46E2E600A9D224 /* TakeBackKBView.m in Sources */ = {isa = PBXBuildFile; fileRef = A167A42B1F46E2E600A9D224 /* TakeBackKBView.m */; };
 		A167A4301F46E32600A9D224 /* JKCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A167A42F1F46E32600A9D224 /* JKCountDownButton.m */; };
 		A167A43A1F46E5DA00A9D224 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = A167A4341F46E5DA00A9D224 /* GTMBase64.m */; };
 		A167A43B1F46E5DA00A9D224 /* NSData+AES.m in Sources */ = {isa = PBXBuildFile; fileRef = A167A4371F46E5DA00A9D224 /* NSData+AES.m */; };
 		A167A43C1F46E5DA00A9D224 /* SecurityUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = A167A4391F46E5DA00A9D224 /* SecurityUtil.m */; };
+		A16CD3411FE122BD006CFBE1 /* LogInbj.png in Resources */ = {isa = PBXBuildFile; fileRef = A16CD33A1FE122B9006CFBE1 /* LogInbj.png */; };
+		A16CD3421FE122BD006CFBE1 /* TakeBackKBView.m in Sources */ = {isa = PBXBuildFile; fileRef = A16CD33B1FE122BA006CFBE1 /* TakeBackKBView.m */; };
+		A16CD3431FE122BD006CFBE1 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A16CD33D1FE122BB006CFBE1 /* LogInViewController.m */; };
+		A16CD3441FE122BD006CFBE1 /* InputBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = A16CD33F1FE122BC006CFBE1 /* InputBoxView.m */; };
 		A16DD79E1F445C6F000FA8BE /* CoachDetailsModel+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A16DD79B1F445C6F000FA8BE /* CoachDetailsModel+CoreDataClass.m */; };
 		A16DD79F1F445C6F000FA8BE /* CoachDetailsModel+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A16DD79D1F445C6F000FA8BE /* CoachDetailsModel+CoreDataProperties.m */; };
 		A16DD7AA1F44677E000FA8BE /* GoodsOrderDetailsModel+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A16DD7A71F44677E000FA8BE /* GoodsOrderDetailsModel+CoreDataClass.m */; };
@@ -530,15 +530,8 @@
 		A167A4171F46CBC000A9D224 /* NOKH.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NOKH.png; sourceTree = "<group>"; };
 		A167A41A1F46E26900A9D224 /* ForgotPasswordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordVC.h; sourceTree = "<group>"; };
 		A167A41B1F46E26900A9D224 /* ForgotPasswordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordVC.m; sourceTree = "<group>"; };
-		A167A41D1F46E26900A9D224 /* InputBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InputBoxView.h; path = ../InputBoxView.h; sourceTree = "<group>"; };
-		A167A41E1F46E26900A9D224 /* InputBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InputBoxView.m; path = ../InputBoxView.m; sourceTree = "<group>"; };
-		A167A41F1F46E26900A9D224 /* LogInbj.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogInbj.png; path = ../LogInbj.png; sourceTree = "<group>"; };
-		A167A4201F46E26900A9D224 /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogInViewController.h; path = ../LogInViewController.h; sourceTree = "<group>"; };
-		A167A4211F46E26900A9D224 /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogInViewController.m; path = ../LogInViewController.m; sourceTree = "<group>"; };
 		A167A4231F46E26900A9D224 /* RegisteredViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisteredViewController.h; sourceTree = "<group>"; };
 		A167A4241F46E26900A9D224 /* RegisteredViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisteredViewController.m; sourceTree = "<group>"; };
-		A167A42A1F46E2E600A9D224 /* TakeBackKBView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TakeBackKBView.h; path = ../TakeBackKBView.h; sourceTree = "<group>"; };
-		A167A42B1F46E2E600A9D224 /* TakeBackKBView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TakeBackKBView.m; path = ../TakeBackKBView.m; sourceTree = "<group>"; };
 		A167A42E1F46E32600A9D224 /* JKCountDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKCountDownButton.h; sourceTree = "<group>"; };
 		A167A42F1F46E32600A9D224 /* JKCountDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKCountDownButton.m; sourceTree = "<group>"; };
 		A167A4331F46E5DA00A9D224 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
@@ -548,6 +541,13 @@
 		A167A4371F46E5DA00A9D224 /* NSData+AES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+AES.m"; sourceTree = "<group>"; };
 		A167A4381F46E5DA00A9D224 /* SecurityUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecurityUtil.h; sourceTree = "<group>"; };
 		A167A4391F46E5DA00A9D224 /* SecurityUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecurityUtil.m; sourceTree = "<group>"; };
+		A16CD33A1FE122B9006CFBE1 /* LogInbj.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LogInbj.png; sourceTree = "<group>"; };
+		A16CD33B1FE122BA006CFBE1 /* TakeBackKBView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TakeBackKBView.m; sourceTree = "<group>"; };
+		A16CD33C1FE122BA006CFBE1 /* InputBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputBoxView.h; sourceTree = "<group>"; };
+		A16CD33D1FE122BB006CFBE1 /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
+		A16CD33E1FE122BB006CFBE1 /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
+		A16CD33F1FE122BC006CFBE1 /* InputBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputBoxView.m; sourceTree = "<group>"; };
+		A16CD3401FE122BD006CFBE1 /* TakeBackKBView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TakeBackKBView.h; sourceTree = "<group>"; };
 		A16DD79A1F445C6F000FA8BE /* CoachDetailsModel+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoachDetailsModel+CoreDataClass.h"; sourceTree = "<group>"; };
 		A16DD79B1F445C6F000FA8BE /* CoachDetailsModel+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CoachDetailsModel+CoreDataClass.m"; sourceTree = "<group>"; };
 		A16DD79C1F445C6F000FA8BE /* CoachDetailsModel+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoachDetailsModel+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -1229,13 +1229,13 @@
 		A141D76F1F5A9C260099BA53 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				A167A41D1F46E26900A9D224 /* InputBoxView.h */,
-				A167A41E1F46E26900A9D224 /* InputBoxView.m */,
-				A167A41F1F46E26900A9D224 /* LogInbj.png */,
-				A167A4201F46E26900A9D224 /* LogInViewController.h */,
-				A167A4211F46E26900A9D224 /* LogInViewController.m */,
-				A167A42A1F46E2E600A9D224 /* TakeBackKBView.h */,
-				A167A42B1F46E2E600A9D224 /* TakeBackKBView.m */,
+				A16CD33C1FE122BA006CFBE1 /* InputBoxView.h */,
+				A16CD33F1FE122BC006CFBE1 /* InputBoxView.m */,
+				A16CD33A1FE122B9006CFBE1 /* LogInbj.png */,
+				A16CD33E1FE122BB006CFBE1 /* LogInViewController.h */,
+				A16CD33D1FE122BB006CFBE1 /* LogInViewController.m */,
+				A16CD3401FE122BD006CFBE1 /* TakeBackKBView.h */,
+				A16CD33B1FE122BA006CFBE1 /* TakeBackKBView.m */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1396,7 +1396,6 @@
 			children = (
 				A192D6391F3C671600E6D2CA /* C */,
 				A192D63A1F3C671600E6D2CA /* M */,
-				A192D63B1F3C671600E6D2CA /* V */,
 			);
 			path = OrderDetails;
 			sourceTree = "<group>";
@@ -1420,13 +1419,6 @@
 				A16DD7A91F44677E000FA8BE /* GoodsOrderDetailsModel+CoreDataProperties.m */,
 			);
 			path = M;
-			sourceTree = "<group>";
-		};
-		A192D63B1F3C671600E6D2CA /* V */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = V;
 			sourceTree = "<group>";
 		};
 		A1B2FB181F39A0760049D2B8 /* From */ = {
@@ -1615,7 +1607,6 @@
 				A1F73FD91F35A3C900F0B71C /* homePage */,
 				A1F73FDD1F35A3F100F0B71C /* myCoach */,
 				A1F73FE11F35A42100F0B71C /* myCenter  */,
-				A1F73FE51F35A49300F0B71C /* learning */,
 				A1F73FA01F355FDA00F0B71C /* Main.storyboard */,
 				A1F73FA61F355FDA00F0B71C /* Assets.xcassets */,
 				A1F73FA81F355FDA00F0B71C /* LaunchScreen.storyboard */,
@@ -1698,37 +1689,6 @@
 				A192D62B1F3C66D400E6D2CA /* From */,
 			);
 			path = "myCenter ";
-			sourceTree = "<group>";
-		};
-		A1F73FE51F35A49300F0B71C /* learning */ = {
-			isa = PBXGroup;
-			children = (
-				A1F73FE61F35A49300F0B71C /* C */,
-				A1F73FE71F35A49300F0B71C /* M */,
-				A1F73FE81F35A49300F0B71C /* V */,
-			);
-			path = learning;
-			sourceTree = "<group>";
-		};
-		A1F73FE61F35A49300F0B71C /* C */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = C;
-			sourceTree = "<group>";
-		};
-		A1F73FE71F35A49300F0B71C /* M */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = M;
-			sourceTree = "<group>";
-		};
-		A1F73FE81F35A49300F0B71C /* V */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = V;
 			sourceTree = "<group>";
 		};
 		A1F73FEC1F35A5BA00F0B71C /* category */ = {
@@ -2180,7 +2140,6 @@
 				A141D6DD1F5A94970099BA53 /* CoinListViewController.xib in Resources */,
 				A1395CB81F4D1DE8002A432D /* 9.png in Resources */,
 				A141D7181F5A96B20099BA53 /* FeedbackViewController.xib in Resources */,
-				A167A4271F46E26900A9D224 /* LogInbj.png in Resources */,
 				A1395CB41F4D1DE8002A432D /* 5.png in Resources */,
 				A141D6E31F5A94970099BA53 /* UseRuleViewController.xib in Resources */,
 				A1395CB31F4D1DE8002A432D /* 4.png in Resources */,
@@ -2220,6 +2179,7 @@
 				A141D7871F5A9C460099BA53 /* RecommendCodeViewController.xib in Resources */,
 				A167A4181F46CBC000A9D224 /* NOKH.png in Resources */,
 				A1F740901F3800E900F0B71C /* CommentTableViewCell.xib in Resources */,
+				A16CD3411FE122BD006CFBE1 /* LogInbj.png in Resources */,
 				A1B2FB3B1F39A1BD0049D2B8 /* GoodsIntroductionTVCell.xib in Resources */,
 				A1F740511F35B34A00F0B71C /* backgroundStar.png in Resources */,
 				A141D6FC1F5A96060099BA53 /* SystemMessageViewController.xib in Resources */,
@@ -2387,6 +2347,7 @@
 				A1B2FB441F39A4A90049D2B8 /* FeeItemizationsTVCell.m in Sources */,
 				A141D6A71F5A8D1A0099BA53 /* SideBarViewController.m in Sources */,
 				A10EDD5D1F8F438B00434843 /* TradingRecordsModel+CoreDataClass.m in Sources */,
+				A16CD3441FE122BD006CFBE1 /* InputBoxView.m in Sources */,
 				A141D6CC1F5A947E0099BA53 /* AccountManagerViewController.m in Sources */,
 				A141D7591F5A98F50099BA53 /* CZPhotoPickerController.m in Sources */,
 				A141D6F11F5A94BF0099BA53 /* UserRuleTableViewCell.m in Sources */,
@@ -2414,7 +2375,6 @@
 				A141D7571F5A98F50099BA53 /* CZCroppingScrollView.m in Sources */,
 				A141D7441F5A98C80099BA53 /* TPKeyboardAvoidingTableView.m in Sources */,
 				A16F42851F45493B007BF51C /* FloorVIew.m in Sources */,
-				A167A4261F46E26900A9D224 /* InputBoxView.m in Sources */,
 				A167A4291F46E26900A9D224 /* RegisteredViewController.m in Sources */,
 				A141D7841F5A9C460099BA53 /* FindPwdViewController.m in Sources */,
 				A100A4DB1F4423250094BCF0 /* MyOrderViewController.m in Sources */,
@@ -2428,7 +2388,6 @@
 				A141D7581F5A98F50099BA53 /* CZCropPreviewOverlayView.m in Sources */,
 				A141D7941F5AA0170099BA53 /* XBArea.m in Sources */,
 				A1F740751F37FD6F00F0B71C /* CommentListViewController.m in Sources */,
-				A167A42C1F46E2E600A9D224 /* TakeBackKBView.m in Sources */,
 				A141D6FB1F5A96060099BA53 /* SystemMessageViewController.m in Sources */,
 				A141D7431F5A98C80099BA53 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				A167A43B1F46E5DA00A9D224 /* NSData+AES.m in Sources */,
@@ -2446,7 +2405,6 @@
 				A141D6CA1F5A947E0099BA53 /* AccountListViewController.m in Sources */,
 				A141D72D1F5A97ED0099BA53 /* ImproveInfoViewController.m in Sources */,
 				A141D7171F5A96B20099BA53 /* FeedbackViewController.m in Sources */,
-				A167A4281F46E26900A9D224 /* LogInViewController.m in Sources */,
 				A141D6CE1F5A947E0099BA53 /* AccountViewController.m in Sources */,
 				A1F740421F35B15C00F0B71C /* SwipeView.m in Sources */,
 				A141D70A1F5A96640099BA53 /* ComplaintTableViewCell.m in Sources */,
@@ -2457,6 +2415,7 @@
 				A100A4D31F42D1EA0094BCF0 /* CourseDetailModel+CoreDataProperties.m in Sources */,
 				A141D6DE1F5A94970099BA53 /* PayViewController.m in Sources */,
 				A141D7AA1F5D35100099BA53 /* UserDataModel+CoreDataClass.m in Sources */,
+				A16CD3421FE122BD006CFBE1 /* TakeBackKBView.m in Sources */,
 				A13CCEE71FB1447000B616DE /* MyViewController.m in Sources */,
 				A141D7001F5A96140099BA53 /* MessageTableViewCell.m in Sources */,
 				A141D7821F5A9C460099BA53 /* BindingViewController.m in Sources */,
@@ -2476,6 +2435,7 @@
 				A16410061F3DA4D6007DCF0E /* CoachTimeListModel+CoreDataProperties.m in Sources */,
 				A141D7051F5A96590099BA53 /* ComplaintViewController.m in Sources */,
 				A16DD79E1F445C6F000FA8BE /* CoachDetailsModel+CoreDataClass.m in Sources */,
+				A16CD3431FE122BD006CFBE1 /* LogInViewController.m in Sources */,
 				A192D6151F3C44B000E6D2CA /* confirmGoodsTVCell.m in Sources */,
 				A141D7671F5A9A690099BA53 /* ChangePwdViewController.m in Sources */,
 				A1F73FF21F35ABF900F0B71C /* UIView+Frame.m in Sources */,

@@ -83,7 +83,7 @@
 //吴佳境 http://192.168.100.33
 //臧鹏维  http://192.168.0.245:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT
 //http://192.168.100.101:8080/seller
-#define kURL_SHY  @"http://192.168.0.250:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT"
+#define kURL_SHY  @"http://www.jxchezhilian.com/school"
 #define kStudentId  @"1000"
 #define kUserId   @"4c7101faa2f84f7586c6fe52373f3729"
 #define kStoreId @"1"
