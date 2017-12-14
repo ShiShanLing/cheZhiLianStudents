@@ -86,7 +86,9 @@
 #define kURL_SHY  @"http://www.jxchezhilian.com/school"
 #define kStudentId  @"1000"
 #define kUserId   @"4c7101faa2f84f7586c6fe52373f3729"
-#define kStoreId @"1"
+#define kStoreId @"c05d9e7637a54ef88b25386959c83609"
+
+//线上的ID 1
 //下面三个是我复制的
 #define CUSTOM_RED MColor(247,100,92)
 #define CUSTOM_BLUE MColor(110,197,217)
