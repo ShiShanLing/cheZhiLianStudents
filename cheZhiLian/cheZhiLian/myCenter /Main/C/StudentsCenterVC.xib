@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment version="2304" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,6 +19,7 @@
                 <outlet property="messagesLabel" destination="PwU-C4-z2N" id="p39-Rv-jni"/>
                 <outlet property="messagesNumView" destination="W7E-4U-0kx" id="HhN-2O-BF1"/>
                 <outlet property="studentDriverStateLabel" destination="m9c-vC-KQa" id="Ltw-l9-jDD"/>
+                <outlet property="testScheduleLabel" destination="SCe-r2-RCC" id="qQj-gF-v8t"/>
                 <outlet property="userNameLabel" destination="UQx-pK-654" id="fhI-wK-one"/>
                 <outlet property="userPhoneLabel" destination="jKR-Y8-94j" id="mrX-UO-fK9"/>
                 <outlet property="view" destination="Opr-r6-7x7" id="LR5-ht-bmf"/>

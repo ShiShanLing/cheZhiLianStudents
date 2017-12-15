@@ -109,10 +109,10 @@
     
     if ([UserDataSingleton mainSingleton].coachId.length == 0) {
         self.noCoachView.titleLabel.text =  @"您还没有分配教练!";
-        self.noCoachView.hidden = YES;
+        self.noCoachView.hidden = NO;
     }else {
         
-      self.noCoachView.hidden = NO;
+      self.noCoachView.hidden = YES;
     }
     self.navigationController.navigationBarHidden =YES;
     

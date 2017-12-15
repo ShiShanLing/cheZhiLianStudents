@@ -15,6 +15,8 @@
 #import "AccountViewController.h"
 @interface StudentsCenterVC ()
 @property (nonatomic, strong)NSMutableArray *viewControllerArray;
+@property (weak, nonatomic) IBOutlet UILabel *testScheduleLabel;
+
 @property (weak, nonatomic) IBOutlet UILabel *studentDriverStateLabel;
 
 /**
@@ -399,7 +401,7 @@
         default:
             break;
     }
-    self.studentDriverStateLabel.text = subState;
+    self.testScheduleLabel.text = subState;
 }
 
 @end

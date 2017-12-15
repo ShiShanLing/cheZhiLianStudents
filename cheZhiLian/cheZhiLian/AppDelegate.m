@@ -244,9 +244,7 @@
                 [self showAlert:@"支付失败"];
                 
             }
-            
         }];
-        
         // 授权跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processAuth_V2Result:url standbyCallback:^(NSDictionary *resultDic) {
             NSLog(@"9.0以后授权跳转result = %@",resultDic);
