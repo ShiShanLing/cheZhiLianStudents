@@ -429,7 +429,7 @@
         //那怎么证明我的数据写入了呢？读出来看看
         NSMutableDictionary *userData2 = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
     }
-    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

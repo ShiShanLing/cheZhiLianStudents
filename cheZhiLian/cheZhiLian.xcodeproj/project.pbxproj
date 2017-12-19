@@ -1079,7 +1079,6 @@
 			children = (
 				A141D6BA1F5A93FB0099BA53 /* C */,
 				A141D6BB1F5A93FB0099BA53 /* M */,
-				A141D6BC1F5A93FB0099BA53 /* V */,
 			);
 			path = StudentData;
 			sourceTree = "<group>";
@@ -1116,13 +1115,6 @@
 				A141D75F1F5A994C0099BA53 /* MyDate.m */,
 			);
 			path = M;
-			sourceTree = "<group>";
-		};
-		A141D6BC1F5A93FB0099BA53 /* V */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = V;
 			sourceTree = "<group>";
 		};
 		A141D6BD1F5A93FB0099BA53 /* StudentDriverSecurities */ = {
@@ -2070,7 +2062,7 @@
 					A1F73F931F355FDA00F0B71C = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 3ZC4VG35Y5;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					A1F73FAF1F355FDA00F0B71C = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -2603,9 +2595,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 3ZC4VG35Y5;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2623,8 +2615,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.chezhilian.www-iOS-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "cc0a5187-ef45-4c54-aa9b-c8523d34d78d";
-				PROVISIONING_PROFILE_SPECIFIER = chezhilianxueyuan;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -2634,9 +2626,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 3ZC4VG35Y5;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2654,8 +2646,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.chezhilian.www-iOS-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "cc0a5187-ef45-4c54-aa9b-c8523d34d78d";
-				PROVISIONING_PROFILE_SPECIFIER = chezhilianxueyuan;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

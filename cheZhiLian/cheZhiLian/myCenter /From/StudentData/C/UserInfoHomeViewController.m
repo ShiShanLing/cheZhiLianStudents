@@ -171,7 +171,6 @@
 
 - (IBAction)clickToUserBaseInfoView:(id)sender {
     UserBaseInfoViewController *targetViewController = [[UserBaseInfoViewController alloc] initWithNibName:@"UserBaseInfoViewController" bundle:nil];
-    
     [self.navigationController pushViewController:targetViewController animated:YES];
 }
 
@@ -199,10 +198,12 @@
     [UserDataSingleton mainSingleton].studentsId = @"";
     [UserDataSingleton mainSingleton].subState = @"";
     [UserDataSingleton mainSingleton].subState = @"20";
+    [UserDataSingleton mainSingleton].coachId = @"";
+    [UserDataSingleton mainSingleton].balance = @"";
+    [UserDataSingleton mainSingleton].userModel =nil;
     [self showAlert:@"退出登录成功" time:1.2];
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
-
 
 - (void)dealloc {
     NSLog(@"UserInfoHomeView  dealloc");

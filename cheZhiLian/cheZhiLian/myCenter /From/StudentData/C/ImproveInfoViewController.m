@@ -434,6 +434,23 @@
 // 提交账号信息
 - (void)postPerfectPersonInfo {
  
+    NSString *URL_Str = [NSString stringWithFormat:@""];
+    NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
+    __weak  ImproveInfoViewController *VC = self;
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
+        NSLog(@"uploadProgress%@", uploadProgress);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"responseObject%@", responseObject);
+        NSString *resultStr = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
+        if ([resultStr isEqualToString:@"1"]) {
+            
+        }else {
+            [VC showAlert:responseObject[@"msg"] time:1.2];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"error%@", error);
+    }];
 
 
 }
