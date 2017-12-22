@@ -157,7 +157,6 @@
         [self.pickPhotoController showImagePickerWithSourceType:UIImagePickerControllerSourceTypeCamera];
     }
 }
-
 // 相册
 - (IBAction)clickForAlbum:(id)sender {
     self.photoView.hidden = YES;
@@ -175,11 +174,15 @@
 }
 
 - (IBAction)clickToLearnDriveInfoView:(id)sender {
+    [self showAlert:@"该功能正在努力开发中" time:0.8 ] ;
+    return;
     LearnDriveInfoViewController *targetViewController = [[LearnDriveInfoViewController alloc] initWithNibName:@"LearnDriveInfoViewController" bundle:nil];
     [self.navigationController pushViewController:targetViewController animated:YES];
 }
 
 - (IBAction)clickToImproveUserInfoView:(id)sender {
+    [self showAlert:@"该功能正在努力开发中" time:0.8 ] ;
+    return;
     ImproveInfoViewController *targetViewController = [[ImproveInfoViewController alloc] initWithNibName:@"ImproveInfoViewController" bundle:nil];
     [self.navigationController pushViewController:targetViewController animated:YES];
 }

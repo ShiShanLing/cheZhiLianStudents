@@ -73,6 +73,8 @@
 //学车币
 - (IBAction)clickForCoin:(id)sender {
     
+    [self showAlert:@"该功能正在研发中" time:0.8];
+    return;
         CoinListViewController *viewController = [[CoinListViewController alloc] initWithNibName:@"CoinListViewController" bundle:nil];
         viewController.coinSum = _coinsum;
         viewController.fCoinSum = _fCoinsum;
@@ -84,7 +86,7 @@
 // 获取钱包信息
 - (void)postGetWalletInfo {
     // 累计消费
-    self.usedLabel.text = [NSString stringWithFormat:@"金额%d元 学车币%d个 学时券%d张", 100, 100, 100];
+    self.usedLabel.text =@"";// [NSString stringWithFormat:@"金额%d元 学车币%d个 学时券%d张", 100, 100, 100];
     [self showData];
 
 }

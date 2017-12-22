@@ -10,7 +10,7 @@
 #import "SureOrderTableViewCell.h"
 #import <CoreText/CoreText.h>
 #import "CouponListViewController.h"
-
+#import "AccountViewController.h"
 #define FOOTVIEW_HEIGHT 48
 #define SELVIEW_HEIGHT 250
 
@@ -110,7 +110,7 @@
     view.backgroundColor = [UIColor whiteColor];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kScreen_widht, 44)];
     label.numberOfLines = 0;
-    label.text = @"请事先与教练确认练车地址和交通方式";
+    label.text = @"";//@"请事先与教练确认练车地址和交通方式";
     label.font = [UIFont systemFontOfSize:16];
     label.textColor = [UIColor redColor];
     label.textAlignment = NSTextAlignmentCenter;
@@ -487,47 +487,66 @@
 }
 
 - (void)payDetailStatistics {
- //http://192.168.100.101:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT/train/api/makeReservation?coachId=ef6334ff740a4d2e934b895d8a9b62dc&endTime=1504753200000&price=180&startTime=1504749600000&studentId=2543216315314435bfa72e61aa55faa3
+    UIAlertController *alertV = [UIAlertController alertControllerWithTitle:@"" message:@"确认购买课程吗" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [self CoursePayment];
+    }];
+    
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+    }];
+    // 3.将“取消”和“确定”按钮加入到弹框控制器中
+    [alertV addAction:cancle];
+    [alertV addAction:confirm];
+    // 4.控制器 展示弹框控件，完成时不做操作
+    [self presentViewController:alertV animated:YES completion:^{
+        nil;
+    }];
+}
+//课程预约
+- (void)CoursePayment {
     NSString *timeStr;
     [self respondsToSelector:@selector(indeterminateExample)];
     for (int i = 0; i < self.dateTimeSelectedList.count; i ++) {
         CoachTimeListModel *model = self.dateTimeSelectedList[i];
-            if (i == 0) {
-                timeStr =  [NSString stringWithFormat:@"%ld%@", (long)[model.startTime timeIntervalSince1970], @"000"];
-                timeStr =  [NSString stringWithFormat:@"%@,%ld%@", timeStr,(long)[model.endTime timeIntervalSince1970], @"000"];
-            }else {
-                timeStr =  [NSString stringWithFormat:@"%@,%ld%@", timeStr,(long)[model.startTime timeIntervalSince1970], @"000"];
-                timeStr =  [NSString stringWithFormat:@"%@,%ld%@", timeStr,(long)[model.endTime timeIntervalSince1970], @"000"];
-            }
+        if (i == 0) {
+            timeStr =  [NSString stringWithFormat:@"%ld%@", (long)[model.startTime timeIntervalSince1970], @"000"];
+            timeStr =  [NSString stringWithFormat:@"%@,%ld%@", timeStr,(long)[model.endTime timeIntervalSince1970], @"000"];
+        }else {
+            timeStr =  [NSString stringWithFormat:@"%@,%ld%@", timeStr,(long)[model.startTime timeIntervalSince1970], @"000"];
+            timeStr =  [NSString stringWithFormat:@"%@,%ld%@", timeStr,(long)[model.endTime timeIntervalSince1970], @"000"];
+        }
     }
-        NSLog(@"payDetailStatisticstimeStr%@", timeStr);
-        NSString *URL_Str = [NSString stringWithFormat:@"%@/train/api/makeReservation", kURL_SHY];
-        NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
-        URL_Dic[@"coachId"]=[UserDataSingleton mainSingleton].coachId;
-        URL_Dic[@"studentId"] = [UserDataSingleton mainSingleton].studentsId;
-        URL_Dic[@"timeStr"] = timeStr;
+    NSLog(@"payDetailStatisticstimeStr%@", timeStr);
+    NSString *URL_Str = [NSString stringWithFormat:@"%@/train/api/makeReservation", kURL_SHY];
+    NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
+    URL_Dic[@"coachId"]=[UserDataSingleton mainSingleton].coachId;
+    URL_Dic[@"studentId"] = [UserDataSingleton mainSingleton].studentsId;
+    URL_Dic[@"timeStr"] = timeStr;
     URL_Dic[@"couponMemberId"] = couponMemberId.length == 0?@"":couponMemberId;
-        URL_Dic[@"price"] = [NSString stringWithFormat:@"%.0f", self.payMoney];
-        NSLog(@"URL_Dic%@", URL_Dic);
-        AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
-        __weak SureOrderViewController *VC = self;
-        [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
-            NSLog(@"uploadProgress%@", uploadProgress);
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            NSLog(@"responseObject%@", responseObject);
-            [VC showAlert:responseObject[@"msg"] time:1.2];
-            [VC respondsToSelector:@selector(delayMethod)];
-            NSString *resultStr = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
-            if ( [resultStr isEqualToString:@"1"]) {
-                [VC AnalysisUserData];
-            }
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            [VC respondsToSelector:@selector(delayMethod)];
-            [VC showAlert:@"网络超时"];
-            NSLog(@"error%@", error);
-        }];
-    
+    URL_Dic[@"price"] = [NSString stringWithFormat:@"%.0f", self.payMoney];
+    NSLog(@"URL_Dic%@", URL_Dic);
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    __weak SureOrderViewController *VC = self;
+    [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
+        NSLog(@"uploadProgress%@", uploadProgress);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"responseObject%@", responseObject);
+        [VC showAlert:responseObject[@"msg"] time:1.2];
+        [VC respondsToSelector:@selector(delayMethod)];
+        NSString *resultStr = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
+        if ( [resultStr isEqualToString:@"1"]) {
+            AccountViewController *viewController = [[AccountViewController alloc] initWithNibName:@"AccountViewController" bundle:nil];
+            viewController.type = @"7";
+            [VC.navigationController pushViewController:viewController animated:YES];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [VC respondsToSelector:@selector(delayMethod)];
+        [VC showAlert:@"网络超时"];
+        NSLog(@"error%@", error);
+    }];
 }
+
 - (void)AnalysisUserData{
     
         NSString *URL_Str = [NSString stringWithFormat:@"%@/student/api/detail", kURL_SHY];

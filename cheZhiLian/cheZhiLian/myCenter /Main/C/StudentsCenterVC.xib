@@ -18,6 +18,7 @@
                 <outlet property="currencyLabel" destination="Gsn-jF-QSa" id="tv0-q5-XMS"/>
                 <outlet property="messagesLabel" destination="PwU-C4-z2N" id="p39-Rv-jni"/>
                 <outlet property="messagesNumView" destination="W7E-4U-0kx" id="HhN-2O-BF1"/>
+                <outlet property="myInfoBtn" destination="wg2-ZQ-Cwl" id="Osw-YH-XXl"/>
                 <outlet property="studentDriverStateLabel" destination="m9c-vC-KQa" id="Ltw-l9-jDD"/>
                 <outlet property="testScheduleLabel" destination="SCe-r2-RCC" id="qQj-gF-v8t"/>
                 <outlet property="userNameLabel" destination="UQx-pK-654" id="fhI-wK-one"/>
@@ -343,7 +344,7 @@
                                                 <action selector="handleCheckCoupons:" destination="-1" eventType="touchUpInside" id="IC7-hK-lOM"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="学车券（张）" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KOC-xf-g70">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="优惠券（张）" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KOC-xf-g70">
                                             <rect key="frame" x="0.0" y="39" width="125" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="9bL-fv-7bN"/>
@@ -1222,7 +1223,7 @@
                 <constraint firstItem="lSQ-wU-TxW" firstAttribute="leading" secondItem="Opr-r6-7x7" secondAttribute="leading" id="zhk-SY-Mro"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="FTO-hc-pFH"/>
-            <point key="canvasLocation" x="-50.5" y="195.5"/>
+            <point key="canvasLocation" x="-114" y="205"/>
         </view>
     </objects>
     <resources>

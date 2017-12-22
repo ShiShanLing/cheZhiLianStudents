@@ -1032,8 +1032,6 @@
 			isa = PBXGroup;
 			children = (
 				A141D6B61F5A93FB0099BA53 /* C */,
-				A141D6B71F5A93FB0099BA53 /* M */,
-				A141D6B81F5A93FB0099BA53 /* V */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -1058,20 +1056,6 @@
 				A141D7661F5A9A690099BA53 /* SettingBindingViewController.xib */,
 			);
 			path = C;
-			sourceTree = "<group>";
-		};
-		A141D6B71F5A93FB0099BA53 /* M */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = M;
-			sourceTree = "<group>";
-		};
-		A141D6B81F5A93FB0099BA53 /* V */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = V;
 			sourceTree = "<group>";
 		};
 		A141D6B91F5A93FB0099BA53 /* StudentData */ = {
@@ -2062,7 +2046,7 @@
 					A1F73F931F355FDA00F0B71C = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 3ZC4VG35Y5;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					A1F73FAF1F355FDA00F0B71C = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -2595,9 +2579,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 3ZC4VG35Y5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2615,8 +2599,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.chezhilian.www-iOS-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "cc0a5187-ef45-4c54-aa9b-c8523d34d78d";
+				PROVISIONING_PROFILE_SPECIFIER = chezhilianxueyuan;
 			};
 			name = Debug;
 		};
@@ -2626,9 +2610,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 3ZC4VG35Y5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2646,8 +2630,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.chezhilian.www-iOS-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "cc0a5187-ef45-4c54-aa9b-c8523d34d78d";
+				PROVISIONING_PROFILE_SPECIFIER = chezhilianxueyuan;
 			};
 			name = Release;
 		};

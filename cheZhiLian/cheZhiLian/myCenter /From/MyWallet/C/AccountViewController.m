@@ -55,6 +55,10 @@
 - (IBAction)handleReturn:(id)sender {
     if ([self.type isEqualToString:@"1"]) {
               [self.navigationController popViewControllerAnimated:YES];
+    }else if([self.type isEqualToString:@"7"]){
+        [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     }else {
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     }

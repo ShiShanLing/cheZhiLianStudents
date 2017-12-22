@@ -52,6 +52,8 @@
  */
 @property (weak, nonatomic) IBOutlet UILabel *userPhoneLabel;
 
+@property (weak, nonatomic) IBOutlet UIButton *myInfoBtn;
+
 @end
 
 @implementation StudentsCenterVC
@@ -86,6 +88,14 @@
 }
 //学车订单
 - (IBAction)handleStudentDriverOrder:(UIButton *)sender {
+    if ([UserDataSingleton mainSingleton].studentsId.length == 0) {
+        LogInViewController *loginVC = [[LogInViewController alloc] init];
+        UINavigationController * NALoginVC = [[UINavigationController alloc] initWithRootViewController:loginVC];
+        NALoginVC.navigationBarHidden = YES;
+        [self setHidesBottomBarWhenPushed:YES];
+        [self presentViewController:NALoginVC animated:YES completion:nil];
+        return;
+    }
     FYLPageViewController *FYLPageVC =[[FYLPageViewController alloc]initWithTitles:@[@"未完成",@"已完成",@"取消中",@"已取消",@"申诉中",@"已关闭"] viewControllers:self.viewControllerArray];
     UINavigationController * NAVC = [[UINavigationController alloc] initWithRootViewController:FYLPageVC];
     //NAVC.navigationBarHidden = YES;
@@ -94,13 +104,30 @@
 }
 //报名订单
 - (IBAction)handleSignUpOrder:(UIButton *)sender {
-    EnrollDetailsVC *VC = [[EnrollDetailsVC alloc] init];
-    UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:VC];
-    [self setHidesBottomBarWhenPushed:YES];
-    [self presentViewController:NAVC animated:YES completion:nil];
+    if ([UserDataSingleton mainSingleton].studentsId.length == 0) {
+    
+        LogInViewController *VC = [[LogInViewController alloc] init];
+        UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:VC];
+        [self setHidesBottomBarWhenPushed:YES];
+        [self presentViewController:NAVC animated:YES completion:nil];
+        
+    }else {
+        EnrollDetailsVC *VC = [[EnrollDetailsVC alloc] init];
+        UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:VC];
+        [self setHidesBottomBarWhenPushed:YES];
+        [self presentViewController:NAVC animated:YES completion:nil];
+    }
 }
 //预约考试
 - (IBAction)handleReservationTest:(UIButton *)sender {
+    if ([UserDataSingleton mainSingleton].studentsId.length == 0) {
+        
+        LogInViewController *VC = [[LogInViewController alloc] init];
+        UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:VC];
+        [self setHidesBottomBarWhenPushed:YES];
+        [self presentViewController:NAVC animated:YES completion:nil];
+        return;
+    }
     __weak StudentsCenterVC *VC = self;
     UIAlertController *alertV = [UIAlertController alertControllerWithTitle:@"提醒!" message:@"是否进行预约?" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"是的" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
@@ -139,6 +166,14 @@
 }
 //分享注册
 - (IBAction)handleShareRegistered:(UIButton *)sender {
+    if ([UserDataSingleton mainSingleton].studentsId.length == 0) {
+        
+        LogInViewController *VC = [[LogInViewController alloc] init];
+        UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:VC];
+        [self setHidesBottomBarWhenPushed:YES];
+        [self presentViewController:NAVC animated:YES completion:nil];
+        return;
+    }
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
     NSArray* imageArray = @[[UIImage imageNamed:@"AppIcon"]];
     [shareParams SSDKSetupShareParamsByText:@"分享内容"
@@ -196,26 +231,42 @@
 }
 //查看余额
 - (IBAction)handleCheckBalance:(UIButton *)sender {
+    if ([UserDataSingleton mainSingleton].studentsId.length == 0) {
+        
+        LogInViewController *VC = [[LogInViewController alloc] init];
+        UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:VC];
+        [self setHidesBottomBarWhenPushed:YES];
+        [self presentViewController:NAVC animated:YES completion:nil];
+        return;
+    }
     AccountViewController *viewController = [[AccountViewController alloc] initWithNibName:@"AccountViewController" bundle:nil];
     UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:viewController];
     [self presentViewController:NAVC animated:YES completion:nil];
 }
 //查看积分
 - (IBAction)handleCheckIntegral:(UIButton *)sender {
-    
+    [self  showAlert:@"该功能未开通" time:0.8];
 }
 //查看优惠券
 - (IBAction)handleCheckCoupons:(UIButton *)sender {
+    if ([UserDataSingleton mainSingleton].studentsId.length == 0) {
+        
+        LogInViewController *VC = [[LogInViewController alloc] init];
+        UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:VC];
+        [self setHidesBottomBarWhenPushed:YES];
+        [self presentViewController:NAVC animated:YES completion:nil];
+        return;
+    }
     CouponListViewController *viewController = [[CouponListViewController alloc] initWithNibName:@"CouponListViewController" bundle:nil];
     UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:viewController];
     [self presentViewController:NAVC animated:YES completion:nil];
-    
 }
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    self.myInfoBtn.hidden = YES;
     // Do any additional setup after loading the view from its nib.
 }
 

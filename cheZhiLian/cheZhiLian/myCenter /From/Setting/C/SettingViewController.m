@@ -42,11 +42,9 @@
     image2 = [[UIImage imageNamed:@"btn_green_h"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
     [self.clearBtn setBackgroundImage:image1 forState:UIControlStateNormal];;
     [self.clearBtn setBackgroundImage:image2 forState:UIControlStateHighlighted];
-    
     //圆角
     self.alertBoxView.layer.cornerRadius = 4;
     self.alertBoxView.layer.masksToBounds = YES;
-    
     //显示主页面，延时执行是为了让自动布局先生效，再设置frame才有效果
     [self performSelector:@selector(showMainView) withObject:nil afterDelay:0.1f];
 }
@@ -98,7 +96,8 @@
 
 // 投诉
 - (IBAction)MyComplaint:(id)sender {
-    
+    [self showAlert:@"该功能未开通" time:0.8];
+    return;
         ComplaintViewController *viewController = [[ComplaintViewController alloc] initWithNibName:@"ComplaintViewController" bundle:nil];
         [self.navigationController pushViewController:viewController animated:YES];
     
@@ -106,6 +105,8 @@
 
 //意见反馈
 - (IBAction)clickForFeedback:(id)sender {
+    [self showAlert:@"该功能未开通" time:0.8];
+    return;
     if ([[CommonUtil currentUtil] isLogin]) {
         FeedbackViewController *nextController = [[FeedbackViewController alloc] initWithNibName:@"FeedbackViewController" bundle:nil];
         [self.navigationController pushViewController:nextController animated:YES];
@@ -138,6 +139,8 @@
 
 //陪驾协议
 - (IBAction)protocolClick:(id)sender {
+    [self showAlert:@"该功能未开通" time:0.8];
+    return;
     NSString *url = @"http://www.xiaobaxueche.com/serviceprotocol-s.html";
     XBWebViewController *nextVC = [[XBWebViewController alloc] init];
     nextVC.mainUrl = url;
@@ -154,20 +157,5 @@
     
 }
 
-//账号绑定
-//- (IBAction)clickForBinding:(id)sender {
-//    if ([[CommonUtil currentUtil] isLogin]) {
-//        SettingBindingViewController *nextController = [[SettingBindingViewController alloc] initWithNibName:@"SettingBindingViewController" bundle:nil];
-//        [self.navigationController pushViewController:nextController animated:YES];
-//    }
-//}
-
-//修改密码
-//- (IBAction)clickForChangePwd:(id)sender {
-//    if ([[CommonUtil currentUtil] isLogin]) {
-//        ChangePwdViewController *nextController = [[ChangePwdViewController alloc] initWithNibName:@"ChangePwdViewController" bundle:nil];
-//        [self.navigationController pushViewController:nextController animated:YES];
-//    }
-//}
 
 @end
