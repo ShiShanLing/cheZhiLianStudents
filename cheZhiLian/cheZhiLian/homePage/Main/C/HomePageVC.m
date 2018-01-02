@@ -32,7 +32,7 @@
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreen_widht, kScreen_heigth-80) style:(UITableViewStylePlain)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreen_widht, kScreen_heigth-80-64) style:(UITableViewStylePlain)];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.showsHorizontalScrollIndicator = NO;
@@ -184,14 +184,10 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 100;
 }
-
-
-
 - (void)versionUpdate{
     //获得当前发布的版本
     if(![self judgeNeedVersionUpdate])  return ;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0), ^{
-
         NSString *URL_Str = [[NSString alloc] initWithFormat:@"http://itunes.apple.com/lookup?id=%@",@"1314786483"];
         NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
        __block NSMutableDictionary *dic = [NSMutableDictionary dictionary];
@@ -204,21 +200,16 @@
             if ([resultStr isEqualToString:@"1"]) {
                 NSArray *array  = responseObject[@"results"];
                 if (array.count == 0) {
-                    
                 }else {
                     dic = responseObject[@"results"][0];
                     NSLog(@"dic%@", dic);
                     //获得上线版本号
                     NSString *version = [dic objectForKey:@"version"];
-                    
                     NSString *updateInfo = [dic objectForKey:@"releaseNotes"];
-                    
                     //获得当前版本
                     NSString *currentVersion = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
-                    
                     dispatch_async(dispatch_get_main_queue(), ^{
                         //更新界面
-                        
                         NSLog(@"当前版本%@线上版本%@", currentVersion,version);
                         if ( version &&![version isEqualToString:currentVersion]) {
                             
