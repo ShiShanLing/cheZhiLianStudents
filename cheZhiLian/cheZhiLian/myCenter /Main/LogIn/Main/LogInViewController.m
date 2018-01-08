@@ -76,7 +76,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super.navigationController setNavigationBarHidden:YES];
     _NameIBV.NameTF.delegate = self;
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -107,6 +106,7 @@
     }];
     [self.scrollView setContentOffset:CGPointMake(0, kFit(50))];//这个 130 是根据视图的高度自己计算出来的
 }
+
 - (void) keyboardWasHidden:(NSNotification *) notif {
     
     
