@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RegisteredViewController">
+            <connections>
+                <outlet property="view" destination="iN0-l3-epB" id="twN-at-tRm"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+        </view>
+        <view contentMode="scaleToFill" id="7ZB-vH-HHq" userLabel="selectView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shadow_grey" translatesAutoresizingMaskIntoConstraints="NO" id="omh-3m-5bi">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <gestureRecognizers/>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="koy-Fr-idw" userLabel="sex">
+                    <rect key="frame" x="27.5" y="209.5" width="320" height="248"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_sexselect" translatesAutoresizingMaskIntoConstraints="NO" id="fF1-R7-1Ps">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="248"/>
+                        </imageView>
+                        <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ILw-nl-JAL" userLabel="sex">
+                            <rect key="frame" x="0.0" y="63" width="320" height="162"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="162" id="xzQ-0Y-34x"/>
+                            </constraints>
+                        </pickerView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAv-hy-hcq" userLabel="cancel">
+                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="50" id="9AR-0i-hVW"/>
+                                <constraint firstAttribute="height" constant="50" id="xeT-YT-hl0"/>
+                            </constraints>
+                            <state key="normal">
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pea-Ud-2aa" userLabel="done">
+                            <rect key="frame" x="270" y="0.0" width="50" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="XRa-QD-ihn"/>
+                                <constraint firstAttribute="width" constant="50" id="iyJ-XO-e3t"/>
+                            </constraints>
+                            <state key="normal">
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="ILw-nl-JAL" firstAttribute="leading" secondItem="koy-Fr-idw" secondAttribute="leading" id="1yq-MV-mYv"/>
+                        <constraint firstAttribute="trailing" secondItem="fF1-R7-1Ps" secondAttribute="trailing" id="329-jY-JOU"/>
+                        <constraint firstItem="BAv-hy-hcq" firstAttribute="leading" secondItem="koy-Fr-idw" secondAttribute="leading" id="3gB-JS-753"/>
+                        <constraint firstAttribute="height" constant="248" id="CYE-UO-15x"/>
+                        <constraint firstItem="fF1-R7-1Ps" firstAttribute="leading" secondItem="koy-Fr-idw" secondAttribute="leading" id="E3T-ZS-USe"/>
+                        <constraint firstAttribute="trailing" secondItem="ILw-nl-JAL" secondAttribute="trailing" id="UCy-h6-8Ve"/>
+                        <constraint firstAttribute="bottom" secondItem="fF1-R7-1Ps" secondAttribute="bottom" id="YgM-od-oAe"/>
+                        <constraint firstAttribute="trailing" secondItem="pea-Ud-2aa" secondAttribute="trailing" id="boC-Rn-zXO"/>
+                        <constraint firstItem="BAv-hy-hcq" firstAttribute="top" secondItem="koy-Fr-idw" secondAttribute="top" id="cgB-64-V8g"/>
+                        <constraint firstItem="ILw-nl-JAL" firstAttribute="top" secondItem="koy-Fr-idw" secondAttribute="top" constant="63" id="few-aV-cBC"/>
+                        <constraint firstAttribute="width" constant="320" id="mGu-fA-XQz"/>
+                        <constraint firstItem="fF1-R7-1Ps" firstAttribute="top" secondItem="koy-Fr-idw" secondAttribute="top" id="vzG-jL-Klh"/>
+                        <constraint firstItem="pea-Ud-2aa" firstAttribute="top" secondItem="koy-Fr-idw" secondAttribute="top" id="w88-ei-Gsi"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="centerY" secondItem="koy-Fr-idw" secondAttribute="centerY" id="AhV-3h-Wdb"/>
+                <constraint firstAttribute="bottom" secondItem="omh-3m-5bi" secondAttribute="bottom" id="O34-sl-nT7"/>
+                <constraint firstItem="omh-3m-5bi" firstAttribute="top" secondItem="7ZB-vH-HHq" secondAttribute="top" id="gkF-QS-3yx"/>
+                <constraint firstItem="omh-3m-5bi" firstAttribute="leading" secondItem="7ZB-vH-HHq" secondAttribute="leading" id="iKq-HQ-YWx"/>
+                <constraint firstAttribute="centerX" secondItem="koy-Fr-idw" secondAttribute="centerX" id="jAP-bs-biI"/>
+                <constraint firstAttribute="trailing" secondItem="omh-3m-5bi" secondAttribute="trailing" id="vk1-D1-h5C"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <viewLayoutGuide key="safeArea" id="aeh-Jk-v3p"/>
+            <point key="canvasLocation" x="-318" y="996"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="bg_sexselect" width="320" height="218"/>
+        <image name="shadow_grey" width="320" height="568"/>
+    </resources>
+</document>

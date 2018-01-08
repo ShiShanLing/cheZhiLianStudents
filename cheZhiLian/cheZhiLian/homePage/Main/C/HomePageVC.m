@@ -69,7 +69,7 @@
     
     NSString *URL_Str = [NSString stringWithFormat:@"%@/goods/api/findCourseList", kURL_SHY];
     NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
-    URL_Dic[@"storeId"] = kStoreId;
+    URL_Dic[@"storeId"] = [UserDataSingleton mainSingleton].kStoreId;
     __weak HomePageVC *VC = self;
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -186,9 +186,9 @@
 }
 - (void)versionUpdate{
     //获得当前发布的版本
-    if(![self judgeNeedVersionUpdate])  return ;
+    if(![self judgeNeedVersionUpdate])  return ; //https://itunes.apple.com/cn/lookup?id=1314786483
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0), ^{
-        NSString *URL_Str = [[NSString alloc] initWithFormat:@"http://itunes.apple.com/lookup?id=%@",@"1314786483"];
+        NSString *URL_Str = [[NSString alloc] initWithFormat:@"https://itunes.apple.com/cn/lookup?id=%@",@"1314786483"];
         NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
        __block NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         AFHTTPSessionManager *session = [AFHTTPSessionManager manager];

@@ -567,7 +567,7 @@ typedef NS_OPTIONS(NSUInteger, OrderListType) {
     [self respondsToSelector:@selector(indeterminateExample)];
     NSString *URL_Str = [NSString stringWithFormat:@"%@/student/api/cancelTrainOrder", kURL_SHY];
     NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
-    URL_Dic[@"schoolId"] = kStoreId;
+    URL_Dic[@"schoolId"] = [UserDataSingleton mainSingleton].kStoreId;
     URL_Dic[@"orderId"] = self.cancelOrderId;
     __weak  MyOrderViewController *VC = self;
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];

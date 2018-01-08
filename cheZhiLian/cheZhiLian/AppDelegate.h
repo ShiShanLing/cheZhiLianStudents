@@ -23,5 +23,7 @@
  *报名订单 支付状态显示
  *优惠券 满减金额是否达到
  */
+- (void)jumpToMainViewController;
+- (void)logIn;
 @end
 

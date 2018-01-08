@@ -194,6 +194,8 @@
 		A192D6401F3C676E00E6D2CA /* EnrollDetailsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A192D63E1F3C676E00E6D2CA /* EnrollDetailsVC.xib */; };
 		A192D66C1F3C707B00E6D2CA /* XBWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A192D66A1F3C707B00E6D2CA /* XBWebViewController.m */; };
 		A192D66D1F3C707B00E6D2CA /* XBWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A192D66B1F3C707B00E6D2CA /* XBWebViewController.xib */; };
+		A19E431A1FFF7531000A9429 /* LogInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A19E43191FFF752F000A9429 /* LogInViewController.xib */; };
+		A19E431C1FFF7942000A9429 /* chooseDriving.plist in Resources */ = {isa = PBXBuildFile; fileRef = A19E431B1FFF7942000A9429 /* chooseDriving.plist */; };
 		A1A62FB91F9848F600786A4B /* OrderTimeModel+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A62FB61F9848F600786A4B /* OrderTimeModel+CoreDataClass.m */; };
 		A1A62FBA1F9848F600786A4B /* OrderTimeModel+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A62FB81F9848F600786A4B /* OrderTimeModel+CoreDataProperties.m */; };
 		A1A62FC01F984A2B00786A4B /* OrderTimeList.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A62FBF1F984A2A00786A4B /* OrderTimeList.m */; };
@@ -216,6 +218,7 @@
 		A1B2FB4D1F39A9B10049D2B8 /* Introduction.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = A1B2FB4C1F39A9B10049D2B8 /* Introduction.jpeg */; };
 		A1B2FB501F39B30E0049D2B8 /* NavigationBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B2FB4F1F39B30E0049D2B8 /* NavigationBarView.m */; };
 		A1B2FB521F39B3210049D2B8 /* NavigationBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1B2FB511F39B3210049D2B8 /* NavigationBarView.xib */; };
+		A1B44530200306E300462A8A /* RegisteredViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1B4452F200306E300462A8A /* RegisteredViewController.xib */; };
 		A1E9991C1F381CEC00EA7CD4 /* hashiqi.png in Resources */ = {isa = PBXBuildFile; fileRef = A1E9991B1F381CEC00EA7CD4 /* hashiqi.png */; };
 		A1E999231F38458600EA7CD4 /* AppointCoachViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1E999211F38458600EA7CD4 /* AppointCoachViewController.m */; };
 		A1E999241F38458600EA7CD4 /* AppointCoachViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E999221F38458600EA7CD4 /* AppointCoachViewController.xib */; };
@@ -585,6 +588,8 @@
 		A192D6691F3C707B00E6D2CA /* XBWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XBWebViewController.h; sourceTree = "<group>"; };
 		A192D66A1F3C707B00E6D2CA /* XBWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XBWebViewController.m; sourceTree = "<group>"; };
 		A192D66B1F3C707B00E6D2CA /* XBWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XBWebViewController.xib; sourceTree = "<group>"; };
+		A19E43191FFF752F000A9429 /* LogInViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogInViewController.xib; sourceTree = "<group>"; };
+		A19E431B1FFF7942000A9429 /* chooseDriving.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = chooseDriving.plist; sourceTree = "<group>"; };
 		A1A62FB51F9848F600786A4B /* OrderTimeModel+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OrderTimeModel+CoreDataClass.h"; sourceTree = "<group>"; };
 		A1A62FB61F9848F600786A4B /* OrderTimeModel+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "OrderTimeModel+CoreDataClass.m"; sourceTree = "<group>"; };
 		A1A62FB71F9848F600786A4B /* OrderTimeModel+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OrderTimeModel+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -619,6 +624,7 @@
 		A1B2FB4E1F39B30E0049D2B8 /* NavigationBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationBarView.h; sourceTree = "<group>"; };
 		A1B2FB4F1F39B30E0049D2B8 /* NavigationBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationBarView.m; sourceTree = "<group>"; };
 		A1B2FB511F39B3210049D2B8 /* NavigationBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigationBarView.xib; sourceTree = "<group>"; };
+		A1B4452F200306E300462A8A /* RegisteredViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisteredViewController.xib; sourceTree = "<group>"; };
 		A1E9991B1F381CEC00EA7CD4 /* hashiqi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hashiqi.png; sourceTree = "<group>"; };
 		A1E999201F38458600EA7CD4 /* AppointCoachViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointCoachViewController.h; sourceTree = "<group>"; };
 		A1E999211F38458600EA7CD4 /* AppointCoachViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointCoachViewController.m; sourceTree = "<group>"; };
@@ -1210,6 +1216,7 @@
 				A16CD33A1FE122B9006CFBE1 /* LogInbj.png */,
 				A16CD33E1FE122BB006CFBE1 /* LogInViewController.h */,
 				A16CD33D1FE122BB006CFBE1 /* LogInViewController.m */,
+				A19E43191FFF752F000A9429 /* LogInViewController.xib */,
 				A16CD3401FE122BD006CFBE1 /* TakeBackKBView.h */,
 				A16CD33B1FE122BA006CFBE1 /* TakeBackKBView.m */,
 			);
@@ -1259,6 +1266,7 @@
 			children = (
 				A167A4231F46E26900A9D224 /* RegisteredViewController.h */,
 				A167A4241F46E26900A9D224 /* RegisteredViewController.m */,
+				A1B4452F200306E300462A8A /* RegisteredViewController.xib */,
 			);
 			path = Registered;
 			sourceTree = "<group>";
@@ -1712,6 +1720,7 @@
 				A1B2FB4F1F39B30E0049D2B8 /* NavigationBarView.m */,
 				A1B2FB511F39B3210049D2B8 /* NavigationBarView.xib */,
 				A16F42891F45777F007BF51C /* UserLogInData.plist */,
+				A19E431B1FFF7942000A9429 /* chooseDriving.plist */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -2046,7 +2055,7 @@
 					A1F73F931F355FDA00F0B71C = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 3ZC4VG35Y5;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					A1F73FAF1F355FDA00F0B71C = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -2121,6 +2130,7 @@
 				A1395CB31F4D1DE8002A432D /* 4.png in Resources */,
 				A1B2FB311F39A0A30049D2B8 /* LearnCarShowTVCell.xib in Resources */,
 				A141D6DF1F5A94970099BA53 /* PayViewController.xib in Resources */,
+				A19E431A1FFF7531000A9429 /* LogInViewController.xib in Resources */,
 				A141D6F21F5A94BF0099BA53 /* UserRuleTableViewCell.xib in Resources */,
 				A141D6CB1F5A947E0099BA53 /* AccountListViewController.xib in Resources */,
 				A1F740741F37FD6F00F0B71C /* CoachScreenViewController.xib in Resources */,
@@ -2132,6 +2142,7 @@
 				A1F73FA71F355FDA00F0B71C /* Assets.xcassets in Resources */,
 				A1F740851F37FFA000F0B71C /* DSPullToRefreshIcon@2x.png in Resources */,
 				A1640FFB1F3D9CD8007DCF0E /* SureOrderViewController.xib in Resources */,
+				A1B44530200306E300462A8A /* RegisteredViewController.xib in Resources */,
 				A100A4DC1F4423250094BCF0 /* MyOrderViewController.xib in Resources */,
 				A1F740541F35B34A00F0B71C /* coach_star_full@2x.png in Resources */,
 				A1395CB01F4D1DE8002A432D /* 12.png in Resources */,
@@ -2160,6 +2171,7 @@
 				A1F740511F35B34A00F0B71C /* backgroundStar.png in Resources */,
 				A141D6FC1F5A96060099BA53 /* SystemMessageViewController.xib in Resources */,
 				A141D70B1F5A96640099BA53 /* ComplaintTableViewCell.xib in Resources */,
+				A19E431C1FFF7942000A9429 /* chooseDriving.plist in Resources */,
 				A141D6E11F5A94970099BA53 /* TypeinNumberViewController.xib in Resources */,
 				A192D61B1F3C44EC00E6D2CA /* ConfirmBuyersTVCell.xib in Resources */,
 				A1B2FB4D1F39A9B10049D2B8 /* Introduction.jpeg in Resources */,
@@ -2579,9 +2591,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 3ZC4VG35Y5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2599,8 +2611,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.chezhilian.www-iOS-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "cc0a5187-ef45-4c54-aa9b-c8523d34d78d";
+				PROVISIONING_PROFILE_SPECIFIER = chezhilianxueyuan;
 			};
 			name = Debug;
 		};
@@ -2610,9 +2622,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 3ZC4VG35Y5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2630,8 +2642,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.chezhilian.www-iOS-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "cc0a5187-ef45-4c54-aa9b-c8523d34d78d";
+				PROVISIONING_PROFILE_SPECIFIER = chezhilianxueyuan;
 			};
 			name = Release;
 		};

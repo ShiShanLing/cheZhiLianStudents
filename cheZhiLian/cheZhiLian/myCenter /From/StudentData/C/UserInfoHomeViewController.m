@@ -33,6 +33,9 @@
 - (IBAction)clickToLearnDriveInfoView:(id)sender;
 - (IBAction)clickToImproveUserInfoView:(id)sender;
 
+
+
+
 @end
 
 @implementation UserInfoHomeViewController
@@ -265,24 +268,7 @@
 }
 
 - (IBAction)handleLogOut:(UIButton *)sender {
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"UserLogInData" ofType:@"plist"];
-    NSMutableDictionary *userData = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
-    [userData  removeAllObjects];
-    //获取应用程序沙盒的Documents目录
-    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
-    NSString *plistPath1 = [paths objectAtIndex:0];
-    //得到完整的文件名
-    NSString *filename=[plistPath1 stringByAppendingPathComponent:@"UserLogInData.plist"];
-    //输入写入
-    [userData writeToFile:filename atomically:YES];
-    [UserDataSingleton mainSingleton].studentsId = @"";
-    [UserDataSingleton mainSingleton].subState = @"";
-    [UserDataSingleton mainSingleton].subState = @"20";
-    [UserDataSingleton mainSingleton].coachId = @"";
-    [UserDataSingleton mainSingleton].balance = @"";
-    [UserDataSingleton mainSingleton].userModel =nil;
-    [self showAlert:@"退出登录成功" time:1.2];
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+
 }
 
 - (void)dealloc {

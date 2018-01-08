@@ -16,6 +16,7 @@
 @property (nonatomic, copy)NSString *state;
 @property (nonatomic, copy)NSString *studentsId;
 @property (nonatomic, copy)NSString *coachId;
+@property (nonatomic, copy)NSString *kStoreId;
 /**
  *账户余额
  */

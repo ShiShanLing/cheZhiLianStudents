@@ -134,7 +134,8 @@
     }else {
         
         if ([UserDataSingleton mainSingleton].studentsId.length == 0) {
-            LogInViewController *loginVC = [[LogInViewController alloc] init];
+            
+            LogInViewController *loginVC = [[LogInViewController alloc] initWithNibName:@"LogInViewController" bundle:nil];
             UINavigationController * NALoginVC = [[UINavigationController alloc] initWithRootViewController:loginVC];
             NALoginVC.navigationBarHidden = YES;
             [self setHidesBottomBarWhenPushed:YES];

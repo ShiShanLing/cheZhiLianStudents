@@ -135,7 +135,7 @@
 
 - (void) backLogin{
     if(![self.navigationController.topViewController isKindOfClass:[LogInViewController class]]){
-        LogInViewController *nextViewController = [[LogInViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+        LogInViewController *nextViewController = [[LogInViewController alloc] initWithNibName:@"LogInViewController" bundle:nil];
         [self.navigationController pushViewController:nextViewController animated:YES];
     }
 }

@@ -454,22 +454,6 @@
                                         <constraint firstItem="9KU-7q-fWt" firstAttribute="leading" secondItem="76e-x7-mtt" secondAttribute="leading" constant="23" id="sii-ao-fPO"/>
                                     </constraints>
                                 </view>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kqm-Sy-y6k">
-                                    <rect key="frame" x="117" y="501" width="140" height="41"/>
-                                    <color key="backgroundColor" red="0.13204866649999999" green="0.66083729270000002" blue="0.39507776500000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="41" id="dsC-t0-PAJ"/>
-                                        <constraint firstAttribute="width" constant="140" id="gwD-dR-r4q"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                    <state key="normal" title="退出登录">
-                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="handleLogOut:" destination="-1" eventType="touchUpInside" id="9Vg-UN-JTf"/>
-                                    </connections>
-                                </button>
                             </subviews>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
@@ -479,9 +463,7 @@
                                 <constraint firstItem="0VU-mX-W95" firstAttribute="top" secondItem="0a6-q8-eCu" secondAttribute="bottom" id="5oD-tL-z4S"/>
                                 <constraint firstItem="76e-x7-mtt" firstAttribute="top" secondItem="qkR-XJ-8D3" secondAttribute="bottom" id="A93-cy-e24"/>
                                 <constraint firstItem="0a6-q8-eCu" firstAttribute="leading" secondItem="F7G-82-frM" secondAttribute="leading" id="FIy-LD-r0b"/>
-                                <constraint firstItem="Kqm-Sy-y6k" firstAttribute="centerX" secondItem="F7G-82-frM" secondAttribute="centerX" id="LQ8-my-Pph"/>
                                 <constraint firstAttribute="trailing" secondItem="0VU-mX-W95" secondAttribute="trailing" id="PHL-FE-J9T"/>
-                                <constraint firstAttribute="bottom" secondItem="Kqm-Sy-y6k" secondAttribute="bottom" constant="8" id="QWY-AE-Dnf"/>
                                 <constraint firstItem="0VU-mX-W95" firstAttribute="leading" secondItem="F7G-82-frM" secondAttribute="leading" id="WD3-gM-PNn"/>
                                 <constraint firstAttribute="trailing" secondItem="5gV-gB-eYM" secondAttribute="trailing" id="XVC-t3-GH5"/>
                                 <constraint firstAttribute="trailing" secondItem="0a6-q8-eCu" secondAttribute="trailing" id="YdK-BQ-AgF"/>

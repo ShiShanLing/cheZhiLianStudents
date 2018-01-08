@@ -204,7 +204,7 @@ typedef NS_ENUM(NSUInteger, PayType) {
     NSString *URL_Str = [NSString stringWithFormat:@"%@/student/api/recharge", kURL_SHY];
     NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
     URL_Dic[@"stuId"] = [UserDataSingleton mainSingleton].studentsId;
-    URL_Dic[@"schoolId"] = kStoreId;
+    URL_Dic[@"schoolId"] = [UserDataSingleton mainSingleton].kStoreId;
     URL_Dic[@"amount"] = self.cashNum;
     __weak  PayViewController *VC = self;
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];

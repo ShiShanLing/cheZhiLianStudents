@@ -10,25 +10,73 @@
 #import "InputBoxView.h"
 #import "ForgotPasswordVC.h"
 #import "RegisteredViewController.h"
-@interface LogInViewController ()<UITextFieldDelegate>
+#import "AppDelegate.h"
+@interface LogInViewController ()<UITextFieldDelegate,UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (nonatomic, strong)UIScrollView *scrollView;
 //背景
 @property (nonatomic, strong)UIImageView *backgroundImage;
-
+@property (weak, nonatomic) IBOutlet UITextField *drivingNameTF;//驾校名字
 @property (nonatomic, strong)UITextField *NameTF;
 @property (nonatomic, strong)UITextField *PassWordTF;
 @property (nonatomic, strong)InputBoxView *NameIBV;
 @property (nonatomic, strong)InputBoxView *passWordIBV;
+@property (nonatomic, strong)InputBoxView *DrivingIBV;
+//选择器
+@property (strong, nonatomic) IBOutlet UIView *selectView;
+@property (nonatomic, strong) IBOutlet UIPickerView *pickerView; // 选择器
+@property (strong, nonatomic) NSMutableArray *selectArray;
 
 @end
 
 @implementation LogInViewController {
+    NSInteger selectRow;
+    NSString  *drivingID;//所选择的
+}
+
+// 关闭选择页面
+- (IBAction)clickForCancelSelect:(id)sender {
+    [self.selectView removeFromSuperview];
+}
+
+// 完成驾校选择
+- (IBAction)clickForDone:(UIButton *)sender {
+    self.DrivingIBV.NameTF.text = self.selectArray[selectRow][@"storeName"];
+    drivingID = self.selectArray[selectRow][@"storeId"];
+    [UserDataSingleton mainSingleton].kStoreId = drivingID;
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"chooseDriving" ofType:@"plist"];
+    NSMutableDictionary *userData = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
+    [userData removeAllObjects];
+    userData =[NSMutableDictionary dictionaryWithDictionary:self.selectArray[selectRow]];
+    //获取应用程序沙盒的Documents目录
+    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *plistPath1 = [paths objectAtIndex:0];
+    
+    //得到完整的文件名
+    NSString *filename=[plistPath1 stringByAppendingPathComponent:@"chooseDriving.plist"];
+    //输入写入
+    [userData writeToFile:filename atomically:YES];
+    //那怎么证明我的数据写入了呢？读出来看看
+    NSMutableDictionary *userData2 = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
+    NSLog(@"查看是否存储成功%@", userData2);
+    [self.selectView removeFromSuperview];
+}
+//选择驾校
+- (void)handleChooseDriing:(UITapGestureRecognizer *)sender {
+    [self.pickerView reloadAllComponents];
+    self.selectView.frame = [UIScreen mainScreen].bounds;
+    [self.view addSubview:self.selectView];
+}
+- (void)handleSingleFingerEvent:(UITapGestureRecognizer *)tap {
+    
+    [self.selectView removeFromSuperview];
     
 }
+
 - (void)viewWillAppear:(BOOL)animated {
     [super.navigationController setNavigationBarHidden:YES];
     _NameIBV.NameTF.delegate = self;
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -77,6 +125,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.selectArray = [NSMutableArray array];
+    UITapGestureRecognizer *singleFingerOne = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                      action:@selector(handleSingleFingerEvent:)];
+    singleFingerOne.numberOfTouchesRequired = 1; //手指数
+    singleFingerOne.numberOfTapsRequired = 1; //tap次数
+    singleFingerOne.delegate = self;
+    
+    [self.selectView addGestureRecognizer:singleFingerOne];
+    self.pickerView.showsSelectionIndicator = NO;
+    self.pickerView.delegate = self;
+    self.pickerView.dataSource = self;
     [self registerForKeyboardNotifications];///让界面岁键盘自适应
     
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
@@ -93,7 +153,7 @@
     [self.scrollView addSubview:_backgroundImage];
     _backgroundImage.sd_layout.leftSpaceToView(self.scrollView, 0).topSpaceToView(self.scrollView, 0).rightSpaceToView(self.scrollView, 0).bottomSpaceToView(self.scrollView, 0);
     
-    UIImage *buttonimage = [UIImage imageNamed:@"fh"];
+    UIImage *buttonimage = [UIImage imageNamed:@""];
     buttonimage = [buttonimage imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)];//去
     UIButton *returnBtn = [UIButton new];
     [returnBtn setImage:buttonimage forState:(UIControlStateNormal)];
@@ -116,8 +176,8 @@
     titleLabel.textAlignment = 1;
     [self.view addSubview:titleLabel];
     titleLabel.sd_layout.centerXEqualToView(self.view).topSpaceToView(self.view, kFit(30)).widthIs(kFit(100)).heightIs(33);
-    
     [self CreatingControls];
+    [self initSexData];
 }
 - (void)createScrollView {
     self.scrollView = [[UIScrollView alloc] init];
@@ -132,43 +192,43 @@
     self.scrollView.contentSize = CGSizeMake(kScreen_widht, kScreen_heigth - 64);
     self.scrollView.sd_layout.leftSpaceToView(self.view, 0).rightSpaceToView(self.view, 0).topSpaceToView(self.view, -20).bottomSpaceToView(self.view, 0);
 }
-
+ 
 - (void)handleReturnBtn {
     
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 - (void)CreatingControls {
-    UIButton *PersonalAccountBtn = [UIButton new];
-    //  [PersonalAccountBtn setTitle:@"个人账号" forState:(UIControlStateNormal)];
-    [PersonalAccountBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
-    [PersonalAccountBtn setTitleColor:MColor(210, 210, 210) forState:(UIControlStateSelected)];
-    PersonalAccountBtn.titleLabel.font = MFont(kFit(17));
-    PersonalAccountBtn.tag = 320;
-    [self.scrollView addSubview:PersonalAccountBtn];
-    PersonalAccountBtn.sd_layout.leftSpaceToView(self.scrollView, kFit(57)).topSpaceToView(self.scrollView, kFit(114)).widthIs(kFit(75)).heightIs(kFit(27));
-    UILabel *PersonalAccountLabel = [UILabel new];
-    PersonalAccountLabel.tag = 330;
-    [self.scrollView addSubview:PersonalAccountLabel];
-    PersonalAccountLabel.sd_layout.leftEqualToView(PersonalAccountBtn).topSpaceToView(PersonalAccountBtn, kFit(0)).widthIs(kFit(75)).heightIs(kFit(2));
-    UIButton *CorporateAccount = [UIButton new];
-    [CorporateAccount setTitleColor:[UIColor whiteColor] forState:(UIControlStateSelected)];
-    [CorporateAccount setTitleColor:MColor(210, 210, 210) forState:(UIControlStateNormal)];
-    CorporateAccount.titleLabel.font = MFont(kFit(17));
-    CorporateAccount.tag  = 321;
-    [self.scrollView addSubview:CorporateAccount];
-    CorporateAccount.sd_layout.leftSpaceToView(PersonalAccountBtn, kFit(65)).topEqualToView(PersonalAccountBtn).widthIs(kFit(75)).heightIs(kFit(27));
-    UILabel *CorporateAccountLabel = [UILabel new];
-    CorporateAccountLabel.tag = 331;
-    CorporateAccountLabel.backgroundColor = [UIColor clearColor];
-    [self.scrollView addSubview:CorporateAccountLabel];
-    CorporateAccountLabel.sd_layout.leftEqualToView(CorporateAccount).topSpaceToView(CorporateAccount, kFit(0)).widthIs(kFit(75)).heightIs(kFit(2));
+    
+    
+    UIColor *color = MColor(210, 210, 210);
+   self.DrivingIBV = [InputBoxView new];
+    
+    _DrivingIBV.NameTF.delegate = self;
+    _DrivingIBV.NameTF.returnKeyType = UIReturnKeyDone;
+    _DrivingIBV.NameTF.userInteractionEnabled = NO;
+    _DrivingIBV.NameTF.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"选择驾校" attributes:@{NSForegroundColorAttributeName: color}];
+    [self.scrollView addSubview:_DrivingIBV];
+    _DrivingIBV.sd_layout.leftSpaceToView(self.scrollView, 0).topSpaceToView(self.scrollView, kFit(114)).rightSpaceToView(self.scrollView, 0).heightIs(kFit(55));
+    //覆盖自定义空间的UITextFi
+    UILabel *coveringLabel = [[UILabel alloc] init];
+    //coveringLabel.backgroundColor = [UIColor redColor];
+    coveringLabel.userInteractionEnabled = YES;
+    [self.scrollView addSubview:coveringLabel];
+    coveringLabel.sd_layout.leftSpaceToView(self.scrollView, 0).topSpaceToView(self.scrollView, kFit(114)).rightSpaceToView(self.scrollView, 0).heightIs(kFit(55));
+    
+    UITapGestureRecognizer *singleFingerOne = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                      action:@selector(handleChooseDriing:)];
+    singleFingerOne.numberOfTouchesRequired = 1; //手指数
+    singleFingerOne.numberOfTapsRequired = 1; //tap次数
+    
+    
+    [coveringLabel addGestureRecognizer:singleFingerOne];
     
     self.NameIBV = [InputBoxView new];
     _NameIBV.NameTF.delegate = self;
     _NameIBV.NameTF.returnKeyType = UIReturnKeyDone;
     [self.scrollView addSubview:_NameIBV];
-    _NameIBV.sd_layout.leftSpaceToView(self.scrollView, 0).topSpaceToView(CorporateAccountLabel, kFit(66)).rightSpaceToView(self.scrollView, 0).heightIs(kFit(55));
-    
+    _NameIBV.sd_layout.leftSpaceToView(self.scrollView, 0).topSpaceToView(_DrivingIBV, 0).rightSpaceToView(self.scrollView, 0).heightIs(kFit(55));
+      _NameIBV.NameTF.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"手机号" attributes:@{NSForegroundColorAttributeName: color}];
     self.passWordIBV = [InputBoxView new];
     _passWordIBV.NameTF.delegate = self;
     _passWordIBV.NameTF.returnKeyType = UIReturnKeyDone;
@@ -176,7 +236,6 @@
     nameImage = [nameImage imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)];
     [_passWordIBV.nameBtn setImage:nameImage forState:(UIControlStateNormal)];
     
-    UIColor *color = MColor(210, 210, 210);
     _passWordIBV.NameTF.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"密码" attributes:@{NSForegroundColorAttributeName: color}];
     _passWordIBV.NameTF.secureTextEntry = YES;
     [self.scrollView addSubview:_passWordIBV];
@@ -232,7 +291,7 @@
         NSMutableDictionary *URLDIC = [NSMutableDictionary dictionary];
         URLDIC[@"userName"] = phoneStr;
         URLDIC[@"password"] =PasswordStr;
-        URLDIC[@"schoolId"] = kStoreId;
+        URLDIC[@"schoolId"] = drivingID;
         AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
         session.requestSerializer.timeoutInterval = 10.0f;
         [session POST:URL parameters:URLDIC progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -261,8 +320,10 @@
         UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         }];
         [alertV addAction:cancle];
-        // 4.控制器 展示弹框控件，完成时不做操作
-        [self presentViewController:alertV animated:YES completion:^{nil;}];
+        [self presentViewController:alertV animated:YES completion:^{
+            nil;
+        }];
+
     }
 }
 //获取用户详情信息 用来存储到本地判断登录状态
@@ -278,7 +339,7 @@
         NSLog(@"AnalysisUserData%@", responseObject);
         [VC AnalyticalDataDetails:responseObject];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [VC showAlert:@"数据请求失败,请重试!AnalysisUserData" time:1.0];
+        [VC showAlert:@"数据请求失败,请重试" time:1.0];
     }];
 }
 //解析用户详情数据 并且存储到本地一份
@@ -322,7 +383,9 @@
         NSMutableDictionary *userData2 = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ChangesData" object:nil];
         NSLog(@"userData2%@", userData2);
-        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        
+        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        [app jumpToMainViewController];
     }else {
         [self showAlert:dic[@"result"] time:1.2];
     }
@@ -352,7 +415,94 @@
 }
 
 
+#pragma mark - PickerVIew
+// 行高
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
+    return 45.0;
+}
+// 组数
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+// 每组行数
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return self.selectArray.count;
+}
+// 数据
+- (void)initSexData {
+    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *plistPath1 = [paths objectAtIndex:0];
+    //得到完整的文件名
+    NSString *filename=[plistPath1 stringByAppendingPathComponent:@"chooseDriving.plist"];
+    //那怎么证明我的数据写入了呢？读出来看看
+    NSMutableDictionary *userData = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
+    
+    NSArray *datacount = [userData allKeys];
+    if (datacount != 0) {
+        self.DrivingIBV.NameTF.text = userData[@"storeName"];
+        drivingID = userData[@"storeId"];
+    }
+    
+    self.pickerView.tag = 1;
+    NSString *URL_Str = [NSString stringWithFormat:@"%@/store/api/getAllSchoolList",kURL_SHY];
+    NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
+    __weak  LogInViewController *VC = self;
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
+        NSLog(@"uploadProgress%@", uploadProgress);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+   //     NSLog(@"responseObject%@", responseObject);
+        NSString *resultStr = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
+        if ([resultStr isEqualToString:@"1"]) {
+            [VC ParsingDrivingData:responseObject];
+        }else {
+            [VC showAlert:responseObject[@"msg"] time:1.2];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"error%@", error);
+    }];
+}
 
+- (void) ParsingDrivingData:(NSDictionary *)data {
+    NSArray *dataArray = data[@"data"];
+    if (dataArray.count == 0) {
+        [self showAlert:@"驾校信息获取失败,暂时无法登陆" time:1.0];
+        return;
+    }
+    for (NSDictionary *dic in dataArray) {
+        NSMutableDictionary *MDIC = [NSMutableDictionary dictionary];
+        [MDIC setValue:dic[@"storeId"] forKey:@"storeId"];
+        [MDIC setValue:dic[@"storeName"] forKey:@"storeName"];
+        [self.selectArray addObject:MDIC];
+    }
+    NSLog(@"selectArray%@", self.selectArray);
+}
+// 自定义每行的view
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
+    UILabel *myView = nil;
+    // 性别选择器
+    myView = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, 200, 45)];
+    myView.textAlignment = NSTextAlignmentCenter;
+    
+    myView.font = [UIFont systemFontOfSize:21];         //用label来设置字体大小
+    
+    myView.textColor = MColor(161, 161, 161);
+    
+    myView.backgroundColor = [UIColor clearColor];
+    
+    if (selectRow == row){
+        myView.textColor = MColor(34, 192, 100);
+    }
+    myView.text = [self.selectArray objectAtIndex:row][@"storeName"];
+    return myView;
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    selectRow = row;
+    NSLog(@"selectRow%ld", (long)selectRow);
+    [pickerView reloadComponent:0];
+    
+}
 /*
  #pragma mark - Navigation
  

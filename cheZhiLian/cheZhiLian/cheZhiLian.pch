@@ -77,15 +77,16 @@
 #define kTopSpacing  64
 //沈会阳 http://192.168.100.101:8080/seller
 //线上     http://www.jxchezhilian.com/school
-//张玉霄 http://192.168.71.1:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT
+//张玉霄 http://192.168.0.241:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT
 //吴佳境 http://192.168.100.33
 //臧鹏维  http://192.168.0.245:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT
 //http://192.168.100.101:8080/seller
-#define kURL_SHY  @"http://192.168.0.241:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT"
+//http://192.168.0.241:8080/com-zerosoft-boot-assembly-seller-local-1.0.0-SNAPSHOT/store/api/getAllSchoolList
+#define kURL_SHY  @"http://www.jxchezhilian.com/school"
 #define kURL_Image  @"http://www.jxchezhilian.com/img"
 #define kStudentId  @"1000"
 #define kUserId   @"4c7101faa2f84f7586c6fe52373f3729"
-#define kStoreId @"1"
+
 //开发组 驾校ID c05d9e7637a54ef88b25386959c83609
 //上线 的驾校ID 1
 

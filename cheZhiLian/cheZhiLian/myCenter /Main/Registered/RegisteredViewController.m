@@ -9,7 +9,7 @@
 #import "RegisteredViewController.h"
 #import "InputBoxView.h"
 #import "TakeBackKBView.h"
-@interface RegisteredViewController ()<TakeBackKBViewDelegate, UITextFieldDelegate>
+@interface RegisteredViewController ()<TakeBackKBViewDelegate, UITextFieldDelegate,UIPickerViewDataSource, UIPickerViewDelegate>
 //为了让键盘不会遮盖住输入框.所以使用 UIScrollView
 @property (nonatomic, strong)UIScrollView *scrollView;
 //背景
@@ -24,9 +24,64 @@
 
 @property (nonatomic, strong)JKCountDownButton *countdownBtn;
 
+@property (nonatomic, strong)InputBoxView *DrivingIBV;//驾校名字
+//选择器
+@property (strong, nonatomic) IBOutlet UIView *selectView;
+@property (nonatomic, strong) IBOutlet UIPickerView *pickerView; // 选择器
+@property (strong, nonatomic) NSMutableArray *selectArray;
 @end
 
-@implementation RegisteredViewController
+@implementation RegisteredViewController  {
+    NSInteger selectRow;
+    NSString  *drivingID;//所选择的
+}
+
+- (NSMutableArray *)selectArray {
+    if (!_selectArray) {
+        _selectArray = [NSMutableArray array];
+    }
+    
+    return _selectArray;
+}
+
+// 关闭选择页面
+- (IBAction)clickForCancelSelect:(id)sender {
+    [self.selectView removeFromSuperview];
+}
+
+// 完成驾校选择
+- (IBAction)clickForDone:(UIButton *)sender {
+    self.DrivingIBV.NameTF.text = self.selectArray[selectRow][@"storeName"];
+    drivingID = self.selectArray[selectRow][@"storeId"];
+    [UserDataSingleton mainSingleton].kStoreId = drivingID;
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"chooseDriving" ofType:@"plist"];
+    NSMutableDictionary *userData = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
+    [userData removeAllObjects];
+    userData =[NSMutableDictionary dictionaryWithDictionary:self.selectArray[selectRow]];
+    //获取应用程序沙盒的Documents目录
+    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *plistPath1 = [paths objectAtIndex:0];
+    
+    //得到完整的文件名
+    NSString *filename=[plistPath1 stringByAppendingPathComponent:@"chooseDriving.plist"];
+    //输入写入
+    [userData writeToFile:filename atomically:YES];
+    //那怎么证明我的数据写入了呢？读出来看看
+    NSMutableDictionary *userData2 = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
+    NSLog(@"查看是否存储成功%@", userData2);
+    [self.selectView removeFromSuperview];
+}
+//选择驾校
+- (void)handleChooseDriing:(UITapGestureRecognizer *)sender {
+    [self.pickerView reloadAllComponents];
+    self.selectView.frame = [UIScreen mainScreen].bounds;
+    [self.view addSubview:self.selectView];
+}
+- (void)handleSingleFingerEvent:(UITapGestureRecognizer *)tap {
+    
+    [self.selectView removeFromSuperview];
+    
+}
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -123,7 +178,7 @@
     self.takeBackKBView.delegate=self;
     
     [self.view addSubview:_takeBackKBView];
-    
+    [self initSexData];
 }
 //创建UIScrollView
 - (void)createScrollView {
@@ -150,13 +205,20 @@
 }
 
 - (void)CreatingControls {
-    self.NameIBV = [InputBoxView new];
+    self.DrivingIBV = [InputBoxView new];
     UIColor *color = MColor(210, 210, 210);
+    _DrivingIBV.NameTF.delegate =self;
+    _DrivingIBV.NameTF.returnKeyType = UIReturnKeyDone;
+    _DrivingIBV.NameTF.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"选择驾校" attributes:@{NSForegroundColorAttributeName: color}];
+    [self.scrollView addSubview:_DrivingIBV];
+    _DrivingIBV.sd_layout.leftSpaceToView(self.scrollView, 0).topSpaceToView(self.scrollView, kFit(150)).rightSpaceToView(self.scrollView, 0).heightIs(kFit(55));
+    
+    self.NameIBV = [InputBoxView new];
     _NameIBV.NameTF.delegate =self;
     _NameIBV.NameTF.returnKeyType = UIReturnKeyDone;
     _NameIBV.NameTF.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"手机号" attributes:@{NSForegroundColorAttributeName: color}];
     [self.scrollView addSubview:_NameIBV];
-    _NameIBV.sd_layout.leftSpaceToView(self.scrollView, 0).topSpaceToView(self.scrollView, kFit(150)).rightSpaceToView(self.scrollView, 0).heightIs(kFit(55));
+    _NameIBV.sd_layout.leftSpaceToView(self.scrollView, 0).topSpaceToView(_DrivingIBV, 0).rightSpaceToView(self.scrollView, 0).heightIs(kFit(55));
         //---------------- ⬆️ 用户名
     self.VerificationCodeIBV = [InputBoxView new];
     _VerificationCodeIBV.NameTF.delegate =self;
@@ -290,7 +352,7 @@
             URLDIC[@"password"] =PasswordStr;
             URLDIC[@"mobileCode"] = verificationStr;
             URLDIC[@"referrer"] = referrerStr;
-            URLDIC[@"schoolId"] = kStoreId;
+            URLDIC[@"schoolId"] = [UserDataSingleton mainSingleton].kStoreId;
             AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
             [session POST:URL parameters:URLDIC progress:^(NSProgress * _Nonnull uploadProgress) {
                 NSLog(@"uploadProgress%@", uploadProgress);
@@ -348,6 +410,94 @@
     
 }
 
+#pragma mark - PickerVIew
+// 行高
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
+    return 45.0;
+}
+// 组数
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+// 每组行数
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return self.selectArray.count;
+}
+// 数据
+- (void)initSexData {
+    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *plistPath1 = [paths objectAtIndex:0];
+    //得到完整的文件名
+    NSString *filename=[plistPath1 stringByAppendingPathComponent:@"chooseDriving.plist"];
+    //那怎么证明我的数据写入了呢？读出来看看
+    NSMutableDictionary *userData = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
+    
+    NSArray *datacount = [userData allKeys];
+    if (datacount != 0) {
+        self.DrivingIBV.NameTF.text = userData[@"storeName"];
+        drivingID = userData[@"storeId"];
+    }
+    
+    self.pickerView.tag = 1;
+    NSString *URL_Str = [NSString stringWithFormat:@"%@/store/api/getAllSchoolList",kURL_SHY];
+    NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
+    __weak  RegisteredViewController *VC = self;
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
+        NSLog(@"uploadProgress%@", uploadProgress);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        //     NSLog(@"responseObject%@", responseObject);
+        NSString *resultStr = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
+        if ([resultStr isEqualToString:@"1"]) {
+            [VC ParsingDrivingData:responseObject];
+        }else {
+            [VC showAlert:responseObject[@"msg"] time:1.2];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"error%@", error);
+    }];
+}
+
+- (void) ParsingDrivingData:(NSDictionary *)data {
+    NSArray *dataArray = data[@"data"];
+    if (dataArray.count == 0) {
+        [self showAlert:@"驾校信息获取失败,暂时无法登陆" time:1.0];
+        return;
+    }
+    for (NSDictionary *dic in dataArray) {
+        NSMutableDictionary *MDIC = [NSMutableDictionary dictionary];
+        [MDIC setValue:dic[@"storeId"] forKey:@"storeId"];
+        [MDIC setValue:dic[@"storeName"] forKey:@"storeName"];
+        [self.selectArray addObject:MDIC];
+    }
+    NSLog(@"selectArray%@", self.selectArray);
+}
+// 自定义每行的view
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
+    UILabel *myView = nil;
+    // 性别选择器
+    myView = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, 200, 45)];
+    myView.textAlignment = NSTextAlignmentCenter;
+    
+    myView.font = [UIFont systemFontOfSize:21];         //用label来设置字体大小
+    
+    myView.textColor = MColor(161, 161, 161);
+    
+    myView.backgroundColor = [UIColor clearColor];
+    
+    if (selectRow == row){
+        myView.textColor = MColor(34, 192, 100);
+    }
+    myView.text = [self.selectArray objectAtIndex:row][@"storeName"];
+    return myView;
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    selectRow = row;
+    NSLog(@"selectRow%ld", (long)selectRow);
+    [pickerView reloadComponent:0];
+    
+}
 
 
 @end

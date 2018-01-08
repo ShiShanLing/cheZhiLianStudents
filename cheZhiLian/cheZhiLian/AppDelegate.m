@@ -27,7 +27,6 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   /*
     @param activePlatforms
@@ -37,7 +36,6 @@
     @param configurationHandler (onConfiguration)
     配置回调处理，在此方法中根据设置的platformType来填充应用配置信息
     */
-    
     [ShareSDK registerApp:@"21ed803626c70" activePlatforms:@[@(SSDKPlatformTypeWechat),
                                                              @(SSDKPlatformTypeQQ),] onImport:^(SSDKPlatformType platformType) {
                                                                  switch (platformType){
@@ -65,25 +63,32 @@
                                                                          break;
                                                                  }
                                                              }];
-    
-    
-    
     NSString *str = nil;
     NSLog(@"didFinishLaunchingWithOptions%@", str?@"YES":@"NO");
-    // 侧拉VC
-    SideBarViewController *leftViewController = [[SideBarViewController alloc] init];
+    [self AnalysisUserData];
+    return YES;
+}
+
+- (void)logIn {
     
+    
+    LogInViewController *viewController = [[LogInViewController alloc] initWithNibName:@"LogInViewController" bundle:nil];
+    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:viewController];
+    self.window.rootViewController = navi;
+    
+    
+}
+//跳转到MainViewController
+- (void)jumpToMainViewController{
+    SideBarViewController *leftViewController = [[SideBarViewController alloc] init];
     // 主VC
     BaseTabBarViewController *VC= [[BaseTabBarViewController alloc] init];
     self.window.rootViewController = VC;
-    
     // 初始化XYSideViewController 设置为window.rootViewController
     XYSideViewController *rootViewController = [[XYSideViewController alloc] initWithSideVC:leftViewController currentVC:VC];
     rootViewController.sideContentOffset = 230.0;
     self.window.rootViewController = rootViewController;
-    return YES;
 }
-
 - (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
     return UIInterfaceOrientationMaskPortrait;
 }
@@ -98,24 +103,19 @@
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
-
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
 }
 
-
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
-
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
 }
-
-
 #pragma mark - Core Data stack
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
@@ -283,6 +283,88 @@
                                     repeats:YES];
     [promptAlert show];
 }
+- (void)AnalysisUserData{
+    //获取应用程序沙盒的Documents目录
+    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSLog(@"paths%@", paths);
+    NSString *plistPath = [paths objectAtIndex:0];
+    NSString *filename=[plistPath stringByAppendingPathComponent:@"UserLogInData.plist"];
+    NSMutableDictionary *userData = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
+    NSArray *keyArray =[userData allKeys];
+    
+    if (keyArray.count == 0) {
+        [self logIn];
+    }else {
+        
+        NSString *URL_Str = [NSString stringWithFormat:@"%@/student/api/detail", kURL_SHY];
+        NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
+        URL_Dic[@"studentId"] =userData[@"stuId"];
+        NSLog(@"URL_Dic%@", URL_Dic);
+        AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+        __weak AppDelegate *VC = self;
+        [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
+            
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSLog(@"%@", responseObject);
+            NSString *resultStr = [NSString stringWithFormat:@"%@", responseObject[@"result"]];
+            
+            if ([resultStr isEqualToString:@"0"]) {
+                [VC showAlert:responseObject[@"msg"]];
+                [self logIn];
+            }else {
+                [VC AnalyticalData:responseObject];
+            }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
+            [VC showAlert:@"请求失败请重试"];
+        }];
+    }
+}
+//解析的用户详情的数据
+- (void)AnalyticalData:(NSDictionary *)dic {
+  
+    NSString *state = [NSString stringWithFormat:@"%@", dic[@"result"]];
+    if ([state isEqualToString:@"1"]) {
+        NSDictionary *urseDataDic = dic[@"data"][0];
+        NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"UserLogInData" ofType:@"plist"];
+        NSMutableDictionary *userData = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
+        [userData removeAllObjects];
+        for (NSString *key in urseDataDic) {
+            if ([key isEqualToString:@"subState"]) {
+                [UserDataSingleton mainSingleton].subState =[NSString stringWithFormat:@"%@", urseDataDic[key]];
+            }
+            if ([key isEqualToString:@"stuId"]) {
+                [UserDataSingleton mainSingleton].studentsId =[NSString stringWithFormat:@"%@", urseDataDic[key]];
+            }
+            if ([key isEqualToString:@"coachId"]) {
+                [UserDataSingleton mainSingleton].coachId =[NSString stringWithFormat:@"%@", urseDataDic[key]];
+            }
+            if ([key isEqualToString:@"state"]) {
+                
+                [UserDataSingleton mainSingleton].state = [NSString stringWithFormat:@"%@", urseDataDic[key]];
+            }
+            if ([key isEqualToString:@"balance"]) {
+                [UserDataSingleton mainSingleton].balance = [NSString stringWithFormat:@"%@", urseDataDic[key]];
+            }
+            if ([key isEqualToString:@"schoolId"]) {
+                [UserDataSingleton mainSingleton].kStoreId = [NSString stringWithFormat:@"%@", urseDataDic[key]];
+            }
+            //kStoreId
+            NSLog(@"key%@",key);
+            [userData setObject:urseDataDic[key] forKey:key];
+        }
+        //获取应用程序沙盒的Documents目录
+        NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+        NSString *plistPath1 = [paths objectAtIndex:0];
+        //得到完整的文件名
+        NSString *filename=[plistPath1 stringByAppendingPathComponent:@"UserLogInData.plist"];
+        //输入写入
+        [userData writeToFile:filename atomically:YES];
+        //那怎么证明我的数据写入了呢？读出来看看
+        NSMutableDictionary *userData2 = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
+    }
 
+    [self jumpToMainViewController];
+}
 
 @end

@@ -87,7 +87,7 @@
 // 个人信息
 - (IBAction)userInfo:(id)sender {
     if ([UserDataSingleton mainSingleton].studentsId.length == 0) {
-        LogInViewController *VC = [[LogInViewController alloc] init];
+        LogInViewController *VC = [[LogInViewController alloc] initWithNibName:@"LogInViewController" bundle:nil];
         UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:VC];
         [self presentViewController:NAVC animated:YES completion:nil];
     }else {
@@ -101,7 +101,7 @@
 - (IBAction)myOrderClick:(id)sender {
     if ([UserDataSingleton mainSingleton].studentsId.length == 0) {
         
-        LogInViewController *VC = [[LogInViewController alloc] init];
+        LogInViewController *VC = [[LogInViewController alloc] initWithNibName:@"LogInViewController" bundle:nil];
         UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:VC];
         [self presentViewController:NAVC animated:YES completion:nil];
     }else {
@@ -117,7 +117,7 @@
 - (IBAction)accountClick:(id)sender {
     if ([UserDataSingleton mainSingleton].studentsId.length == 0) {
         
-        LogInViewController *VC = [[LogInViewController alloc] init];
+        LogInViewController *VC = [[LogInViewController alloc] initWithNibName:@"LogInViewController" bundle:nil];
         UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:VC];
         [self presentViewController:NAVC animated:YES completion:nil];
     }else {
@@ -135,7 +135,7 @@
 - (IBAction)messageClick:(id)sender {
     if ([UserDataSingleton mainSingleton].studentsId.length == 0) {
         
-        LogInViewController *VC = [[LogInViewController alloc] init];
+        LogInViewController *VC = [[LogInViewController alloc] initWithNibName:@"LogInViewController" bundle:nil];
         UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:VC];
         [self presentViewController:NAVC animated:YES completion:nil];
     }else {

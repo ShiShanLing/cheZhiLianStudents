@@ -32,11 +32,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    self.loginoutBtn.layer.cornerRadius = 5;
+    self.loginoutBtn.layer.masksToBounds = YES;
+   
     UIImage *image1 = [[UIImage imageNamed:@"btn_red"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
     UIImage *image2 = [[UIImage imageNamed:@"btn_red_h"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
-    [self.loginoutBtn setBackgroundImage:image1 forState:UIControlStateNormal];;
-    [self.loginoutBtn setBackgroundImage:image2 forState:UIControlStateHighlighted];
+
     
     image1 = [[UIImage imageNamed:@"btn_green"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
     image2 = [[UIImage imageNamed:@"btn_green_h"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
@@ -65,12 +66,6 @@
     CGFloat fileSize = [CommonUtil folderSizeAtPath:fileDocumentsPath];
     CGFloat cachesSize = [CommonUtil folderSizeAtPath:diskCachePath];
     self.cacheLabel.text = [NSString stringWithFormat:@"%.1fM",fileSize + cachesSize];
-    
-    if ([[CommonUtil currentUtil] isLogin:NO]) {
-        self.loginoutBtn.hidden = NO;
-    }else{
-        self.loginoutBtn.hidden = YES;
-    }
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -151,9 +146,25 @@
 
 //退出登录
 - (IBAction)clickForLoginout:(id)sender {
-    [CommonUtil logout];
-    LogInViewController *nextController = [[LogInViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-    [self.navigationController pushViewController:nextController animated:YES];
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"UserLogInData" ofType:@"plist"];
+    NSMutableDictionary *userData = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
+    [userData  removeAllObjects];
+    //获取应用程序沙盒的Documents目录
+    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *plistPath1 = [paths objectAtIndex:0];
+    //得到完整的文件名
+    NSString *filename=[plistPath1 stringByAppendingPathComponent:@"UserLogInData.plist"];
+    //输入写入
+    [userData writeToFile:filename atomically:YES];
+    [UserDataSingleton mainSingleton].studentsId = @"";
+    [UserDataSingleton mainSingleton].subState = @"";
+    [UserDataSingleton mainSingleton].subState = @"20";
+    [UserDataSingleton mainSingleton].coachId = @"";
+    [UserDataSingleton mainSingleton].balance = @"";
+    [UserDataSingleton mainSingleton].userModel =nil;
+    [self showAlert:@"退出登录成功" time:1.2];
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [app logIn];
     
 }
 

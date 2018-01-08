@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LogInViewController">
+            <connections>
+                <outlet property="pickerView" destination="w6F-hE-DA2" id="TDf-jG-BSd"/>
+                <outlet property="selectView" destination="SQf-fG-Aa1" id="WUc-dN-dpn"/>
+                <outlet property="view" destination="iN0-l3-epB" id="CEq-sY-Xye"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+        </view>
+        <view contentMode="scaleToFill" id="SQf-fG-Aa1" userLabel="selectView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shadow_grey" translatesAutoresizingMaskIntoConstraints="NO" id="oRx-93-Xk6">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <gestureRecognizers/>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nWz-EX-bmI" userLabel="sex">
+                    <rect key="frame" x="27.5" y="209.5" width="320" height="248"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_sexselect" translatesAutoresizingMaskIntoConstraints="NO" id="pG1-2s-OFD">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="248"/>
+                        </imageView>
+                        <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w6F-hE-DA2" userLabel="sex">
+                            <rect key="frame" x="0.0" y="63" width="320" height="162"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="162" id="zjc-Ha-Led"/>
+                            </constraints>
+                        </pickerView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="II2-1m-8Ds" userLabel="cancel">
+                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="50" id="LL3-Ua-TWf"/>
+                                <constraint firstAttribute="height" constant="50" id="PdM-FT-lG0"/>
+                            </constraints>
+                            <state key="normal">
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="clickForCancelSelect:" destination="-1" eventType="touchUpInside" id="ARS-r4-M9P"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iXL-kt-6Wp" userLabel="done">
+                            <rect key="frame" x="270" y="0.0" width="50" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="6mM-u9-vb1"/>
+                                <constraint firstAttribute="width" constant="50" id="M27-ig-q6t"/>
+                            </constraints>
+                            <state key="normal">
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="clickForDone:" destination="-1" eventType="touchUpInside" id="PE9-VF-6vw"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="pG1-2s-OFD" firstAttribute="top" secondItem="nWz-EX-bmI" secondAttribute="top" id="ElF-ZO-N5s"/>
+                        <constraint firstAttribute="trailing" secondItem="pG1-2s-OFD" secondAttribute="trailing" id="FAH-aY-78i"/>
+                        <constraint firstItem="w6F-hE-DA2" firstAttribute="top" secondItem="nWz-EX-bmI" secondAttribute="top" constant="63" id="IaO-Fw-YJZ"/>
+                        <constraint firstAttribute="bottom" secondItem="pG1-2s-OFD" secondAttribute="bottom" id="Sbf-NU-3S7"/>
+                        <constraint firstItem="II2-1m-8Ds" firstAttribute="top" secondItem="nWz-EX-bmI" secondAttribute="top" id="T7C-Mk-cJC"/>
+                        <constraint firstItem="iXL-kt-6Wp" firstAttribute="top" secondItem="nWz-EX-bmI" secondAttribute="top" id="bfY-8k-q1D"/>
+                        <constraint firstItem="pG1-2s-OFD" firstAttribute="leading" secondItem="nWz-EX-bmI" secondAttribute="leading" id="mwP-oX-0Rs"/>
+                        <constraint firstItem="w6F-hE-DA2" firstAttribute="leading" secondItem="nWz-EX-bmI" secondAttribute="leading" id="nSU-kY-cjm"/>
+                        <constraint firstAttribute="trailing" secondItem="iXL-kt-6Wp" secondAttribute="trailing" id="sMc-Px-TuR"/>
+                        <constraint firstAttribute="trailing" secondItem="w6F-hE-DA2" secondAttribute="trailing" id="thM-Wq-Pmu"/>
+                        <constraint firstAttribute="height" constant="248" id="vUp-dm-EQy"/>
+                        <constraint firstItem="II2-1m-8Ds" firstAttribute="leading" secondItem="nWz-EX-bmI" secondAttribute="leading" id="wRj-qj-unn"/>
+                        <constraint firstAttribute="width" constant="320" id="yl1-dy-PHv"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="centerX" secondItem="nWz-EX-bmI" secondAttribute="centerX" id="02M-lC-LlF"/>
+                <constraint firstItem="oRx-93-Xk6" firstAttribute="leading" secondItem="SQf-fG-Aa1" secondAttribute="leading" id="5e2-z9-ZJf"/>
+                <constraint firstAttribute="trailing" secondItem="oRx-93-Xk6" secondAttribute="trailing" id="FMp-Dj-PaB"/>
+                <constraint firstAttribute="centerY" secondItem="nWz-EX-bmI" secondAttribute="centerY" id="HHn-Eb-XEO"/>
+                <constraint firstItem="oRx-93-Xk6" firstAttribute="top" secondItem="SQf-fG-Aa1" secondAttribute="top" id="kb3-g7-q6g"/>
+                <constraint firstAttribute="bottom" secondItem="oRx-93-Xk6" secondAttribute="bottom" id="v3i-pK-gxE"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <viewLayoutGuide key="safeArea" id="Dvb-lm-GlZ"/>
+            <point key="canvasLocation" x="-318" y="996"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="bg_sexselect" width="320" height="218"/>
+        <image name="shadow_grey" width="320" height="568"/>
+    </resources>
+</document>

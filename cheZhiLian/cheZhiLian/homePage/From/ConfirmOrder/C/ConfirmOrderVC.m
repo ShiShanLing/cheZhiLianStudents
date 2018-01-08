@@ -135,7 +135,7 @@
     NSString *URL_Str = [NSString stringWithFormat:@"%@/order/api/saveEnrollOrder", kURL_SHY];
     NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
     URL_Dic[@"studentId"] = [UserDataSingleton mainSingleton].studentsId;
-    URL_Dic[@"storeId"] = kStoreId;
+    URL_Dic[@"storeId"] = [UserDataSingleton mainSingleton].kStoreId;
     URL_Dic[@"goodsId"] = _goodsDetailsModel.goodsId;
     URL_Dic[@"couponMemberId"] = couponMemberId.length == 0?@"":couponMemberId;
     URL_Dic[@"payType"] = TermsPayment;
@@ -352,7 +352,7 @@
                 TermsPayment = @"0";
                 NSString *URL_Str = [NSString stringWithFormat:@"%@/store/api/getFirstAmount",kURL_SHY];
                 NSMutableDictionary *URL_Dic = [NSMutableDictionary dictionary];
-                URL_Dic[@"schoolId"] = kStoreId;
+                URL_Dic[@"schoolId"] = [UserDataSingleton mainSingleton].kStoreId;
                 AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
                 [session POST:URL_Str parameters:URL_Dic progress:^(NSProgress * _Nonnull uploadProgress) {
                     NSLog(@"uploadProgress%@", uploadProgress);

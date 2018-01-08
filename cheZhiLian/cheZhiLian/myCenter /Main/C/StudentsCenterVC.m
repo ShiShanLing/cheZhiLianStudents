@@ -89,7 +89,7 @@
 //学车订单
 - (IBAction)handleStudentDriverOrder:(UIButton *)sender {
     if ([UserDataSingleton mainSingleton].studentsId.length == 0) {
-        LogInViewController *loginVC = [[LogInViewController alloc] init];
+        LogInViewController *loginVC = [[LogInViewController alloc] initWithNibName:@"LogInViewController" bundle:nil];
         UINavigationController * NALoginVC = [[UINavigationController alloc] initWithRootViewController:loginVC];
         NALoginVC.navigationBarHidden = YES;
         [self setHidesBottomBarWhenPushed:YES];
@@ -106,7 +106,7 @@
 - (IBAction)handleSignUpOrder:(UIButton *)sender {
     if ([UserDataSingleton mainSingleton].studentsId.length == 0) {
     
-        LogInViewController *VC = [[LogInViewController alloc] init];
+        LogInViewController *VC = [[LogInViewController alloc] initWithNibName:@"LogInViewController" bundle:nil];
         UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:VC];
         [self setHidesBottomBarWhenPushed:YES];
         [self presentViewController:NAVC animated:YES completion:nil];
@@ -122,7 +122,7 @@
 - (IBAction)handleReservationTest:(UIButton *)sender {
     if ([UserDataSingleton mainSingleton].studentsId.length == 0) {
         
-        LogInViewController *VC = [[LogInViewController alloc] init];
+        LogInViewController *VC = [[LogInViewController alloc] initWithNibName:@"LogInViewController" bundle:nil];
         UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:VC];
         [self setHidesBottomBarWhenPushed:YES];
         [self presentViewController:NAVC animated:YES completion:nil];
@@ -168,7 +168,7 @@
 - (IBAction)handleShareRegistered:(UIButton *)sender {
     if ([UserDataSingleton mainSingleton].studentsId.length == 0) {
         
-        LogInViewController *VC = [[LogInViewController alloc] init];
+        LogInViewController *VC = [[LogInViewController alloc] initWithNibName:@"LogInViewController" bundle:nil];
         UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:VC];
         [self setHidesBottomBarWhenPushed:YES];
         [self presentViewController:NAVC animated:YES completion:nil];
@@ -178,7 +178,7 @@
     NSArray* imageArray = @[[UIImage imageNamed:@"AppIcon"]];
     [shareParams SSDKSetupShareParamsByText:@"分享内容"
                                      images:imageArray
-                                        url:[NSURL URLWithString:[NSString stringWithFormat:@"%@/share/to_jump?share_type_id=2&school_id=%@&stu_id=%@",kURL_SHY,kStoreId,[UserDataSingleton mainSingleton].studentsId]]
+                                        url:[NSURL URLWithString:[NSString stringWithFormat:@"%@/share/to_jump?share_type_id=2&school_id=%@&stu_id=%@",kURL_SHY,[UserDataSingleton mainSingleton].kStoreId,[UserDataSingleton mainSingleton].studentsId]]
                                       title:@"分享注册"
                                        type:SSDKContentTypeAuto];
     //2、分享（可以弹出我们的分享菜单和编辑界面）
@@ -211,7 +211,7 @@
 }
 - (IBAction)handleMyData:(UIButton *)sender {
     if ([UserDataSingleton mainSingleton].studentsId.length == 0) {
-        LogInViewController *loginVC = [[LogInViewController alloc] init];
+        LogInViewController *loginVC = [[LogInViewController alloc] initWithNibName:@"LogInViewController" bundle:nil];
         UINavigationController * NALoginVC = [[UINavigationController alloc] initWithRootViewController:loginVC];
         NALoginVC.navigationBarHidden = YES;
         [self setHidesBottomBarWhenPushed:YES];
@@ -233,7 +233,7 @@
 - (IBAction)handleCheckBalance:(UIButton *)sender {
     if ([UserDataSingleton mainSingleton].studentsId.length == 0) {
         
-        LogInViewController *VC = [[LogInViewController alloc] init];
+        LogInViewController *VC = [[LogInViewController alloc] initWithNibName:@"LogInViewController" bundle:nil];
         UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:VC];
         [self setHidesBottomBarWhenPushed:YES];
         [self presentViewController:NAVC animated:YES completion:nil];
@@ -251,7 +251,7 @@
 - (IBAction)handleCheckCoupons:(UIButton *)sender {
     if ([UserDataSingleton mainSingleton].studentsId.length == 0) {
         
-        LogInViewController *VC = [[LogInViewController alloc] init];
+        LogInViewController *VC = [[LogInViewController alloc] initWithNibName:@"LogInViewController" bundle:nil];
         UINavigationController *NAVC = [[UINavigationController alloc] initWithRootViewController:VC];
         [self setHidesBottomBarWhenPushed:YES];
         [self presentViewController:NAVC animated:YES completion:nil];
