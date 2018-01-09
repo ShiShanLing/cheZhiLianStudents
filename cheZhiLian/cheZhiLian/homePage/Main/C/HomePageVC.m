@@ -212,7 +212,6 @@
                         //更新界面
                         NSLog(@"当前版本%@线上版本%@", currentVersion,version);
                         if ( version &&![version isEqualToString:currentVersion]) {
-                            
                                 NSString *message = [NSString stringWithFormat:@"有新版本发布啦!\n%@",updateInfo];
                             UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"温馨提示"message:message delegate:self cancelButtonTitle:@"忽略"otherButtonTitles:@"前往更新",nil];
                             

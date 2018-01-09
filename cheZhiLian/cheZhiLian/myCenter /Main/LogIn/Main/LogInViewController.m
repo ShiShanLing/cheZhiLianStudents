@@ -87,36 +87,7 @@
     [_NameIBV.NameTF resignFirstResponder];
     [_passWordIBV.NameTF resignFirstResponder];
 }
-- (void) registerForKeyboardNotifications {
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardDidShowNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter]  addObserver:self selector:@selector(keyboardWasHidden:) name:UIKeyboardWillHideNotification object:nil];
-}
-//键盘出现时
-- (void) keyboardWasShown:(NSNotification *) notif{
-    NSDictionary *info = [notif userInfo];
-    NSValue *value = [info objectForKey:UIKeyboardFrameBeginUserInfoKey];
-    CGSize keyboardSize = [value CGRectValue].size;
-    
-    CGSize size = CGSizeMake(kScreen_widht, kScreen_heigth);
-    size.height += keyboardSize.height;
-    [UIView animateWithDuration:0.0001 animations:^{
-        self.scrollView.contentSize = size;//设置UIScrollView默认显示位置
-    }];
-    [self.scrollView setContentOffset:CGPointMake(0, kFit(50))];//这个 130 是根据视图的高度自己计算出来的
-}
 
-- (void) keyboardWasHidden:(NSNotification *) notif {
-    
-    
-    [UIView animateWithDuration:0.0001 animations:^{
-        self.scrollView.contentSize = CGSizeMake(kScreen_widht, kScreen_heigth);
-    }];
-    
-    self.scrollView.contentSize = CGSizeMake(kScreen_widht, kScreen_heigth);
-    
-}
 //回收键盘
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
@@ -125,7 +96,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.selectArray = [NSMutableArray array];
     UITapGestureRecognizer *singleFingerOne = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                       action:@selector(handleSingleFingerEvent:)];
@@ -137,7 +107,7 @@
     self.pickerView.showsSelectionIndicator = NO;
     self.pickerView.delegate = self;
     self.pickerView.dataSource = self;
-    [self registerForKeyboardNotifications];///让界面岁键盘自适应
+
     
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
     
@@ -159,7 +129,7 @@
     [returnBtn setImage:buttonimage forState:(UIControlStateNormal)];
     [returnBtn addTarget:self action:@selector(handleReturnBtn) forControlEvents:(UIControlEventTouchUpInside)];
     [self.view addSubview:returnBtn];
-    returnBtn.sd_layout.leftSpaceToView(self.view, 0).topSpaceToView(self.view, kFit(25)).widthIs(kFit(kFit(40))).heightIs(kFit(38));
+    returnBtn.sd_layout.leftSpaceToView(self.view, 0).topSpaceToView(self.view, kFit(25)).widthIs(kFit(40)).heightIs(kFit(38));
     
     UIButton *registeredBtn = [UIButton new];
     registeredBtn.titleLabel.font = MFont(kFit(17));
@@ -167,7 +137,7 @@
     [registeredBtn setTitleColor:MColor(210, 210, 210) forState:(UIControlStateNormal)];
     [registeredBtn addTarget:self action:@selector(handleRegisteredBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.view addSubview:registeredBtn];
-    registeredBtn.sd_layout.rightSpaceToView(self.view, 0).widthIs(kFit(60)).heightIs(kFit(33)).topSpaceToView(self.view, kFit(30));
+    registeredBtn.sd_layout.rightSpaceToView(self.view, 0).widthIs(kFit(60)).heightIs(kFit(33)).topSpaceToView(self.view, kScreen_widht==812.0?44:kFit(30));
     
     UILabel *titleLabel = [UILabel new];
     titleLabel.text = @"登录";
@@ -175,7 +145,7 @@
     titleLabel.font = MFont(kFit(18));
     titleLabel.textAlignment = 1;
     [self.view addSubview:titleLabel];
-    titleLabel.sd_layout.centerXEqualToView(self.view).topSpaceToView(self.view, kFit(30)).widthIs(kFit(100)).heightIs(33);
+    titleLabel.sd_layout.centerXEqualToView(self.view).topSpaceToView(self.view, kScreen_widht==812.0?44:kFit(30)).widthIs(kFit(100)).heightIs(33);
     [self CreatingControls];
     [self initSexData];
 }
@@ -189,15 +159,14 @@
     [self.scrollView addGestureRecognizer:singleRecognizer];
     
     [self.view addSubview:self.scrollView];
-    self.scrollView.contentSize = CGSizeMake(kScreen_widht, kScreen_heigth - 64);
-    self.scrollView.sd_layout.leftSpaceToView(self.view, 0).rightSpaceToView(self.view, 0).topSpaceToView(self.view, -20).bottomSpaceToView(self.view, 0);
+    self.scrollView.contentSize = CGSizeMake(kScreen_widht, kScreen_heigth-SafeAreaTopHeight-SafeAreaBottomHeight);
+    self.scrollView.sd_layout.leftSpaceToView(self.view, 0).rightSpaceToView(self.view, 0).topSpaceToView(self.view, kScreen_heigth==812.0?-44:-22).bottomSpaceToView(self.view, 0);
 }
  
 - (void)handleReturnBtn {
     
 }
 - (void)CreatingControls {
-    
     
     UIColor *color = MColor(210, 210, 210);
    self.DrivingIBV = [InputBoxView new];
@@ -207,13 +176,13 @@
     _DrivingIBV.NameTF.userInteractionEnabled = NO;
     _DrivingIBV.NameTF.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"选择驾校" attributes:@{NSForegroundColorAttributeName: color}];
     [self.scrollView addSubview:_DrivingIBV];
-    _DrivingIBV.sd_layout.leftSpaceToView(self.scrollView, 0).topSpaceToView(self.scrollView, kFit(114)).rightSpaceToView(self.scrollView, 0).heightIs(kFit(55));
+    _DrivingIBV.sd_layout.leftSpaceToView(self.scrollView, 0).topSpaceToView(self.scrollView, kFit(114)+kNavigationBar).rightSpaceToView(self.scrollView, 0).heightIs(kFit(55));
     //覆盖自定义空间的UITextFi
     UILabel *coveringLabel = [[UILabel alloc] init];
     //coveringLabel.backgroundColor = [UIColor redColor];
     coveringLabel.userInteractionEnabled = YES;
     [self.scrollView addSubview:coveringLabel];
-    coveringLabel.sd_layout.leftSpaceToView(self.scrollView, 0).topSpaceToView(self.scrollView, kFit(114)).rightSpaceToView(self.scrollView, 0).heightIs(kFit(55));
+    coveringLabel.sd_layout.leftSpaceToView(self.scrollView, 0).topSpaceToView(self.scrollView, kFit(114)+kNavigationBar).rightSpaceToView(self.scrollView, 0).heightIs(kFit(55));
     
     UITapGestureRecognizer *singleFingerOne = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                       action:@selector(handleChooseDriing:)];
@@ -475,7 +444,7 @@
         [MDIC setValue:dic[@"storeName"] forKey:@"storeName"];
         [self.selectArray addObject:MDIC];
     }
-    NSLog(@"selectArray%@", self.selectArray);
+ //   NSLog(@"selectArray%@", self.selectArray);
 }
 // 自定义每行的view
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {

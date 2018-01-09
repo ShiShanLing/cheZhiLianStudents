@@ -193,7 +193,7 @@
     
     [self.view addSubview:self.scrollView];
     self.scrollView.contentSize = CGSizeMake(kScreen_widht, kScreen_heigth - 64);
-    self.scrollView.sd_layout.leftSpaceToView(self.view, 0).rightSpaceToView(self.view, 0).topSpaceToView(self.view, -20).bottomSpaceToView(self.view, 0);
+    self.scrollView.sd_layout.leftSpaceToView(self.view, 0).rightSpaceToView(self.view, 0).topSpaceToView(self.view,kScreen_heigth==812.0?-44:-22).bottomSpaceToView(self.view, 0);
 
 
 }
